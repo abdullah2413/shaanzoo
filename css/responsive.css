@@ -1,0 +1,335 @@
+/* ==========================================================================
+   SHANZOO — Responsive rules
+   Single source of truth for layout across screen sizes.
+   Breakpoints: 1200 (large desktop) · 1100 (nav) · 900 (tablet)
+                640 (mobile) · 480 (small phone)
+   ========================================================================== */
+
+/* Off-canvas quick actions are hidden until the nav collapses */
+.mobile-actions {
+  display: none;
+}
+
+/* ------------------------------ Large desktop ---------------------------- */
+@media (max-width: 1200px) {
+  .footer-top {
+    grid-template-columns: 1.4fr 1fr 1fr;
+  }
+  .footer-brand {
+    grid-column: 1 / -1;
+  }
+}
+
+/* ------------------------------ Collapse desktop navigation ------------- */
+@media (max-width: 1100px) {
+  /* The header's backdrop-filter establishes it as the containing block for the
+     position:fixed off-canvas nav. Clipping horizontally here contains that nav
+     so it can never widen the document (overflow-y stays visible, so the open
+     panel and dropdowns are not clipped vertically). */
+  .site-header {
+    overflow-x: clip;
+  }
+
+  .nav,
+  .header__actions {
+    display: none;
+  }
+  .nav-toggle {
+    display: inline-flex;
+  }
+
+  /* Off-canvas mobile nav. Positioned off-screen to the right; horizontal
+     overflow is contained at the root (see reset.css) so it never widens
+     the document. */
+  .site-header .nav {
+    display: block;
+    position: fixed;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    width: min(400px, 92vw);
+    max-width: 100%;
+    height: 100dvh;
+    margin: 0;
+    background: #fff;
+    box-shadow: var(--shadow-lg);
+    padding: calc(var(--header-h) + 1rem) 1.1rem 2rem;
+    overflow-y: auto;
+    transform: translateX(100%);
+    transition: transform var(--dur-slow) var(--ease);
+    z-index: var(--z-overlay);
+  }
+  .site-header .nav.is-open {
+    transform: translateX(0);
+  }
+  .nav__list {
+    flex-direction: column;
+    align-items: stretch;
+    gap: 0.1rem;
+  }
+  .nav__link {
+    justify-content: space-between;
+    padding: 0.9rem 0.8rem;
+    font-size: 1rem;
+    border-radius: var(--r-md);
+  }
+  .nav__link.is-active {
+    background: var(--green-light);
+  }
+  .nav__link.is-active::after {
+    display: none;
+  }
+
+  /* Accordion submenus on mobile */
+  .mega,
+  .menu-simple {
+    position: static;
+    transform: none;
+    width: 100%;
+    min-width: 0;
+    opacity: 1;
+    visibility: visible;
+    pointer-events: auto;
+    box-shadow: none;
+    border: 0;
+    border-radius: 0;
+    padding: 0;
+    max-height: 0;
+    overflow: hidden;
+    transition: max-height var(--dur-slow) var(--ease);
+  }
+  .mega::before {
+    display: none;
+  }
+  .mega.is-open,
+  .menu-simple.is-open {
+    max-height: 1600px;
+    padding: 0.5rem 0 0.75rem;
+  }
+  .mega__grid {
+    grid-template-columns: 1fr;
+    gap: 1rem;
+    padding-inline: 0.4rem;
+  }
+  .mega__foot {
+    flex-direction: column;
+    align-items: stretch;
+  }
+  .mega__foot .btn {
+    width: 100%;
+  }
+  .menu-simple {
+    padding-left: 0.6rem;
+  }
+  .menu-simple__link {
+    background: var(--bg-alt);
+  }
+
+  .mobile-actions {
+    display: grid;
+    gap: 0.6rem;
+    margin-top: 1.25rem;
+    padding-top: 1.25rem;
+    border-top: 1px solid var(--border);
+  }
+  .mobile-actions .btn {
+    width: 100%;
+  }
+  .mobile-actions__row {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 0.6rem;
+  }
+}
+
+/* ------------------------------ Tablet ----------------------------------- */
+@media (max-width: 900px) {
+  .hero__inner,
+  .page-hero__inner,
+  .service-hero,
+  .cta-banner--split,
+  .contact-grid,
+  .split,
+  .svc-layout {
+    grid-template-columns: 1fr;
+  }
+  .split--reverse .split__media {
+    order: 0;
+  }
+  .page-hero__inner {
+    align-items: start;
+  }
+  .steps {
+    grid-template-columns: 1fr 1fr;
+    gap: 1.75rem 1.5rem;
+  }
+  .step:nth-child(2)::after {
+    display: none;
+  }
+  .stat-row,
+  .grid-4,
+  .grid-3 {
+    grid-template-columns: 1fr 1fr;
+  }
+  .footer-top {
+    grid-template-columns: 1fr 1fr;
+  }
+  .footer-brand {
+    grid-column: 1 / -1;
+  }
+  .svc-nav {
+    position: static;
+    display: none;
+  }
+  .auth {
+    grid-template-columns: 1fr;
+    min-height: 0;
+  }
+  .auth__aside {
+    display: none;
+  }
+  .hero__media {
+    width: 100%;
+    max-width: 520px;
+    margin-inline: auto;
+  }
+}
+
+/* ------------------------------ Mobile ----------------------------------- */
+@media (max-width: 640px) {
+  :root {
+    --header-h: var(--header-h-mobile);
+  }
+
+  .topbar__tagline {
+    display: none;
+  }
+  .topbar__inner {
+    justify-content: center;
+  }
+  .topbar__list {
+    justify-content: center;
+    flex-wrap: wrap;
+    gap: 0.3rem 1rem;
+    font-size: 0.78rem;
+  }
+  .topbar__list--right {
+    margin-left: 0;
+  }
+  .topbar__list--right li:last-child {
+    display: none;
+  }
+  .brand__logo {
+    height: 34px;
+  }
+
+  /* Stack every multi-column layout */
+  .grid-2,
+  .grid-3,
+  .grid-4,
+  .grid-auto,
+  .form-row-2,
+  .steps,
+  .stat-row,
+  .related {
+    grid-template-columns: 1fr;
+  }
+  .grid {
+    gap: 1rem;
+  }
+  .step::after {
+    display: none;
+  }
+
+  .hero__trust {
+    gap: 0.85rem 1rem;
+    margin-top: 1.8rem;
+    padding-top: 1.25rem;
+  }
+  .hero__media {
+    max-width: 100%;
+  }
+  /* Keep the two key labels; the third would crowd a phone-width card */
+  .hero__float--b {
+    display: none;
+  }
+
+  .section-head {
+    margin-bottom: 1.5rem;
+  }
+
+  .cta-banner {
+    padding: clamp(1.4rem, 1.1rem + 1.5vw, 2rem);
+    text-align: left;
+  }
+  .cta-banner__actions .btn {
+    width: 100%;
+  }
+
+  .footer-top {
+    grid-template-columns: 1fr;
+    gap: 1.75rem;
+  }
+  .footer-bottom {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .mobile-actions__row {
+    grid-template-columns: 1fr;
+  }
+
+  .article__figure {
+    aspect-ratio: 16 / 10;
+  }
+
+  /* Tighter illustration surfaces on small screens */
+  .visual,
+  .map-embed {
+    min-height: 200px;
+  }
+  .service-hero__visual {
+    min-height: 180px;
+    padding: 1.1rem;
+  }
+}
+
+/* ------------------------------ Small phones ----------------------------- */
+@media (max-width: 480px) {
+  /* Long button labels must be allowed to wrap rather than sit on one line and
+     push past the container edge. */
+  .btn {
+    white-space: normal;
+    max-width: 100%;
+    padding-inline: 1.1rem;
+  }
+  .hero__eyebrow {
+    font-size: 0.76rem;
+  }
+  .hero__actions,
+  .error-page__actions {
+    gap: 0.6rem;
+  }
+  .hero__actions .btn,
+  .error-page__actions .btn {
+    width: 100%;
+  }
+  .footer-social a {
+    width: 38px;
+    height: 38px;
+  }
+}
+
+/* ------------------------------ Print ------------------------------------ */
+@media print {
+  .topbar,
+  .site-header,
+  .to-top,
+  .cta-banner,
+  .site-footer {
+    display: none;
+  }
+  body {
+    color: #000;
+  }
+}

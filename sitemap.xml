@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+  <url><loc>/index.html</loc></url>
+  <url><loc>/pages/about.html</loc></url>
+  <url><loc>/pages/services.html</loc></url>
+  <url><loc>/pages/data-management.html</loc></url>
+  <url><loc>/pages/data-integration.html</loc></url>
+  <url><loc>/pages/solutions.html</loc></url>
+  <url><loc>/pages/industries.html</loc></url>
+  <url><loc>/pages/why-shanzoo.html</loc></url>
+  <url><loc>/pages/our-approach.html</loc></url>
+  <url><loc>/pages/insights.html</loc></url>
+  <url><loc>/pages/contact.html</loc></url>
+  <url><loc>/pages/login.html</loc></url>
+  <url><loc>/pages/signup.html</loc></url>
+  <url><loc>/pages/privacy.html</loc></url>
+  <url><loc>/pages/terms.html</loc></url>
+  <url><loc>/pages/insights/what-is-master-data-management.html</loc></url>
+  <url><loc>/pages/insights/etl-vs-elt-whats-the-difference.html</loc></url>
+  <url><loc>/pages/insights/why-data-quality-matters.html</loc></url>
+  <url><loc>/pages/insights/understanding-real-time-data-integration.html</loc></url>
+  <url><loc>/services/master-data-management.html</loc></url>
+  <url><loc>/services/data-governance.html</loc></url>
+  <url><loc>/services/data-quality.html</loc></url>
+  <url><loc>/services/data-security.html</loc></url>
+  <url><loc>/services/data-architecture.html</loc></url>
+  <url><loc>/services/etl-elt.html</loc></url>
+  <url><loc>/services/change-data-capture.html</loc></url>
+  <url><loc>/services/api-integration.html</loc></url>
+  <url><loc>/services/event-streaming.html</loc></url>
+  <url><loc>/services/data-virtualization.html</loc></url>
+</urlset>

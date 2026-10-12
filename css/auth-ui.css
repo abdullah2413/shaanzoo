@@ -1,0 +1,265 @@
+/* ==========================================================================
+   SHANZOO — Authentication UI (header user menu, OTP steps, modals)
+   Loaded after the core stylesheets; built from the same design tokens.
+   ========================================================================== */
+
+.is-hidden {
+  display: none !important;
+}
+
+/* Password show/hide icon toggle (used by the login and sign-up forms) */
+.pw-icon-hide {
+  display: none;
+}
+
+/* ------------------------------ Header user ------------------------------ */
+.auth-user {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+}
+.auth-user__btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.55rem;
+  padding: 0.3rem 0.65rem 0.3rem 0.3rem;
+  border: 1px solid var(--border);
+  border-radius: var(--r-pill);
+  background: #fff;
+  color: var(--navy);
+  font-weight: 600;
+  font-size: 0.9rem;
+  transition: border-color var(--dur) var(--ease), background-color var(--dur) var(--ease);
+}
+.auth-user__btn:hover {
+  border-color: var(--navy);
+  background: var(--navy-050);
+}
+.auth-user__avatar {
+  width: 34px;
+  height: 34px;
+  border-radius: 50%;
+  background: linear-gradient(145deg, var(--navy), var(--navy-deep));
+  color: #fff;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: 700;
+  font-size: 1rem;
+  text-transform: uppercase;
+  flex: none;
+}
+.auth-user__name {
+  max-width: 120px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+.auth-user__caret {
+  width: 14px;
+  height: 14px;
+  transition: transform var(--dur) var(--ease);
+}
+.auth-user.is-open .auth-user__caret {
+  transform: rotate(180deg);
+}
+
+.auth-menu {
+  position: absolute;
+  top: calc(100% + 10px);
+  right: 0;
+  min-width: 240px;
+  background: #fff;
+  border: 1px solid var(--border);
+  border-radius: var(--r-md, 12px);
+  box-shadow: var(--shadow-lg, 0 18px 40px rgba(3, 28, 51, 0.18));
+  padding: 0.5rem;
+  z-index: 1200;
+  display: none;
+}
+.auth-user.is-open .auth-menu {
+  display: block;
+}
+.auth-menu__head {
+  padding: 0.7rem 0.75rem 0.6rem;
+  border-bottom: 1px solid var(--border);
+  margin-bottom: 0.35rem;
+}
+.auth-menu__name {
+  font-weight: 700;
+  color: var(--navy);
+  font-size: 0.95rem;
+}
+.auth-menu__email {
+  color: var(--muted);
+  font-size: 0.82rem;
+  word-break: break-all;
+}
+.auth-menu__item {
+  display: flex;
+  align-items: center;
+  gap: 0.6rem;
+  width: 100%;
+  text-align: left;
+  padding: 0.6rem 0.75rem;
+  border-radius: var(--r-sm);
+  color: var(--ink);
+  font-size: 0.92rem;
+  font-weight: 500;
+  background: none;
+  border: 0;
+  cursor: pointer;
+}
+.auth-menu__item:hover {
+  background: var(--navy-050);
+  color: var(--navy);
+}
+.auth-menu__item svg {
+  width: 17px;
+  height: 17px;
+  flex: none;
+}
+.auth-menu__item--danger {
+  color: #b42318;
+}
+.auth-menu__item--danger:hover {
+  background: #fef3f2;
+  color: #912018;
+}
+
+/* ------------------------------ Link button ------------------------------ */
+.linklike {
+  background: none;
+  border: 0;
+  padding: 0;
+  color: var(--green-dark);
+  font: inherit;
+  font-weight: 600;
+  cursor: pointer;
+  text-decoration: underline;
+}
+.linklike:hover {
+  color: var(--navy);
+}
+
+/* -------------------------------- OTP UI --------------------------------- */
+.auth-step {
+  margin-top: 1.2rem;
+}
+.auth-step__lead {
+  color: var(--muted);
+  font-size: 0.95rem;
+  margin-bottom: 1rem;
+}
+.auth-step__lead strong {
+  color: var(--navy);
+}
+.otp-input {
+  width: 100%;
+  text-align: center;
+  letter-spacing: 0.55em;
+  font-size: 1.7rem;
+  font-weight: 700;
+  font-family: "SFMono-Regular", Consolas, "Liberation Mono", Menlo, monospace;
+  padding: 0.75rem 0.5rem;
+  color: var(--navy);
+}
+.auth-step__actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.7rem;
+  align-items: center;
+  margin-top: 1rem;
+}
+.auth-step__foot {
+  margin-top: 1rem;
+  font-size: 0.9rem;
+  color: var(--muted);
+}
+.resend-btn[disabled] {
+  opacity: 0.55;
+  cursor: not-allowed;
+}
+.auth-status {
+  margin-top: 1rem;
+  padding: 0.8rem 0.95rem;
+  border-radius: var(--r-sm);
+  font-size: 0.92rem;
+  display: flex;
+  gap: 0.6rem;
+  align-items: flex-start;
+}
+.auth-status--error {
+  background: #fef3f2;
+  border: 1px solid #fecdca;
+  color: #912018;
+}
+.auth-status--success {
+  background: #ecfdf3;
+  border: 1px solid #abefc6;
+  color: #05603a;
+}
+.auth-status--info {
+  background: #eff8ff;
+  border: 1px solid #b2ddff;
+  color: #175cd3;
+}
+
+/* -------------------------------- Modal ---------------------------------- */
+.auth-modal {
+  position: fixed;
+  inset: 0;
+  z-index: 2000;
+  display: none;
+  align-items: center;
+  justify-content: center;
+  padding: 1.2rem;
+  background: rgba(3, 28, 51, 0.55);
+}
+.auth-modal.is-open {
+  display: flex;
+}
+.auth-modal__card {
+  width: 100%;
+  max-width: 440px;
+  background: #fff;
+  border-radius: var(--r-lg, 16px);
+  padding: 1.7rem;
+  box-shadow: var(--shadow-lg, 0 20px 50px rgba(3, 28, 51, 0.3));
+  max-height: 90vh;
+  overflow-y: auto;
+}
+.auth-modal__title {
+  font-size: 1.25rem;
+  margin-bottom: 0.4rem;
+}
+.auth-modal__lead {
+  color: var(--muted);
+  font-size: 0.92rem;
+  margin-bottom: 1rem;
+}
+.auth-modal__close {
+  float: right;
+  background: none;
+  border: 0;
+  font-size: 1.4rem;
+  line-height: 1;
+  color: var(--muted);
+  cursor: pointer;
+  margin-top: -0.2rem;
+}
+body.auth-modal-open {
+  overflow: hidden;
+}
+
+/* Small helper for the mobile auth block */
+.mobile-actions .auth-user {
+  width: 100%;
+}
+.mobile-actions .auth-menu {
+  position: static;
+  display: block;
+  min-width: 0;
+  box-shadow: none;
+  margin-top: 0.5rem;
+}

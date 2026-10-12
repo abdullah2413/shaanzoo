@@ -1,0 +1,23 @@
+# --- Dependencies ---
+node_modules/
+
+# --- Environment / secrets (NEVER commit) ---
+.env
+.env.*
+!.env.example
+
+# --- Backend runtime artefacts ---
+server/tmp/
+.mail-out/
+*.log
+logs/
+npm-debug.log*
+
+# --- Editor / OS ---
+.DS_Store
+Thumbs.db
+.idea/
+.vscode/
+
+# --- Vercel ---
+.vercel
