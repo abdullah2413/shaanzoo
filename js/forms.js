@@ -161,6 +161,21 @@
     if (!endpoint) {
       return Promise.resolve({ ok: false, status: 0, message: "This form is not configured." });
     }
+    // Skip the request entirely when the API origin isn't available (e.g. a
+    // static preview server) to avoid 404/405 noise.
+    if (
+      window.SHANZOO &&
+      window.SHANZOO.auth &&
+      window.SHANZOO.auth.apiAvailable &&
+      !window.SHANZOO.auth.apiAvailable()
+    ) {
+      return Promise.resolve({
+        ok: false,
+        status: 0,
+        message:
+          'The backend isn\'t running on this address. Start it with "npm start" and open http://localhost:3000.'
+      });
+    }
     var headers = { "Content-Type": "application/json", Accept: "application/json" };
     var csrf = getCookie("shanzoo.csrf");
     if (csrf) headers["X-CSRF-Token"] = csrf;
@@ -213,6 +228,18 @@
     form.addEventListener("submit", function (e) {
       e.preventDefault();
       if (form.dataset.submitting === "true") return;
+
+      // Auth-gated forms (e.g. contact) require a signed-in session.
+      if (
+        form.hasAttribute("data-requires-auth") &&
+        window.SHANZOO &&
+        window.SHANZOO.auth &&
+        !window.SHANZOO.auth.isAuthenticated()
+      ) {
+        showFormNote(form, "warn", "<strong>Please sign in</strong> to send your request.");
+        if (window.SHANZOO.auth.requireAuth) window.SHANZOO.auth.requireAuth();
+        return;
+      }
 
       var valid = runDynamicValidation(form);
       if (!valid) {

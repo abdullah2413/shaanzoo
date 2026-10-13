@@ -131,14 +131,22 @@
     function openPanel() {
       nav.classList.add("is-open");
       if (overlay) overlay.classList.add("is-open");
-      if (toggle) toggle.setAttribute("aria-expanded", "true");
+      if (toggle) {
+        toggle.setAttribute("aria-expanded", "true");
+        toggle.setAttribute("aria-label", "Close menu");
+      }
       document.documentElement.style.overflow = "hidden";
+      document.body.classList.add("nav-open");
     }
     function closePanel() {
       nav.classList.remove("is-open");
       if (overlay) overlay.classList.remove("is-open");
-      if (toggle) toggle.setAttribute("aria-expanded", "false");
+      if (toggle) {
+        toggle.setAttribute("aria-expanded", "false");
+        toggle.setAttribute("aria-label", "Open menu");
+      }
       document.documentElement.style.overflow = "";
+      document.body.classList.remove("nav-open");
       closeMenusIn(nav);
     }
 

@@ -22,12 +22,14 @@
 
 /* ------------------------------ Collapse desktop navigation ------------- */
 @media (max-width: 1100px) {
-  /* The header's backdrop-filter establishes it as the containing block for the
-     position:fixed off-canvas nav. Clipping horizontally here contains that nav
-     so it can never widen the document (overflow-y stays visible, so the open
-     panel and dropdowns are not clipped vertically). */
+  /* Drop the header's blur at mobile: `backdrop-filter` would make the header
+     the containing block for the position:fixed off-canvas nav (anchoring it to
+     the header box instead of the viewport). An opaque header also keeps the
+     panel legible while it scrolls behind the bar. */
   .site-header {
-    overflow-x: clip;
+    -webkit-backdrop-filter: none;
+    backdrop-filter: none;
+    background: #fff;
   }
 
   .nav,
@@ -38,26 +40,37 @@
     display: inline-flex;
   }
 
-  /* Off-canvas mobile nav. Positioned off-screen to the right; horizontal
-     overflow is contained at the root (see reset.css) so it never widens
-     the document. */
+  /* Keep the brand + hamburger above the off-canvas panel so the menu can
+     always be closed (panel and controls share the header's stacking context). */
+  .site-header .brand,
+  .site-header .nav-toggle {
+    position: relative;
+    z-index: 2;
+  }
+
+  /* Off-canvas mobile nav. Fixed to the viewport so it is independent of the
+     (short) header, scrolls on its own, and clears the notch. The closed state
+     slides it off the right edge; the root `overflow-x: clip` (reset.css)
+     stops it widening the document. */
   .site-header .nav {
     display: block;
     position: fixed;
     top: 0;
     right: 0;
-    bottom: 0;
     width: min(400px, 92vw);
     max-width: 100%;
+    height: 100vh;
     height: 100dvh;
     margin: 0;
     background: #fff;
     box-shadow: var(--shadow-lg);
-    padding: calc(var(--header-h) + 1rem) 1.1rem 2rem;
+    padding: calc(var(--header-h) + 1rem) 1.1rem max(2rem, env(safe-area-inset-bottom));
     overflow-y: auto;
+    overscroll-behavior: contain;
+    -webkit-overflow-scrolling: touch;
     transform: translateX(100%);
     transition: transform var(--dur-slow) var(--ease);
-    z-index: var(--z-overlay);
+    z-index: 1;
   }
   .site-header .nav.is-open {
     transform: translateX(0);
@@ -139,6 +152,12 @@
     display: grid;
     grid-template-columns: 1fr 1fr;
     gap: 0.6rem;
+  }
+
+  /* Lock the page behind the open panel (belt and braces with the inline
+     overflow lock in navigation.js). */
+  body.nav-open {
+    overflow: hidden;
   }
 }
 
@@ -317,6 +336,13 @@
   .footer-social a {
     width: 38px;
     height: 38px;
+  }
+  /* Sign-in gate actions stack cleanly on phones */
+  .auth-required__actions {
+    flex-direction: column;
+  }
+  .auth-required__actions .btn {
+    width: 100%;
   }
 }
 

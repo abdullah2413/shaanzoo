@@ -2036,7 +2036,16 @@ function buildContact() {
       '<div id="consultation" class="contact-card">' +
       '<h2 class="mb-1">Request a consultation</h2>' +
       '<p class="muted mt-1 mb-3" style="color:var(--muted)">Tell us a little about yourself and what you are working on. Fields marked <span class="req">*</span> are required.</p>' +
-      '<form class="form" data-validate data-endpoint="/api/contact" novalidate>' +
+      '<div class="auth-required is-hidden" data-auth-required>' +
+      '<div class="auth-required__icon" aria-hidden="true">' + svg("lock") + "</div>" +
+      '<h3 class="auth-required__title">Sign in to send your request</h3>' +
+      '<p class="auth-required__text">For your security, please sign in or create an account to send us a message. It only takes a moment.</p>' +
+      '<div class="auth-required__actions">' +
+      '<a class="btn btn--primary" data-gate-auth href="' + href(root, "/pages/login.html") + '">Sign In</a>' +
+      '<a class="btn btn--ghost" data-gate-auth href="' + href(root, "/pages/signup.html") + '">Create Account</a>' +
+      "</div>" +
+      "</div>" +
+      '<form class="form" data-validate data-requires-auth data-endpoint="/api/contact" novalidate>' +
       '<div class="form-row-2"><div class="field"><label for="name">Full Name <span class="req" aria-hidden="true">*</span></label><input class="input" id="name" name="name" type="text" required autocomplete="name" maxlength="120" placeholder="Jane Smith"><small class="field__error" role="alert"></small></div>' +
       '<div class="field"><label for="business-email">Business Email <span class="req" aria-hidden="true">*</span></label><input class="input" id="business-email" name="email" type="email" required autocomplete="email" maxlength="120" placeholder="jane@company.com"><small class="field__error" role="alert"></small></div></div>' +
       '<div class="form-row-2"><div class="field"><label for="phone">Phone Number</label><input class="input" id="phone" name="phone" type="tel" autocomplete="tel" maxlength="24" placeholder="+1 647 555 0100"><small class="field__error" role="alert"></small></div>' +
@@ -2049,7 +2058,7 @@ function buildContact() {
       svg("info") +
       "<span>We usually reply within one business day. Your details are only used to respond to your enquiry — see our <a class=\"inline-link\" href=\"" + href(root, "/pages/privacy.html") + "\">Privacy Policy</a>.</span>" +
       "</div>" +
-      '<button class="btn btn--primary btn--lg" type="submit">' + svg("send") + " Send Message</button>" +
+      '<button class="btn btn--primary btn--lg" type="submit" data-auth-submit>' + svg("send") + " Send Message</button>" +
       "</form>" +
       "</div>" +
       "</div></section>"

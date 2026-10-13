@@ -9,6 +9,9 @@
 
   var API = "/api/auth";
   var currentUser = null;
+  // Set to false when the page is served without the Express backend (e.g. a
+  // static preview server). Requests are then skipped instead of 404-ing.
+  var apiAvailable = true;
 
   function getCookie(name) {
     if (window.SHANZOO && window.SHANZOO.getCookie) return window.SHANZOO.getCookie(name);
@@ -27,6 +30,15 @@
 
   /* ------------------------------- HTTP ---------------------------------- */
   function request(path, opts) {
+    if (!apiAvailable && path !== API + "/me") {
+      return Promise.resolve({
+        ok: false,
+        status: 0,
+        data: {},
+        message:
+          "The backend isn't running on this address. Start it with \"npm start\" and open http://localhost:3000 — sign-in and form submission are unavailable in this static preview."
+      });
+    }
     opts = opts || {};
     var method = (opts.method || "GET").toUpperCase();
     var headers = { Accept: "application/json" };
@@ -89,6 +101,74 @@
 
   function goHome() {
     window.location.href = rootPrefix() + "index.html";
+  }
+
+  /* --------------------------- Auth gating ------------------------------- */
+  // Single reusable check used by the UI. Returns true only for a verified,
+  // server-confirmed session (populated by refreshAuth()).
+  function isUserAuthenticated() {
+    return !!currentUser;
+  }
+
+  function currentPath() {
+    return window.location.pathname + window.location.search + window.location.hash;
+  }
+
+  // Append the current page as ?next= so a visitor returns here after signing in.
+  function withNext(href) {
+    if (!href) return href;
+    var sep = href.indexOf("?") >= 0 ? "&" : "?";
+    return href + sep + "next=" + encodeURIComponent(currentPath());
+  }
+
+  // Apply auth-gated UI. Logged-out visitors see the sign-in prompt
+  // ([data-auth-required]) and the gated submit button ([data-auth-submit]) is
+  // disabled. Forms marked [data-requires-auth] are additionally guarded on
+  // submit (see js/forms.js) as a fallback.
+  function applyAuthGates() {
+    var authed = isUserAuthenticated();
+    // The contact form stays visible; only its submit is gated until sign-in.
+    document.querySelectorAll("[data-auth-submit]").forEach(function (btn) {
+      btn.disabled = !authed;
+      btn.setAttribute("aria-disabled", authed ? "false" : "true");
+    });
+    document.querySelectorAll("[data-auth-required]").forEach(function (el) {
+      el.classList.toggle("is-hidden", authed);
+    });
+    if (!authed) {
+      document.querySelectorAll("[data-gate-auth]").forEach(function (a) {
+        if (a.dataset.gateApplied === "true") return;
+        a.setAttribute("href", withNext(a.getAttribute("href")));
+        a.dataset.gateApplied = "true";
+      });
+    }
+    document.dispatchEvent(
+      new CustomEvent("shanzoo:authchange", {
+        detail: { user: currentUser, isAuthenticated: authed }
+      })
+    );
+  }
+
+  // Guard: if a session exists continue, otherwise send the visitor to sign in.
+  function requireAuth() {
+    if (isUserAuthenticated()) return true;
+    window.location.href = withNext(rootPrefix() + "pages/login.html");
+    return false;
+  }
+
+  // After a successful sign-in, prefer the page the visitor came from (?next=).
+  function redirectAfterAuth() {
+    var params = new URLSearchParams(window.location.search);
+    var next = params.get("next");
+    if (next && next.charAt(0) === "/" && next.charAt(1) !== "/") {
+      try {
+        window.location.href = decodeURIComponent(next);
+        return;
+      } catch (e) {
+        /* fall through to home */
+      }
+    }
+    goHome();
   }
 
   function setBusy(el, busy, label) {
@@ -201,6 +281,8 @@
         n.classList.remove("is-hidden");
       });
     }
+
+    applyAuthGates();
   }
 
   // Wire the cloned mobile node (cloneNode drops listeners).
@@ -245,8 +327,19 @@
 
   /* ----------------------------- Refresh me ------------------------------ */
   function refreshAuth() {
+    if (!apiAvailable) {
+      currentUser = null;
+      renderHeader();
+      return Promise.resolve(null);
+    }
     return request(API + "/me").then(function (res) {
-      currentUser = (res.ok && res.data && res.data.user) || null;
+      if (res.status === 0 || res.status === 404 || res.status === 405) {
+        // No API on this origin (e.g. a static preview). Stop trying quietly.
+        apiAvailable = false;
+        currentUser = null;
+      } else {
+        currentUser = (res.ok && res.data && res.data.user) || null;
+      }
       renderHeader();
       return currentUser;
     });
@@ -353,7 +446,7 @@
           currentUser = (res.data && res.data.user) || null;
           renderHeader();
           status.innerHTML = statusHtml("success", "<strong>Verified.</strong> Signing you in…");
-          setTimeout(goHome, 800);
+          setTimeout(redirectAfterAuth, 800);
         })
         .finally(function () {
           setBusy(verifyBtn, false);
@@ -415,7 +508,9 @@
             });
           } else {
             if (window.SHANZOO) window.SHANZOO.formNote(form, "success", "<strong>Signed in.</strong> Redirecting…");
-            refreshAuth().then(goHome);
+            refreshAuth().then(function () {
+              redirectAfterAuth();
+            });
           }
         })
         .finally(function () {
@@ -735,4 +830,19 @@
   } else {
     init();
   }
+
+  // Public, reusable auth API for other modules.
+  window.SHANZOO = window.SHANZOO || {};
+  window.SHANZOO.auth = {
+    isAuthenticated: isUserAuthenticated,
+    apiAvailable: function () {
+      return apiAvailable;
+    },
+    getUser: function () {
+      return currentUser;
+    },
+    refresh: refreshAuth,
+    requireAuth: requireAuth,
+    redirectAfterAuth: redirectAfterAuth
+  };
 })();
