@@ -275,6 +275,7 @@ function scripts(opts) {
     '<script src="' + pre + 'js/navigation.js" defer></script>\n' +
     '<script src="' + pre + 'js/animations.js" defer></script>\n' +
     '<script src="' + pre + 'js/components.js" defer></script>\n' +
+    (opts.extraScripts || "") +
     '<script src="' + pre + 'js/forms.js" defer></script>\n' +
     '<script src="' + pre + 'js/auth.js" defer></script>'
   );
@@ -383,38 +384,325 @@ function serviceCard(root, svc, opts) {
 const html = { href };
 
 /* ------------------------------ Page builders ---------------------------- */
+/* --------------------------- Homepage sections --------------------------- */
+function heroStrip() {
+  const item = (h, dup) =>
+    '    <li class="hero__strip-item' +
+    (dup ? " hero__strip-item--dup" : "") +
+    '"' +
+    (dup ? ' aria-hidden="true"' : "") +
+    '><span class="hero__strip-value"' +
+    (h.count != null ? ' data-hero-count="' + h.count + '" data-hero-pad="' + (h.pad || 0) + '"' : "") +
+    ">" +
+    h.value +
+    '</span><span class="hero__strip-label">' +
+    h.label +
+    "</span></li>";
+  return (
+    '<div class="hero__strip">\n' +
+    '  <ul class="hero__strip-list">\n' +
+    D.HERO_HIGHLIGHTS.map((h) => item(h, false)).join("\n") +
+    "\n" +
+    D.HERO_HIGHLIGHTS.map((h) => item(h, true)).join("\n") +
+    "\n  </ul>\n</div>"
+  );
+}
+
+function previewServiceCard(root, svc) {
+  return (
+    '<a class="svc-preview reveal" href="' + href(root, svc.href) + '">' +
+    '<span class="svc-preview__icon">' + svg(svc.icon) + "</span>" +
+    '<span class="tag-pill">' + svc.tag + "</span>" +
+    '<h3 class="svc-preview__title">' + svc.title + "</h3>" +
+    '<p class="svc-preview__text">' + svc.text + "</p>" +
+    '<span class="svc-preview__cta">' + svc.cta + " " + svg("arrow") + "</span>" +
+    "</a>"
+  );
+}
+
+function industriesSection(root) {
+  const inds = [
+    ["credit", "Financial Services", "Regulated reporting and accurate customer records"],
+    ["activity", "Healthcare", "Protected patient data and interoperable systems"],
+    ["shop", "Retail &amp; E-commerce", "Consistent product and customer information across channels"],
+    ["factory", "Manufacturing", "Connected production, supply and quality data"],
+    ["truck", "Logistics", "Event-driven tracking and shipment visibility"],
+    ["briefcase", "Professional Services", "Client data, billing and knowledge made reliable"]
+  ];
+  const spokes = inds
+    .map((x, i) => '<span class="industries__spoke" style="--i:' + i + '"></span>')
+    .join("");
+  const nodes = inds
+    .map(
+      (ind, i) =>
+        '<button type="button" class="industry-node' + (i === 0 ? " is-active" : "") +
+        '" data-industry="' + i + '" data-desc="' + ind[2] + '" style="--i:' + i +
+        '" aria-pressed="' + (i === 0 ? "true" : "false") +
+        '" aria-label="' + ind[1] + " — " + ind[2] + '">' +
+        '<span class="industry-node__icon" aria-hidden="true">' + svg(ind[0]) + "</span>" +
+        '<span class="industry-node__label">' + ind[1] + "</span>" +
+        '<span class="industry-node__chev" aria-hidden="true"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="9 18 15 12 9 6"/></svg></span>' +
+        "</button>"
+    )
+    .join("");
+  return (
+    '<section class="section bg-alt section--industries">\n  <div class="container">\n' +
+    sectionHead(
+      "Industries we support",
+      "Useful wherever reliable data drives the business.",
+      "These are illustrative examples of how data services can help different sectors today.",
+      true
+    ) +
+    '<div class="industries reveal" data-industries><div class="industries__stage">' +
+    '<div class="industries__gfx" aria-hidden="true"><span class="industries__ring"></span><span class="industries__ring industries__ring--inner"></span>' +
+    spokes +
+    "</div>" +
+    '<div class="industries__hub"><span class="industries__hub-glow" aria-hidden="true"></span>' +
+    '<span class="industries__hub-icon" data-hub-icon aria-hidden="true">' + svg("credit") + "</span>" +
+    '<div class="industries__hub-text"><h3 data-hub-name>Financial Services</h3><p data-hub-desc>Regulated reporting and accurate customer records</p></div></div>' +
+    '<div class="industries__nodes">' + nodes + "</div></div>" +
+    '<div class="industries__info" aria-live="polite"><p class="industries__info-index" data-info-index>01 / 06</p><h3 class="industries__info-title" data-info-title>Financial Services</h3><p class="industries__info-desc" data-info-desc>Regulated reporting and accurate customer records</p></div></div>\n' +
+    '<p class="center mt-4"><a class="btn btn--ghost" href="' + href(root, "/pages/industries.html") + '">Explore Industries &amp; Use Cases</a></p>\n' +
+    "  </div>\n</section>"
+  );
+}
+
+function projectsShowcase(root) {
+  const P = D.PROJECTS;
+  const half = Math.ceil(P.length / 2);
+  const mark = (m) => {
+    if (!m || m.type === "wordmark") return "";
+    if (m.type === "symbol")
+      return '<span class="project-mark project-mark--symbol" aria-hidden="true">' + svg(m.icon) + "</span>";
+    return (
+      '<span class="project-mark project-mark--' + m.type + '" aria-hidden="true"><span>' +
+      m.text +
+      "</span></span>"
+    );
+  };
+  const item = (p) =>
+    '<a class="project-name' + (p.mark && p.mark.type === "wordmark" ? " project-name--wordmark" : "") +
+    '" style="--accent:' + p.accent + ";--s:" + p.s +
+    '" href="' + href(root, "/services/" + p.slug + ".html") + '">' +
+    mark(p.mark) +
+    '<span class="project-logo__text">' + p.name + "</span>" +
+    '<span class="project-name__arrow" aria-hidden="true">' + svg("arrow") + "</span></a>";
+  const row = (arr, reverse) =>
+    '<div class="projects-row' + (reverse ? " projects-row--reverse" : "") +
+    '"><div class="projects-track">' +
+    arr.map(item).join("") + arr.map(item).join("") +
+    "</div></div>";
+  return (
+    '<section class="section projects">\n  <div class="container">\n' +
+    sectionHead(
+      "Project showcase",
+      "The kind of data work we do.",
+      "A snapshot of the data initiatives our services are built for.",
+      true
+    ) +
+    "</div>\n" +
+    '<div class="projects-marquee reveal" aria-label="Selected project types">\n' +
+    row(P.slice(0, half), false) + "\n" +
+    row(P.slice(half), true) + "\n" +
+    "</div>\n</section>"
+  );
+}
+
+/* ------------------------------ Rotating hero ---------------------------- */
+function heroTagList(tags) {
+  return (
+    '<ul class="hero__tags">' +
+    tags.map((t) => "<li>" + t + "</li>").join("") +
+    "</ul>"
+  );
+}
+
+function heroSlide(root, s, i) {
+  return (
+    '<article class="hero__slide' + (i === 0 ? " is-active" : "") +
+    '" data-hero-slide="' + i + '"' + (i === 0 ? "" : ' aria-hidden="true"') + ">" +
+    '<p class="hero__eyebrow"><span class="dot"></span>' + s.label + "</p>" +
+    "<h1>" + s.heading + "</h1>" +
+    '<p class="hero__lead">' + s.lead + "</p>" +
+    '<div class="hero__actions">' +
+    '<a class="btn btn--primary btn--lg" href="' + href(root, s.primary.href) + '">' + s.primary.label + "</a>" +
+    '<a class="btn btn--outline-light btn--lg" href="' + href(root, s.secondary.href) + '">' + s.secondary.label + "</a>" +
+    "</div>" +
+    heroTagList(s.tags) +
+    "</article>"
+  );
+}
+
+function heroVisualNetwork() {
+  return (
+    '<div class="viz viz--network" aria-hidden="true">' +
+    '<span class="viz-network__ring viz-network__ring--outer"></span>' +
+    '<span class="viz-network__ring viz-network__ring--inner"></span>' +
+    '<span class="viz-network__pulse viz-network__pulse--1"></span>' +
+    '<span class="viz-network__pulse viz-network__pulse--2"></span>' +
+    '<span class="viz-network__hub"><b>Enterprise</b><em>Data</em></span>' +
+    '<span class="viz-chip viz-chip--1">Governance</span>' +
+    '<span class="viz-chip viz-chip--2">Quality</span>' +
+    '<span class="viz-chip viz-chip--3">Security</span>' +
+    '<span class="viz-node viz-node--1"><i></i>MDM</span>' +
+    '<span class="viz-node viz-node--2"><i></i>Metadata</span>' +
+    '<span class="viz-node viz-node--3"><i></i>Privacy</span>' +
+    '<span class="viz-node viz-node--4"><i></i>Architecture</span>' +
+    "</div>"
+  );
+}
+
+function flowNode(iconName, title, sub, core) {
+  return (
+    '<div class="viz-flow__node' + (core ? " is-core" : "") + '">' +
+    '<span class="viz-flow__icon">' + svg(iconName) + "</span>" +
+    '<div class="viz-flow__text"><b>' + title + "</b><small>" + sub + "</small></div>" +
+    "</div>"
+  );
+}
+
+function heroVisualPipeline() {
+  return (
+    '<div class="viz viz--pipeline" aria-hidden="true">' +
+    flowNode("server", "System A", "CRM · ERP") +
+    '<span class="viz-flow__line"><i></i></span>' +
+    flowNode("refresh", "Data Pipeline", "ETL · Streaming", true) +
+    '<span class="viz-flow__line"><i></i></span>' +
+    flowNode("database", "Data Platform", "Warehouse · Lake") +
+    '<span class="viz-flow__line"><i></i></span>' +
+    flowNode("trend", "Business Systems", "BI · Apps") +
+    "</div>"
+  );
+}
+
+function vizMetric(label, value, pct, state) {
+  return (
+    '<li class="viz-metric' + (state ? " is-" + state : "") + '" style="--pct:' + pct + '">' +
+    '<div class="viz-metric__row"><span class="viz-metric__label">' + label + '</span><span class="viz-metric__value">' + value + "</span></div>" +
+    '<span class="viz-bar"><i></i></span></li>'
+  );
+}
+
+function heroVisualDashboard() {
+  return (
+    '<div class="viz viz--dashboard" aria-hidden="true">' +
+    '<div class="viz-panel__head"><span class="viz-panel__title">Governance &amp; Quality</span><span class="viz-panel__live"><i></i>Live</span></div>' +
+    '<ul class="viz-metrics">' +
+    vizMetric("Data Quality", "98%", 0.98) +
+    vizMetric("Governance", "Active", 0.92, "ok") +
+    vizMetric("Metadata", "Connected", 0.85) +
+    vizMetric("Compliance", "Monitored", 0.9) +
+    "</ul></div>"
+  );
+}
+
+function vizLayer(iconName, title, sub) {
+  return (
+    '<div class="viz-layer"><span class="viz-layer__icon">' + svg(iconName) + "</span>" +
+    '<div class="viz-layer__text"><b>' + title + "</b><small>" + sub + "</small></div></div>"
+  );
+}
+
+function heroVisualLayers() {
+  return (
+    '<div class="viz viz--layers" aria-hidden="true">' +
+    '<div class="viz-layers__stack">' +
+    vizLayer("database", "Data Sources", "Apps · Files · APIs") +
+    '<span class="viz-layers__link"></span>' +
+    vizLayer("refresh", "Integration", "ETL · CDC · Streaming") +
+    '<span class="viz-layers__link"></span>' +
+    vizLayer("layers", "Data Platform", "Warehouse · Lake") +
+    '<span class="viz-layers__link"></span>' +
+    vizLayer("trend", "Analytics", "BI · Reporting · AI") +
+    "</div>" +
+    '<ul class="viz-layers__side"><li>Architecture</li><li>Data Modeling</li><li>Cloud</li><li>Scalability</li></ul>' +
+    "</div>"
+  );
+}
+
+function heroVisualFor(name, i) {
+  var inner =
+    name === "pipeline" ? heroVisualPipeline() :
+    name === "dashboard" ? heroVisualDashboard() :
+    name === "layers" ? heroVisualLayers() :
+    heroVisualNetwork();
+  return (
+    '<div class="hero__visual' + (i === 0 ? " is-active" : "") + '" data-hero-visual="' + i + '">' +
+    inner +
+    "</div>"
+  );
+}
+
+function heroSprinkles() {
+  var dots = "";
+  for (var i = 0; i < 10; i++) dots += "<span></span>";
+  return '<div class="hero__sprinkles" aria-hidden="true">' + dots + "</div>";
+}
+
+function heroMedia(root) {
+  var slides = D.HERO_SLIDES;
+  var total = slides.length < 10 ? "0" + slides.length : String(slides.length);
+  return (
+    '<div class="hero__media">' +
+    '<div class="hero__media-card">' +
+    heroSprinkles() +
+    '<div class="hero__visuals">' +
+    slides.map((s, i) => heroVisualFor(s.visual, i)).join("") +
+    "</div>" +
+    '<div class="hero__media-foot">' +
+    '<div class="hero__dots" role="group" aria-label="Hero slide indicators">' +
+    slides
+      .map(
+        (s, i) =>
+          '<button class="hero__dot' + (i === 0 ? " is-active" : "") +
+          '" type="button" data-hero-dot="' + i + '"' +
+          (i === 0 ? ' aria-current="true"' : "") +
+          ' aria-label="Show ' + s.label + ' slide"></button>'
+      )
+      .join("") +
+    "</div>" +
+    '<span class="hero__count"><span data-hero-current>01</span> / ' + total + "</span>" +
+    "</div>" +
+    "</div>" +
+    "</div>"
+  );
+}
+
+function heroControls() {
+  return (
+    '<div class="hero__controls">' +
+    '<button class="hero__arrow hero__arrow--prev" type="button" data-hero-prev aria-label="Previous hero slide">' + svg("chevron") + "</button>" +
+    '<button class="hero__arrow hero__arrow--next" type="button" data-hero-next aria-label="Next hero slide">' + svg("chevron") + "</button>" +
+    "</div>"
+  );
+}
+
+function heroSection(root) {
+  var slides = D.HERO_SLIDES;
+  return (
+    '<section class="hero" data-hero aria-label="SHANZOO services showcase">\n' +
+    '  <div class="container hero__inner">\n' +
+    '    <div class="hero__content">\n' +
+    '      <div class="hero__slides">\n' +
+    slides.map((s, i) => heroSlide(root, s, i)).join("\n") +
+    "\n      </div>\n    </div>\n    " +
+    heroMedia(root) +
+    "\n    " +
+    heroControls() +
+    "\n  </div>\n  " +
+    heroStrip() +
+    "\n</section>"
+  );
+}
+
 function buildIndex() {
   const root = "";
   const body = [];
 
   /* ---- Section 1 & 2 : topbar + header (rendered by page()) ---- */
 
-  /* ---- Section 3 : hero ---- */
-  body.push(
-    '<section class="hero">\n  <div class="container hero__inner">\n' +
-      "    <div>\n" +
-      '      <p class="hero__eyebrow reveal"><span class="dot"></span> Enterprise Data Management &amp; Integration · Toronto</p>\n' +
-      '      <h1 class="reveal" data-delay="1">Better Data.<br><span class="accent">Smarter Business.</span></h1>\n' +
-      '      <p class="hero__lead reveal" data-delay="2">We help businesses organize, protect and connect their data so they can work faster and make better decisions.</p>\n' +
-      '      <div class="hero__actions reveal" data-delay="3">\n' +
-      '        <a class="btn btn--primary btn--lg" href="pages/services.html">Explore Our Services</a>\n' +
-      '        <a class="btn btn--ghost btn--lg" href="pages/contact.html#consultation">Talk to Our Team</a>\n' +
-      "      </div>\n" +
-      '      <div class="hero__trust reveal" data-delay="4">\n' +
-      '        <div class="hero__trust-item">' + svg("shield", "") + "<span><strong>Practical guidance</strong> from first review to go-live</span></div>\n" +
-      '        <div class="hero__trust-item">' + svg("target", "") + "<span><strong>Business-first</strong> solutions in plain English</span></div>\n" +
-      "      </div>\n" +
-      "    </div>\n" +
-      "    <div class=\"hero__media reveal\" data-delay=\"2\">\n" +
-      '      <div class="hero__media-card">' +
-      heroVisual() +
-      "</div>\n" +
-      '      <div class="hero__float hero__float--a">' + svg("circle") + "<span><strong>Golden Record</strong><small>one trusted record</small></span></div>\n" +
-      '      <div class="hero__float hero__float--b">' + svg("zap") + "<span><strong>Connected systems</strong><small>real-time &amp; reliable</small></span></div>\n" +
-      '      <div class="hero__float hero__float--c">' + svg("trend") + "<span><strong>Analytics-ready</strong><small>insight on demand</small></span></div>\n" +
-      "    </div>\n" +
-      "  </div>\n</section>"
-  );
+  /* ---- Section 3 : hero (rotating service showcase) ---- */
+  body.push(heroSection(root));
 
   /* ---- Section 4 : What SHANZOO does ---- */
   body.push(
@@ -468,138 +756,103 @@ function buildIndex() {
       "  </div>\n</section>"
   );
 
-  /* ---- Section 6 : Data Management services ---- */
+  /* ---- Section 6 : Services preview (interactive cards) ---- */
   body.push(
     '<section class="section">\n  <div class="container">\n' +
       sectionHead(
-        "Data Management services",
-        "Put your data house in order.",
-        "Our management services help you define, protect and maintain the quality of your business data over time."
+        "Services",
+        "What we can do for your data.",
+        "Five ways SHANZOO helps you manage, protect, connect and get more from your data."
       ) +
-      '<div class="grid grid-3">' +
-      D.NAV.megaManagement
-        .map((m, i) =>
-          serviceCard(root, bySlug(m.slug), { delay: i % 3 })
-        )
-        .join("") +
+      '<div class="svc-preview-grid snap-carousel">' +
+      D.HOME_SERVICES.map((s) => previewServiceCard(root, s)).join("") +
       "</div>\n" +
-      '<p class="center mt-4"><a class="btn btn--ghost" href="pages/data-management.html">Explore all Data Management services</a></p>\n' +
+      '<p class="center mt-4"><a class="btn btn--ghost" href="pages/services.html">View All Services ' + svg("arrow") + "</a></p>\n" +
       "  </div>\n</section>"
   );
 
-  /* ---- Section 7 : Full-width CTA banner ---- */
+  /* ---- Section 7 : How we work (interactive tabs) ---- */
+  const phases = [
+    ["message", "Understand Your Needs", "We listen first. You tell us the business outcome you want, and we map it to the data work required."],
+    ["search", "Review Your Data &amp; Systems", "We look at your current data, systems and processes to understand exactly what stands in the way."],
+    ["compass", "Design the Right Solution", "We propose a clear solution with sensible priorities, realistic effort and the technology to match your scale."],
+    ["zap", "Implement &amp; Improve", "We work alongside your team to build, test, launch and continuously improve the solution."]
+  ];
   body.push(
-    '<section class="section--tight"><div class="container">' +
-      ctaBanner({
-        root,
-        title: "Is Your Business Data Working Against You?",
-        lead: "Let's help you make it accurate, connected and easier to manage.",
-        actions: [
-          { href: "/pages/contact.html#consultation", label: "Let's Talk", cls: "btn--primary btn--lg" }
-        ]
-      }) +
-      "</div></section>"
-  );
-
-  /* ---- Section 8 : Data Integration services ---- */
-  body.push(
-    '<section class="section bg-soft">\n  <div class="container">\n' +
-      sectionHead(
-        "Data Integration services",
-        "Make every system work from the same data.",
-        "Our integration services connect the applications and platforms your teams rely on, so information flows where it is needed."
-      ) +
-      '<div class="grid grid-3">' +
-      D.NAV.megaIntegration
-        .map((m, i) =>
-          serviceCard(root, bySlug(m.slug), { delay: i % 3 })
-        )
-        .join("") +
-      "</div>\n" +
-      '<p class="center mt-4"><a class="btn btn--ghost" href="pages/data-integration.html">Explore all Data Integration services</a></p>\n' +
-      "  </div>\n</section>"
-  );
-
-  /* ---- Section 9 : How we work ---- */
-  body.push(
-    '<section class="section">\n  <div class="container">\n' +
+    '<section class="section bg-alt">\n  <div class="container">\n' +
       sectionHead(
         "How we work",
         "A simple, practical four-step approach.",
         "Every engagement follows a clear path — so you always know where we are, and what happens next.",
         true
       ) +
-      '<div class="steps">\n' +
-      '<div class="step reveal"><span class="step__num">1</span><h3>Understand Your Needs</h3><p>We listen first. You tell us the business outcome you want, and we map it to the data work required.</p></div>\n' +
-      '<div class="step reveal" data-delay="1"><span class="step__num">2</span><h3>Review Your Data &amp; Systems</h3><p>We look at your current data, systems and processes to understand exactly what stands in the way.</p></div>\n' +
-      '<div class="step reveal" data-delay="2"><span class="step__num">3</span><h3>Design the Right Solution</h3><p>We propose a clear solution with sensible priorities, realistic effort and the technology to match your scale.</p></div>\n' +
-      '<div class="step reveal" data-delay="3"><span class="step__num">4</span><h3>Help You Implement &amp; Improve</h3><p>We work alongside your team to build, test, launch and continuously improve the solution.</p></div>\n' +
-      "</div>\n" +
+      '<div class="tabs reveal" data-tabs>\n' +
+      '  <div class="tabs__nav" role="tablist" aria-label="Our approach">\n' +
+      phases
+        .map(
+          (p, i) =>
+            '    <button class="tabs__btn' + (i === 0 ? " is-active" : "") +
+            '" type="button" role="tab" id="tab-' + i + '" aria-controls="tabpanel-' + i +
+            '" aria-selected="' + (i === 0 ? "true" : "false") + '" tabindex="' + (i === 0 ? "0" : "-1") + '">' +
+            '<span class="tabs__num">0' + (i + 1) + "</span><span>" + p[1] + "</span></button>"
+        )
+        .join("\n") +
+      "\n  </div>\n  <div class=\"tabs__panels\">\n" +
+      phases
+        .map(
+          (p, i) =>
+            '    <div class="tabs__panel' + (i === 0 ? " is-active" : "") +
+            '" id="tabpanel-' + i + '" role="tabpanel" aria-labelledby="tab-' + i + '">' +
+            '<span class="tabs__icon">' + svg(p[0]) + "</span>" +
+            "<h3>" + p[1] + "</h3><p>" + p[2] + "</p></div>"
+        )
+        .join("\n") +
+      "\n  </div>\n</div>\n" +
       '<p class="center mt-4"><a class="btn btn--primary" href="pages/our-approach.html">Learn More About Our Approach</a></p>\n' +
       "  </div>\n</section>"
   );
 
-  /* ---- Section 10 : Industries ---- */
+  /* ---- Section 8 : Data Integration touchpoint (light green) ---- */
   body.push(
-    '<section class="section bg-alt">\n  <div class="container">\n' +
-      sectionHead(
-        "Industries we support",
-        "Useful wherever reliable data drives the business.",
-        "These are illustrative examples of how data services can help different sectors today.",
-        true
-      ) +
-      '<div class="grid grid-3">' +
-      [
-        ["credit", "Financial Services", "Regulated reporting and accurate customer records"],
-        ["activity", "Healthcare", "Protected patient data and interoperable systems"],
-        ["shop", "Retail & E-commerce", "Consistent product and customer information across channels"],
-        ["factory", "Manufacturing", "Connected production, supply and quality data"],
-        ["truck", "Logistics", "Event-driven tracking and shipment visibility"],
-        ["briefcase", "Professional Services", "Client data, billing and knowledge made reliable"]
-      ]
-        .map(
-          (ind, i) =>
-            '<div class="industry-card reveal" data-delay="' + (i % 3) + '">' +
-            '<div class="industry-card__icon">' + svg(ind[0]) + "</div>" +
-            "<h3>" + ind[1] + "</h3><p>" + ind[2] + "</p></div>"
-        )
-        .join("") +
-      "</div>\n" +
-      '<p class="center mt-4"><a class="btn btn--ghost" href="pages/industries.html">Explore Industries &amp; Use Cases</a></p>\n' +
-      "  </div>\n</section>"
+    '<section class="section feat-green">\n  <div class="container feat-green__inner">\n' +
+      '    <div class="feat-green__head reveal">\n' +
+      '      <p class="eyebrow">Data Integration</p>\n' +
+      "      <h2>Make every system work from the same data.</h2>\n" +
+      "      <p>We connect the applications and platforms your teams rely on, so information flows where it is needed — on time, every time.</p>\n" +
+      '      <a class="btn btn--navy" href="pages/data-integration.html">Explore Data Integration ' + svg("arrow") + "</a>\n" +
+      "    </div>\n" +
+      '    <ul class="di-chips reveal" data-delay="1">\n' +
+      ["ETL / ELT", "APIs", "Real-time streaming", "Change data capture", "Orchestration", "Data virtualization"]
+        .map((c) => "      <li>" + c + "</li>")
+        .join("\n") +
+      "\n    </ul>\n  </div>\n</section>"
   );
 
-  /* ---- Section 11 : Why choose SHANZOO ---- */
+  /* ---- Section 9 : Industries (interactive ring) ---- */
+  body.push(industriesSection(root));
+
+  /* ---- Section 10 : Why choose SHANZOO (compact grid) ---- */
   body.push(
-    '<section class="section">\n  <div class="container split">\n' +
-      "    <div>\n" +
+    '<section class="section">\n  <div class="container">\n' +
       sectionHead(
         "Why choose SHANZOO",
         "A partner you can actually talk to.",
-        "We simply do what works: clear communication, sensible solutions and careful attention to the details that matter."
+        "Clear communication, sensible solutions and careful attention to the details that matter.",
+        true
       ) +
-      '<div class="grid grid-2">\n' +
+      '<div class="value-grid">\n' +
       '<div class="value-item reveal"><div class="value-item__icon">' + svg("message") + '</div><div><h4>Clear Communication</h4><p>Plain English, honest timelines and no surprises.</p></div></div>\n' +
-      '<div class="value-item reveal" data-delay="1"><div class="value-item__icon">' + svg("target") + '</div><div><h4>Business-Focused Solutions</h4><p>Every decision ties back to a business outcome you care about.</p></div></div>\n' +
+      '<div class="value-item reveal" data-delay="1"><div class="value-item__icon">' + svg("target") + '</div><div><h4>Business-Focused Solutions</h4><p>Every decision ties back to an outcome you care about.</p></div></div>\n' +
       '<div class="value-item reveal" data-delay="2"><div class="value-item__icon">' + svg("settings") + '</div><div><h4>Practical Technical Expertise</h4><p>Real engineering experience — applied without jargon.</p></div></div>\n' +
-      '<div class="value-item reveal" data-delay="3"><div class="value-item__icon">' + svg("trend") + '</div><div><h4>Scalable Approaches</h4><p>Solutions designed for your size today and your growth tomorrow.</p></div></div>\n' +
-      '<div class="value-item reveal" data-delay="4"><div class="value-item__icon">' + svg("shield") + '</div><div><h4>Attention to Data Security</h4><p>Security and privacy designed in from the start.</p></div></div>\n' +
+      '<div class="value-item reveal" data-delay="3"><div class="value-item__icon">' + svg("trend") + '</div><div><h4>Scalable Approaches</h4><p>Built for your size today and your growth tomorrow.</p></div></div>\n' +
+      '<div class="value-item reveal" data-delay="4"><div class="value-item__icon">' + svg("shield") + '</div><div><h4>Data Security by Design</h4><p>Security and privacy designed in from the start.</p></div></div>\n' +
       "</div>\n" +
-      "    </div>\n" +
-      "    <div class=\"split__media\">\n" +
-      '      <div class="panel panel--navy reveal">' +
-      "<h3>What working with us feels like</h3>\n" +
-      '<ul class="check-list mt-3">\n' +
-      "<li>" + svg("check") + "We ask questions before giving answers.</li>\n" +
-      "<li>" + svg("check") + "We keep technical detail simple to understand.</li>\n" +
-      "<li>" + svg("check") + "We deliver in clear stages you can check.</li>\n" +
-      "<li>" + svg("check") + "We stay available after launch.</li>\n" +
-      "</ul>\n" +
-      '<a class="btn btn--light mt-3" href="pages/why-shanzoo.html">More Reasons to Choose Us</a>\n' +
-      "      </div>\n" +
-      "    </div>\n" +
+      '<p class="center mt-4"><a class="btn btn--ghost" href="pages/why-shanzoo.html">More Reasons to Choose Us</a></p>\n' +
       "  </div>\n</section>"
   );
+
+  /* ---- Section 11 : Project showcase (marquee) ---- */
+  body.push(projectsShowcase(root));
 
   /* ---- Section 12 : Educational insights ---- */
   body.push(
@@ -610,7 +863,7 @@ function buildIndex() {
         "Short, useful articles that explain data concepts without the jargon.",
         true
       ) +
-      '<div class="grid grid-3">' +
+      '<div class="grid grid-3 snap-carousel">' +
       insights.map((post, i) => insightCard(root, post, i % 3)).join("") +
       "</div>\n" +
       '<p class="center mt-4"><a class="btn btn--ghost" href="pages/insights.html">Visit the Insights Hub</a></p>\n' +
@@ -637,6 +890,7 @@ function buildIndex() {
     title: "SHANZOO — Better Data. Smarter Business. | Data Management & Integration",
     desc: "SHANZOO is a Toronto-based data management and integration consultancy helping businesses organize, protect and connect their data.",
     canonicalPath: "index.html",
+    extraScripts: '<script src="js/hero-slider.js" defer></script>\n<script src="js/industries.js" defer></script>\n',
     body: body.join("\n")
   });
 }

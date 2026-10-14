@@ -15,6 +15,25 @@
   --green-dark: #007a4c;
   --green-light: #e7f6ef;
 
+  /* Hero / top-bar forest greens */
+  --forest: #153b1d;
+  --forest-800: #103017;
+  --forest-700: #1c4a26;
+  --forest-600: #245c30;
+  --forest-panel: rgba(255, 255, 255, 0.055);
+  --forest-panel-2: rgba(255, 255, 255, 0.09);
+  --forest-line: rgba(255, 255, 255, 0.16);
+  --forest-line-soft: rgba(255, 255, 255, 0.08);
+  --mint: #63d99b;
+  --mint-bright: #7fe6ac;
+
+  /* Secondary blue accent */
+  --blue: #0f6fbe;
+  --hero-ink: #12263a;
+  --hero-muted: #5b6c7d;
+  --hero-line: #e6edf4;
+  --hero-line-strong: #d3dee8;
+
   --ink: #172b3a;
   --muted: #5a6b7a;
   --muted-2: #7b8a97;

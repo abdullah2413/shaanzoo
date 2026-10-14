@@ -212,6 +212,18 @@
     max-width: 520px;
     margin-inline: auto;
   }
+  /* Centre the hero copy once it stacks to a single column */
+  .hero__content,
+  .hero__slides {
+    text-align: center;
+  }
+  .hero__lead {
+    margin-inline: auto;
+  }
+  .hero__actions,
+  .hero__tags {
+    justify-content: center;
+  }
 }
 
 /* ------------------------------ Mobile ----------------------------------- */
@@ -272,6 +284,39 @@
   .hero__float--b {
     display: none;
   }
+  /* Right-side hero media: scale the card, visuals and particles down so the
+     whole component stays comfortably inside the viewport. */
+  .hero__media-card {
+    border-radius: var(--r-lg);
+  }
+  .hero__visuals {
+    min-height: clamp(230px, 62vw, 300px);
+    padding: 1rem 0.95rem;
+  }
+  .viz--network {
+    width: min(100%, 300px);
+  }
+  .viz--dashboard,
+  .viz--layers {
+    max-width: 100%;
+  }
+  .viz--layers {
+    gap: 0.7rem;
+  }
+  .viz-node {
+    font-size: 0.64rem;
+    padding: 0.28rem 0.55rem;
+  }
+  .viz-chip {
+    font-size: 0.58rem;
+  }
+  .viz-layers__side li {
+    padding: 0.3rem 0.55rem;
+  }
+  .hero__sprinkles span {
+    /* shrink the particle spread a touch on phones */
+    animation-duration: 14s;
+  }
 
   .section-head {
     margin-bottom: 1.5rem;
@@ -325,6 +370,20 @@
   .hero__eyebrow {
     font-size: 0.76rem;
   }
+  /* Stack the layered-architecture visual and let its side chips wrap. */
+  .viz--layers {
+    grid-template-columns: 1fr;
+    gap: 0.7rem;
+  }
+  .viz-layers__side {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 0.35rem;
+  }
+  .hero__sprinkles span:nth-child(7) {
+    display: none;
+  }
   .hero__actions,
   .error-page__actions {
     gap: 0.6rem;
@@ -343,6 +402,70 @@
   }
   .auth-required__actions .btn {
     width: 100%;
+  }
+}
+
+/* ------------------------------ Hero arrows ------------------------------- */
+/* Below the wide-desktop breakpoint the arrows sit in a tidy centered row
+   beneath the hero. Above it they float at the section edges, clear of text. */
+@media (min-width: 1320px) {
+  .hero__controls {
+    position: absolute;
+    inset: 0;
+    margin: 0;
+    justify-content: space-between;
+    align-items: center;
+    pointer-events: none;
+    z-index: 6;
+  }
+  .hero__arrow {
+    pointer-events: auto;
+  }
+  .hero__arrow--prev {
+    margin-left: calc((100vw - 100%) / -2 + 1rem);
+  }
+  .hero__arrow--next {
+    margin-right: calc((100vw - 100%) / -2 + 1rem);
+  }
+}
+
+/* ------------------------------ Small-hero visuals (tablet) --------------- */
+@media (max-width: 760px) {
+  .viz--pipeline {
+    flex-direction: column;
+    gap: 0.3rem;
+  }
+  .viz-flow__node {
+    width: 100%;
+    flex: 0 0 auto;
+    flex-direction: row;
+    justify-content: flex-start;
+    text-align: left;
+    gap: 0.7rem;
+  }
+  .viz-flow__line {
+    flex: 0 0 auto;
+    width: 2px;
+    height: 18px;
+    background: linear-gradient(180deg, rgba(0, 150, 94, 0.5), rgba(15, 111, 190, 0.3));
+  }
+  .viz-flow__line i {
+    left: 50%;
+    top: 0;
+    margin: 0 0 0 -3px;
+    animation-name: vizFlowY;
+  }
+  .viz--layers {
+    grid-template-columns: 1fr;
+  }
+  .viz-layers__side {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+  }
+  .viz-network__chip,
+  .viz-chip {
+    font-size: 0.66rem;
   }
 }
 

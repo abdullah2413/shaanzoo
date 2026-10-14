@@ -226,6 +226,118 @@ const SERVICES = [
   }
 ];
 
+/* ------------------- Homepage preview + showcase content ----------------- */
+/* Editable highlights shown in the compact strip under the hero.
+   These are qualitative/derived facts — no invented client statistics. */
+const HERO_HIGHLIGHTS = [
+  { value: "02", label: "Core disciplines", count: 2, pad: 2 },
+  { value: "10", label: "Specialist services", count: 10, pad: 2 },
+  { value: "06", label: "Industries supported", count: 6, pad: 2 },
+  { value: "Toronto", label: "Based in Canada" }
+];
+
+/* Rotating hero service slides. Each slide pairs left-side copy with a distinct
+   right-side visual (see heroVisual* builders in tools/build.js). */
+const HERO_SLIDES = [
+  {
+    label: "Data Management",
+    heading: "Turn Complex Data Into <span class=\"accent\">Trusted Business Intelligence</span>",
+    lead: "Help organizations organize, govern, protect and improve enterprise data through structured data management strategies.",
+    primary: { href: "/pages/data-management.html", label: "Explore Data Management" },
+    secondary: { href: "/pages/contact.html#consultation", label: "Talk to Our Team" },
+    tags: ["Data Governance", "MDM", "Data Quality", "Metadata"],
+    visual: "network"
+  },
+  {
+    label: "Data Integration",
+    heading: "Connect Your Data. <span class=\"accent\">Power Every System.</span>",
+    lead: "Bring enterprise systems together through reliable ETL, ELT, CDC, streaming and modern data integration architecture.",
+    primary: { href: "/pages/data-integration.html", label: "Explore Data Integration" },
+    secondary: { href: "/pages/contact.html#consultation", label: "Talk to Our Team" },
+    tags: ["ETL / ELT", "CDC", "Streaming", "APIs"],
+    visual: "pipeline"
+  },
+  {
+    label: "Data Governance",
+    heading: "Reliable Data Starts With <span class=\"accent\">Strong Governance</span>",
+    lead: "Improve data accuracy, ownership, consistency and compliance across the enterprise.",
+    primary: { href: "/services/data-governance.html", label: "Explore Governance" },
+    secondary: { href: "/pages/contact.html#consultation", label: "Talk to Our Team" },
+    tags: ["Governance", "Quality", "Compliance", "Metadata"],
+    visual: "dashboard"
+  },
+  {
+    label: "Data Architecture",
+    heading: "Build Data Foundations <span class=\"accent\">Designed to Scale</span>",
+    lead: "Design modern data architectures and models that support analytics, integration and long-term business growth.",
+    primary: { href: "/services/data-architecture.html", label: "Explore Architecture" },
+    secondary: { href: "/pages/contact.html#consultation", label: "Talk to Our Team" },
+    tags: ["Architecture", "Data Modeling", "Cloud", "Scalability"],
+    visual: "layers"
+  }
+];
+
+/* Compact service-preview cards for the homepage. `tag` is the small blue
+   pill; `href` points at an existing service page or the contact page. */
+const HOME_SERVICES = [
+  {
+    tag: "Data",
+    icon: "database",
+    title: "Master Data Management",
+    text: "One trusted version of your customers, products and vendors.",
+    cta: "Learn More",
+    href: "/services/master-data-management.html"
+  },
+  {
+    tag: "Integration",
+    icon: "link",
+    title: "Data Integration",
+    text: "Connect your systems so information flows where the business needs it.",
+    cta: "Explore Data Integration",
+    href: "/pages/data-integration.html"
+  },
+  {
+    tag: "Governance",
+    icon: "shield",
+    title: "Data Governance & Quality",
+    text: "Clear rules, owners and definitions that keep data accurate and trustworthy.",
+    cta: "Learn More",
+    href: "/services/data-governance.html"
+  },
+  {
+    tag: "Security",
+    icon: "lock",
+    title: "Data Security & Privacy",
+    text: "Protect sensitive data with access controls, masking and audit trails.",
+    cta: "Learn More",
+    href: "/services/data-security.html"
+  },
+  {
+    tag: "Engineering",
+    icon: "layers",
+    title: "Data Architecture & Modeling",
+    text: "Purpose-built foundations that scale with your business.",
+    cta: "Discuss Your Project",
+    href: "/pages/contact.html#consultation"
+  }
+];
+
+/* Project showcase items. No case-study routes exist, so each links to the
+   most relevant existing service page. `accent` is revealed on hover and `s`
+   subtly varies the type size to create visual rhythm. */
+const PROJECTS = [
+  { name: "Unified Customer View", slug: "master-data-management", accent: "#00965e", s: 1.06, mark: { type: "monogram", text: "UC" } },
+  { name: "Real-Time Order Stream", slug: "event-streaming", accent: "#0f766e", s: 0.86, mark: { type: "symbol", icon: "activity" } },
+  { name: "Cloud Data Platform", slug: "data-architecture", accent: "#0a4a7f", s: 1.14, mark: { type: "wordmark" } },
+  { name: "Governed Data Catalog", slug: "data-governance", accent: "#007a4c", s: 0.92, mark: { type: "monogram", text: "DC" } },
+  { name: "Legacy Modernization", slug: "api-integration", accent: "#0a7a5a", s: 1.04, mark: { type: "symbol", icon: "refresh" } },
+  { name: "Data Quality Remediation", slug: "data-quality", accent: "#00965e", s: 0.9, mark: { type: "monogram", text: "DQ" } },
+  { name: "Single Source of Truth", slug: "master-data-management", accent: "#0a4a7f", s: 1.1, mark: { type: "lettermark", text: "S" } },
+  { name: "API Integration Layer", slug: "api-integration", accent: "#007a4c", s: 0.94, mark: { type: "symbol", icon: "link" } },
+  { name: "Change Data Capture", slug: "change-data-capture", accent: "#0f766e", s: 1.02, mark: { type: "lettermark", text: "C" } },
+  { name: "Privacy & Access Controls", slug: "data-security", accent: "#0a7a5a", s: 0.88, mark: { type: "symbol", icon: "lock" } }
+];
+
 /* --------------------------- Illustrations ------------------------------- */
 function svgNetwork() {
   return (
@@ -444,6 +556,10 @@ module.exports = {
   SERVICES,
   SERVICE_ART,
   NAV,
+  HERO_HIGHLIGHTS,
+  HERO_SLIDES,
+  HOME_SERVICES,
+  PROJECTS,
   svgNetwork,
   svgPipeline,
   svgVault,

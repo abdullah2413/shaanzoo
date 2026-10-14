@@ -1,6 +1,7 @@
 /* ==========================================================================
    SHANZOO — Components
-   FAQ accordions, in-page service navigation (scrollspy).
+   FAQ accordions, in-page service navigation (scrollspy),
+   and accessible tabbed panels.
    ========================================================================== */
 (function () {
   "use strict";
@@ -78,10 +79,56 @@
     });
   }
 
+  function initTabs() {
+    var groups = document.querySelectorAll("[data-tabs]");
+    groups.forEach(function (group) {
+      var btns = Array.prototype.slice.call(group.querySelectorAll(".tabs__btn"));
+      if (!btns.length) return;
+      var panels = btns.map(function (btn) {
+        return document.getElementById(btn.getAttribute("aria-controls"));
+      });
+
+      function activate(index, focus) {
+        btns.forEach(function (btn, i) {
+          var active = i === index;
+          btn.classList.toggle("is-active", active);
+          btn.setAttribute("aria-selected", active ? "true" : "false");
+          btn.setAttribute("tabindex", active ? "0" : "-1");
+          var panel = panels[i];
+          if (panel) panel.classList.toggle("is-active", active);
+        });
+        if (focus && btns[index]) btns[index].focus();
+      }
+
+      btns.forEach(function (btn, i) {
+        btn.addEventListener("click", function () {
+          activate(i, false);
+        });
+        btn.addEventListener("keydown", function (e) {
+          var last = btns.length - 1;
+          var next = null;
+          if (e.key === "ArrowRight" || e.key === "ArrowDown") {
+            next = i === last ? 0 : i + 1;
+          } else if (e.key === "ArrowLeft" || e.key === "ArrowUp") {
+            next = i === 0 ? last : i - 1;
+          } else if (e.key === "Home") {
+            next = 0;
+          } else if (e.key === "End") {
+            next = last;
+          }
+          if (next === null) return;
+          e.preventDefault();
+          activate(next, true);
+        });
+      });
+    });
+  }
+
   function init() {
     initAccordions();
     initScrollSpy();
     initSmoothAnchors();
+    initTabs();
   }
 
   if (document.readyState === "loading") {

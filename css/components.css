@@ -673,7 +673,7 @@
   min-height: 260px;
   display: grid;
   place-items: center;
-  padding: 1.5rem;
+  padding: 3.5rem;
 }
 .visual svg {
   width: 100%;

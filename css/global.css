@@ -280,12 +280,31 @@ a {
 
 /* ------------------------------ Top strip -------------------------------- */
 .topbar {
-  background: var(--navy-deep);
-  color: #cfe0ef;
+  position: relative;
+  /* Same background as the hero: deep blue-green base with a soft-blue glow
+     (top-right), soft-green glow (bottom-left) and a faint white highlight. */
+  background:
+    radial-gradient(58% 54% at 86% -8%, rgba(47, 150, 224, 0.34), transparent 60%),
+    radial-gradient(56% 54% at 3% 110%, rgba(0, 150, 94, 0.36), transparent 60%),
+    radial-gradient(52% 46% at 30% -14%, rgba(255, 255, 255, 0.1), transparent 62%),
+    linear-gradient(150deg, #0a2b45 0%, #0a2236 50%, #071826 100%);
+  color: #cfe6d6;
   font-size: var(--fs-sm);
   min-height: var(--topbar-h);
   display: flex;
   align-items: center;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+}
+.topbar::after {
+  /* Soft green→blue hairline so the strip reads as part of the same system. */
+  content: "";
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: -1px;
+  height: 1px;
+  background: linear-gradient(90deg, rgba(0, 150, 94, 0.5), rgba(47, 150, 224, 0.45), rgba(0, 150, 94, 0.25));
+  pointer-events: none;
 }
 .topbar__inner {
   display: flex;
@@ -308,11 +327,12 @@ a {
   align-items: center;
 }
 .topbar a {
-  color: #dbe7f2;
+  color: #e2f1e6;
   display: inline-flex;
   align-items: center;
   gap: 0.5rem;
   padding-block: 0.5rem;
+  overflow-wrap: anywhere;
   transition: color var(--dur) var(--ease);
 }
 .topbar a:hover {
@@ -321,15 +341,19 @@ a {
 .topbar svg {
   width: 15px;
   height: 15px;
-  color: var(--green);
+  color: var(--mint);
   flex: none;
   margin: 6px 4px;
+}
+.topbar__list--right svg {
+  color: #5aa2f0;
 }
 .topbar__tagline {
   display: inline-flex;
   align-items: center;
   gap: 0.5rem;
-  color: #9fb8cc;
+  color: #abd2b8;
+  font-weight: 600;
 }
 
 /* ------------------------------ Header ----------------------------------- */
@@ -929,4 +953,7 @@ a {
 }
 .reveal[data-delay="4"] {
   transition-delay: 360ms;
+}
+.reveal[data-delay="5"] {
+  transition-delay: 450ms;
 }
