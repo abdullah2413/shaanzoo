@@ -194,9 +194,41 @@
   }
 
   /* ------------------------------- Header -------------------------------- */
-  function buildUserNode(user) {
+  function buildUserNode(user, variant) {
     var initial = (user.name || user.email || "?").trim().charAt(0).toUpperCase();
     var wrap = document.createElement("div");
+
+    /* Mobile variant: a flat account card with its own action buttons, so the
+       off-canvas menu never nests a second dropdown inside itself. */
+    if (variant === "mobile") {
+      wrap.className = "auth-user auth-user--card";
+      wrap.setAttribute("data-auth-user", "");
+      wrap.innerHTML =
+        '<div class="auth-user__head">' +
+        '<span class="auth-user__avatar">' + esc(initial) + "</span>" +
+        '<span class="auth-user__meta">' +
+        '<span class="auth-user__name">' + esc(user.name || "Your account") + "</span>" +
+        '<span class="auth-user__email">' + esc(user.email) + "</span>" +
+        "</span></div>" +
+        '<div class="auth-user__actions">' +
+        '<button class="auth-user__action" type="button" data-auth-action="logout">' +
+        '<svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M16 17l5-5-5-5M21 12H9M12 19H6a2 2 0 01-2-2V7a2 2 0 012-2h6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>' +
+        "Sign out</button>" +
+        '<button class="auth-user__action auth-user__action--danger" type="button" data-auth-action="delete">' +
+        '<svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M3 6h18M8 6V4a1 1 0 011-1h6a1 1 0 011 1v2M6 6l1 14a2 2 0 002 2h6a2 2 0 002-2l1-14" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>' +
+        "Delete account</button>" +
+        "</div>";
+
+      wrap.addEventListener("click", function (e) {
+        var item = e.target.closest("[data-auth-action]");
+        if (!item) return;
+        var action = item.getAttribute("data-auth-action");
+        if (action === "logout") doLogout();
+        else if (action === "delete") openDeleteModal();
+      });
+      return wrap;
+    }
+
     wrap.className = "auth-user";
     wrap.setAttribute("data-auth-user", "");
     wrap.innerHTML =
@@ -268,8 +300,10 @@
       });
       var node = buildUserNode(currentUser);
       insertUser(document.querySelector(".header__actions"), node);
-      insertUser(document.querySelector(".mobile-actions"), node.cloneNode(true));
-      wireClonedMenu();
+      insertUser(
+        document.querySelector(".mobile-actions"),
+        buildUserNode(currentUser, "mobile")
+      );
     } else {
       loginEls.forEach(function (n) {
         n.classList.remove("is-hidden");
@@ -283,29 +317,6 @@
     }
 
     applyAuthGates();
-  }
-
-  // Wire the cloned mobile node (cloneNode drops listeners).
-  function wireClonedMenu() {
-    document.querySelectorAll(".mobile-actions [data-auth-user]").forEach(function (wrap) {
-      var btn = wrap.querySelector(".auth-user__btn");
-      var menu = wrap.querySelector(".auth-menu");
-      if (!btn || !menu) return;
-      btn.addEventListener("click", function (e) {
-        e.stopPropagation();
-        var open = wrap.classList.toggle("is-open");
-        btn.setAttribute("aria-expanded", open ? "true" : "false");
-        closeMenus(wrap);
-      });
-      menu.addEventListener("click", function (e) {
-        var item = e.target.closest("[data-auth-action]");
-        if (!item) return;
-        var action = item.getAttribute("data-auth-action");
-        wrap.classList.remove("is-open");
-        if (action === "logout") doLogout();
-        else if (action === "delete") openDeleteModal();
-      });
-    });
   }
 
   function insertUser(container, node) {

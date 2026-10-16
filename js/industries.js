@@ -1,131 +1,86 @@
 /* ==========================================================================
-   SHANZOO — Industries orbit
-   Keeps the hub in sync with the selected industry node. Desktop gets a
-   connected grid, mobile gets a compact orbit — same data either way.
-   Auto-cycles gently and pauses on hover, focus, or when off screen.
-   Respects prefers-reduced-motion.
+   SHANZOO — Data Services showcase
+   One structured source of topics lives in the markup (generated from a single
+   array), so the media frame and the selector list can never disagree: the
+   image is addressed purely by the same index as its button.
+
+   Desktop: hovering or focusing a row swaps the image + caption (click works
+   too). Touch: tapping a row. The frame itself never resizes — only the inner
+   content cross-fades — so the section never jumps.
    ========================================================================== */
 (function () {
   "use strict";
 
   var REDUCED = window.matchMedia("(prefers-reduced-motion: reduce)");
   var CAN_HOVER = window.matchMedia("(hover: hover)");
-  var CYCLE_MS = 4600;
 
   function pad(n) {
     return (n < 10 ? "0" : "") + n;
   }
 
   function init() {
-    var roots = document.querySelectorAll("[data-industries]");
-    roots.forEach(setup);
+    document.querySelectorAll("[data-dservices]").forEach(setup);
   }
 
   function setup(root) {
-    var nodes = Array.prototype.slice.call(
-      root.querySelectorAll(".industry-node")
-    );
-    if (!nodes.length) return;
+    var buttons = Array.prototype.slice.call(root.querySelectorAll(".dsvc"));
+    if (!buttons.length) return;
 
-    var spokes = Array.prototype.slice.call(
-      root.querySelectorAll(".industries__spoke")
-    );
-    var hubIcon = root.querySelector("[data-hub-icon]");
-    var hubName = root.querySelector("[data-hub-name]");
-    var hubDesc = root.querySelector("[data-hub-desc]");
-    var infoIndex = root.querySelector("[data-info-index]");
-    var infoTitle = root.querySelector("[data-info-title]");
-    var infoDesc = root.querySelector("[data-info-desc]");
+    var images = Array.prototype.slice.call(root.querySelectorAll("[data-dsvc-img]"));
+    var indexEl = root.querySelector("[data-dsvc-index]");
+    var titleEl = root.querySelector("[data-dsvc-title]");
+    var descEl = root.querySelector("[data-dsvc-desc]");
 
-    var total = nodes.length;
-    var current = 0;
-    var timer = null;
-    var paused = false;
-    var inView = true;
+    var total = buttons.length;
+    var current = -1;
 
-    function activate(index) {
-      current = (index + total) % total;
-      var node = nodes[current];
-      var labelEl = node.querySelector(".industry-node__label");
-      var title = (labelEl ? labelEl.textContent : node.textContent).trim();
-      var desc = node.getAttribute("data-desc") || "";
+    function activate(i) {
+      i = (i + total) % total;
+      if (i === current) return;
+      current = i;
 
-      if (hubName) hubName.textContent = title;
-      if (hubDesc) hubDesc.textContent = desc;
-      if (infoTitle) infoTitle.textContent = title;
-      if (infoDesc) infoDesc.textContent = desc;
-      if (infoIndex) infoIndex.textContent = pad(current + 1) + " / " + pad(total);
-
-      var nodeIcon = node.querySelector(".industry-node__icon svg");
-      if (hubIcon && nodeIcon) {
-        hubIcon.innerHTML = "";
-        hubIcon.appendChild(nodeIcon.cloneNode(true));
-      }
-
-      nodes.forEach(function (n, i) {
-        var on = i === current;
-        n.classList.toggle("is-active", on);
-        n.setAttribute("aria-pressed", on ? "true" : "false");
+      buttons.forEach(function (b, k) {
+        var on = k === i;
+        b.classList.toggle("is-active", on);
+        /* The rows are real links, so expose the highlighted one with
+           aria-current rather than aria-pressed (which is for buttons). */
+        if (on) {
+          b.setAttribute("aria-current", "true");
+        } else {
+          b.removeAttribute("aria-current");
+        }
       });
-      spokes.forEach(function (s, i) {
-        s.classList.toggle("is-active", i === current);
+
+      /* Same index, both sides — image and caption can never desync. */
+      images.forEach(function (img, k) {
+        img.classList.toggle("is-active", k === i);
       });
+
+      var btn = buttons[i];
+      var title = btn.querySelector(".dsvc__title");
+      var desc = btn.querySelector(".dsvc__sub");
+      if (titleEl) titleEl.textContent = title ? title.textContent : "";
+      if (descEl) descEl.textContent = desc ? desc.textContent : "";
+      if (indexEl) indexEl.textContent = pad(i + 1) + " / " + pad(total);
     }
 
-    function stop() {
-      if (timer) {
-        window.clearInterval(timer);
-        timer = null;
-      }
-    }
-
-    function start() {
-      if (REDUCED.matches || total < 2) return;
-      stop();
-      timer = window.setInterval(function () {
-        if (!paused && inView) activate(current + 1);
-      }, CYCLE_MS);
-    }
-
-    nodes.forEach(function (node, i) {
-      node.addEventListener("click", function () {
+    buttons.forEach(function (btn, i) {
+      btn.addEventListener("click", function () {
         activate(i);
       });
-      node.addEventListener("focus", function () {
+      btn.addEventListener("focus", function () {
         activate(i);
       });
-      node.addEventListener("pointerenter", function () {
-        if (CAN_HOVER.matches) activate(i);
-      });
+      if (CAN_HOVER.matches) {
+        btn.addEventListener("pointerenter", function () {
+          activate(i);
+        });
+      }
     });
 
-    root.addEventListener("pointerenter", function () {
-      paused = true;
-    });
-    root.addEventListener("pointerleave", function () {
-      paused = false;
-    });
-    root.addEventListener("focusin", function () {
-      paused = true;
-    });
-    root.addEventListener("focusout", function () {
-      paused = false;
-    });
-
-    if ("IntersectionObserver" in window) {
-      var io = new IntersectionObserver(
-        function (entries) {
-          entries.forEach(function (entry) {
-            inView = entry.isIntersecting;
-          });
-        },
-        { threshold: 0.25 }
-      );
-      io.observe(root);
-    }
-
+    /* Keep the first topic in sync if the HTML default ever drifts. */
     activate(0);
-    start();
+    void REDUCED;
   }
 
   if (document.readyState === "loading") {

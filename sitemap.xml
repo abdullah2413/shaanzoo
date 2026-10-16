@@ -5,6 +5,7 @@
   <url><loc>/pages/services.html</loc></url>
   <url><loc>/pages/data-management.html</loc></url>
   <url><loc>/pages/data-integration.html</loc></url>
+  <url><loc>/pages/track-record.html</loc></url>
   <url><loc>/pages/solutions.html</loc></url>
   <url><loc>/pages/industries.html</loc></url>
   <url><loc>/pages/why-shanzoo.html</loc></url>
@@ -29,4 +30,8 @@
   <url><loc>/services/api-integration.html</loc></url>
   <url><loc>/services/event-streaming.html</loc></url>
   <url><loc>/services/data-virtualization.html</loc></url>
+  <url><loc>/services/ai-development.html</loc></url>
+  <url><loc>/services/cloud-virtualization.html</loc></url>
+  <url><loc>/services/software-development.html</loc></url>
+  <url><loc>/services/consulting-managed-services.html</loc></url>
 </urlset>

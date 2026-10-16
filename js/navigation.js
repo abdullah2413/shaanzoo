@@ -137,6 +137,8 @@
       }
       document.documentElement.style.overflow = "hidden";
       document.body.classList.add("nav-open");
+      var closeBtn = nav.querySelector("[data-nav-close]");
+      if (closeBtn) closeBtn.focus();
     }
     function closePanel() {
       nav.classList.remove("is-open");
@@ -157,6 +159,15 @@
       });
     }
     if (overlay) overlay.addEventListener("click", closePanel);
+
+    // Explicit close control inside the panel header
+    var closeBtn = nav.querySelector("[data-nav-close]");
+    if (closeBtn) {
+      closeBtn.addEventListener("click", function () {
+        closePanel();
+        if (toggle) toggle.focus();
+      });
+    }
 
     // Close mobile panel when a real navigation link is chosen
     nav.addEventListener("click", function (e) {

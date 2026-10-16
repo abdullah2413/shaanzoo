@@ -252,16 +252,80 @@ body.auth-modal-open {
   overflow: hidden;
 }
 
-/* Small helper for the mobile auth block */
-.mobile-actions .auth-user {
+/* Mobile account card — a static summary, never a nested dropdown. */
+.auth-user--card {
+  display: block;
   width: 100%;
 }
-.mobile-actions .auth-menu {
-  position: static;
-  display: block;
+.mobile-actions .auth-user--card {
+  width: 100%;
+}
+.auth-user__head {
+  display: flex;
+  align-items: center;
+  gap: 0.7rem;
+  padding: 0.75rem 0.8rem;
+  background: var(--bg-alt);
+  border: 1px solid var(--border);
+  border-radius: var(--r-md);
+}
+.auth-user__meta {
+  display: flex;
+  flex-direction: column;
   min-width: 0;
-  box-shadow: none;
+}
+.auth-user--card .auth-user__name {
+  max-width: none;
+  white-space: normal;
+  overflow-wrap: anywhere;
+  color: var(--navy);
+  font-weight: 700;
+  font-size: 0.95rem;
+}
+.auth-user__email {
+  color: var(--muted);
+  font-size: 0.82rem;
+  overflow-wrap: anywhere;
+}
+.auth-user__actions {
+  display: flex;
+  flex-direction: column;
   margin-top: 0.5rem;
+}
+.auth-user__action {
+  display: flex;
+  align-items: center;
+  gap: 0.6rem;
+  width: 100%;
+  min-height: 46px;
+  padding: 0.6rem 0.8rem;
+  border: 0;
+  background: none;
+  border-radius: var(--r-sm);
+  color: var(--navy);
+  font: inherit;
+  font-weight: 600;
+  text-align: left;
+  cursor: pointer;
+  transition: background-color var(--dur-fast) var(--ease);
+}
+.auth-user__action:hover {
+  background: var(--navy-050);
+}
+.auth-user__action svg {
+  width: 18px;
+  height: 18px;
+  flex: none;
+}
+.auth-user__action--danger {
+  color: #b42318;
+  margin-top: 0.35rem;
+  border-top: 1px solid var(--border);
+  border-radius: 0 0 var(--r-sm) var(--r-sm);
+}
+.auth-user__action--danger:hover {
+  background: #fef3f2;
+  color: #912018;
 }
 
 /* --------------------------- Auth-gated content -------------------------- */

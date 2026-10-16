@@ -103,7 +103,27 @@
   --header-h: 76px;
   --header-h-mobile: 64px;
 
-  --z-header: 1000;
-  --z-mega: 1050;
-  --z-overlay: 1200;
+  /* Stacking order — page content sits at 1, the header context at 100.
+     The backdrop, panel and its close button are layered INSIDE the header
+     context, so they are always painted above the page but the header itself
+     stays below full-screen modals. */
+  --z-header: 100;
+  --z-mega: 150;
+  --z-overlay: 900;
+  --z-menu: 1000;
+  --z-menu-close: 1010;
+  --z-totop: 90;
+
+  /* ---- Environment background ----
+     Shared visual language for the dark, technical "enterprise environment"
+     used by the hero and matching full-bleed sections (e.g. Proven Track
+     Record). Single source of truth so the two never drift apart. */
+  --env-glow-blue: radial-gradient(58% 54% at 86% -8%, rgba(47, 150, 224, 0.34), transparent 60%);
+  --env-glow-green: radial-gradient(56% 54% at 3% 110%, rgba(0, 150, 94, 0.36), transparent 60%);
+  --env-glow-soft: radial-gradient(52% 46% at 30% -14%, rgba(255, 255, 255, 0.1), transparent 62%);
+  --env-navy: linear-gradient(150deg, #0a2b45 0%, #0a2236 50%, #071826 100%);
+  --env-dots: radial-gradient(rgba(160, 205, 245, 0.16) 1.1px, transparent 1.6px),
+    radial-gradient(rgba(255, 255, 255, 0.1) 1px, transparent 1.4px);
+  --env-dot-size: 26px 26px, 26px 26px;
+  --env-dot-pos: 0 0, 13px 13px;
 }

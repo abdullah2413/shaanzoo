@@ -8,8 +8,8 @@
 
 const SITE = {
   name: "SHANZOO",
-  tagline: "Data Management & Integration Services",
-  short: "Enterprise data management and integration consulting from Toronto, Canada.",
+  tagline: "Enterprise Data & Technology Services",
+  short: "Enterprise data, AI, cloud, software and managed technology services from Toronto, Canada.",
   address: "8 Marowyne Dr, Toronto, Ontario, Canada",
   city: "Toronto, Canada",
   phone: "+1 647-546-9772",
@@ -88,6 +88,8 @@ const ICONS = {
   headset:
     '<path d="M3 18v-6a9 9 0 0 1 18 0v6"/><path d="M21 19a2 2 0 0 1-2 2h-1a2 2 0 0 1-2-2v-3a2 2 0 0 1 2-2h3zM3 19a2 2 0 0 0 2 2h1a2 2 0 0 0 2-2v-3a2 2 0 0 0-2-2H3z"/>',
   plus: '<line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/>',
+  close:
+    '<line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/>',
   filter:
     '<polygon points="22 3 2 3 10 12.46 10 19 14 21 14 12.46 22 3"/>',
   scan: '<path d="M3 7V5a2 2 0 0 1 2-2h2"/><path d="M17 3h2a2 2 0 0 1 2 2v2"/><path d="M21 17v2a2 2 0 0 1-2 2h-2"/><path d="M7 21H5a2 2 0 0 1-2-2v-2"/>',
@@ -96,7 +98,13 @@ const ICONS = {
   scale: '<path d="M16 2v4"/><path d="M8 2v4"/><path d="M22 4v11a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V4z"/><path d="M2 4h20"/>',
   sliders:
     '<line x1="4" y1="21" x2="4" y2="14"/><line x1="4" y1="10" x2="4" y2="3"/><line x1="12" y1="21" x2="12" y2="12"/><line x1="12" y1="8" x2="12" y2="3"/><line x1="20" y1="21" x2="20" y2="16"/><line x1="20" y1="12" x2="20" y2="3"/><line x1="1" y1="14" x2="7" y2="14"/><line x1="9" y1="8" x2="15" y2="8"/><line x1="17" y1="16" x2="23" y2="16"/>',
-  key: '<path d="M21 2l-2 2m-7.61 7.61a5.5 5.5 0 1 1-7.778 7.778 5.5 5.5 0 0 1 7.777-7.777zm0 0L15.5 7.5m0 0l3 3L22 7l-3-3m-3.5 3.5L19 4"/>'
+  key: '<path d="M21 2l-2 2m-7.61 7.61a5.5 5.5 0 1 1-7.778 7.778 5.5 5.5 0 0 1 7.777-7.777zm0 0L15.5 7.5m0 0l3 3L22 7l-3-3m-3.5 3.5L19 4"/>',
+  code: '<polyline points="16 18 22 12 16 6"/><polyline points="8 6 2 12 8 18"/>',
+  brain:
+    '<path d="M9.5 2A2.5 2.5 0 0 1 12 4.5v15a2.5 2.5 0 0 1-4.96.44A2.5 2.5 0 0 1 4.5 17.5v-11A2.5 2.5 0 0 1 7 4a2.5 2.5 0 0 1 2.5-2z"/><path d="M14.5 2A2.5 2.5 0 0 0 12 4.5v15a2.5 2.5 0 0 0 4.96.44A2.5 2.5 0 0 0 19.5 17.5v-11A2.5 2.5 0 0 0 17 4a2.5 2.5 0 0 0-2.5-2z"/>',
+  workflow:
+    '<rect x="3" y="3" width="7" height="7" rx="1.5"/><rect x="14" y="14" width="7" height="7" rx="1.5"/><path d="M6.5 10v4.5a3 3 0 0 0 3 3H14"/>',
+  helm: '<circle cx="12" cy="12" r="10"/><circle cx="12" cy="12" r="3"/><path d="M12 2v4M12 18v4M2 12h4M18 12h4M4.9 4.9l2.8 2.8M16.3 16.3l2.8 2.8M4.9 19.1l2.8-2.8M16.3 7.7l2.8-2.8"/>'
 };
 
 function icon(name, extra) {
@@ -230,50 +238,116 @@ const SERVICES = [
 /* Editable highlights shown in the compact strip under the hero.
    These are qualitative/derived facts — no invented client statistics. */
 const HERO_HIGHLIGHTS = [
-  { value: "02", label: "Core disciplines", count: 2, pad: 2 },
+  { value: "06", label: "Core service areas", count: 6, pad: 2 },
   { value: "10", label: "Specialist services", count: 10, pad: 2 },
-  { value: "06", label: "Industries supported", count: 6, pad: 2 },
+  { value: "05", label: "Enterprise engagements", count: 5, pad: 2 },
   { value: "Toronto", label: "Based in Canada" }
 ];
 
-/* Rotating hero service slides. Each slide pairs left-side copy with a distinct
-   right-side visual (see heroVisual* builders in tools/build.js). */
+/* The six official SHANZOO core service categories. `group` drives the
+   homepage explorer filter: "data" = Data Management + Data Integration,
+   "tech" = AI, Cloud, Software and Consulting. */
+const CORE_SERVICES = [
+  {
+    num: "01",
+    slug: "data-management",
+    href: "/pages/data-management.html",
+    title: "Data Management",
+    icon: "database",
+    group: "data",
+    summary: "Govern, secure and improve enterprise data across its lifecycle.",
+    caps: ["MDM", "Governance", "Quality", "Metadata"],
+    explore:
+      "Build trusted enterprise data foundations through governance, quality, MDM and secure architecture.",
+    popular: false
+  },
+  {
+    num: "02",
+    slug: "data-integration",
+    href: "/pages/data-integration.html",
+    title: "Data Integration",
+    icon: "link",
+    group: "data",
+    summary: "Connect applications and data platforms through scalable integration architectures.",
+    caps: ["ETL / ELT", "CDC", "APIs", "Streaming"],
+    explore:
+      "Connect systems, applications and data platforms through secure, scalable and reliable data pipelines.",
+    popular: true
+  },
+  {
+    num: "03",
+    slug: "ai-development",
+    href: "/services/ai-development.html",
+    title: "AI Development",
+    icon: "brain",
+    group: "tech",
+    summary: "Build practical AI solutions for automation, analytics and intelligent business workflows.",
+    caps: ["Enterprise AI", "Automation", "Analytics"],
+    explore:
+      "Build practical AI-powered systems for automation, analytics and intelligent business workflows.",
+    popular: false
+  },
+  {
+    num: "04",
+    slug: "cloud-virtualization",
+    href: "/services/cloud-virtualization.html",
+    title: "Cloud & Virtualization",
+    icon: "cloud",
+    group: "tech",
+    summary: "Modernize infrastructure with scalable cloud and virtualized environments.",
+    caps: ["Cloud Infra", "Hybrid", "Migration"],
+    explore:
+      "Modernize infrastructure with secure cloud architecture, hybrid environments and migration support.",
+    popular: false
+  },
+  {
+    num: "05",
+    slug: "software-development",
+    href: "/services/software-development.html",
+    title: "Software Development & Automation",
+    icon: "code",
+    group: "tech",
+    summary: "Develop custom applications and automate repetitive business processes.",
+    caps: ["Custom Apps", "APIs", "DevOps"],
+    explore:
+      "Develop custom applications, internal portals and workflow automation built around real business operations.",
+    popular: false
+  },
+  {
+    num: "06",
+    slug: "consulting-managed-services",
+    href: "/services/consulting-managed-services.html",
+    title: "Consulting & Managed Services",
+    icon: "helm",
+    group: "tech",
+    summary: "Plan, implement, manage and continuously improve enterprise technology environments.",
+    caps: ["Consulting", "Architecture", "Support"],
+    explore:
+      "Plan, implement and continuously improve enterprise technology with consulting and managed services.",
+    popular: false
+  }
+];
+
+/* Rotating hero service slides — exactly two. Each slide pairs left-side copy
+   with a distinct right-side visual (see heroVisual* builders in build.js). */
 const HERO_SLIDES = [
   {
-    label: "Data Management",
-    heading: "Turn Complex Data Into <span class=\"accent\">Trusted Business Intelligence</span>",
-    lead: "Help organizations organize, govern, protect and improve enterprise data through structured data management strategies.",
-    primary: { href: "/pages/data-management.html", label: "Explore Data Management" },
+    label: "Enterprise Data Services",
+    heading: "Data Management<br>&amp; <span class=\"accent\">Data Integration</span><br>Services",
+    lead: "Manage, govern, secure and connect enterprise data across systems.",
+    primary: { href: "/pages/data-management.html", label: "Explore Data Services" },
     secondary: { href: "/pages/contact.html#consultation", label: "Talk to Our Team" },
-    tags: ["Data Governance", "MDM", "Data Quality", "Metadata"],
-    visual: "network"
+    tags: ["Data Governance", "MDM", "Data Quality", "Data Integration"],
+    visual: "datahub"
   },
   {
-    label: "Data Integration",
-    heading: "Connect Your Data. <span class=\"accent\">Power Every System.</span>",
-    lead: "Bring enterprise systems together through reliable ETL, ELT, CDC, streaming and modern data integration architecture.",
-    primary: { href: "/pages/data-integration.html", label: "Explore Data Integration" },
-    secondary: { href: "/pages/contact.html#consultation", label: "Talk to Our Team" },
-    tags: ["ETL / ELT", "CDC", "Streaming", "APIs"],
-    visual: "pipeline"
-  },
-  {
-    label: "Data Governance",
-    heading: "Reliable Data Starts With <span class=\"accent\">Strong Governance</span>",
-    lead: "Improve data accuracy, ownership, consistency and compliance across the enterprise.",
-    primary: { href: "/services/data-governance.html", label: "Explore Governance" },
-    secondary: { href: "/pages/contact.html#consultation", label: "Talk to Our Team" },
-    tags: ["Governance", "Quality", "Compliance", "Metadata"],
-    visual: "dashboard"
-  },
-  {
-    label: "Data Architecture",
-    heading: "Build Data Foundations <span class=\"accent\">Designed to Scale</span>",
-    lead: "Design modern data architectures and models that support analytics, integration and long-term business growth.",
-    primary: { href: "/services/data-architecture.html", label: "Explore Architecture" },
-    secondary: { href: "/pages/contact.html#consultation", label: "Talk to Our Team" },
-    tags: ["Architecture", "Data Modeling", "Cloud", "Scalability"],
-    visual: "layers"
+    label: "AI • Software • Managed Services",
+    heading: "AI Development<br>&amp; <span class=\"accent\">Software Automation</span><br>Consulting &amp; Managed Services",
+    lead: "Build intelligent software, automate workflows and manage modern technology environments.",
+    primary: { href: "/pages/services.html", label: "Explore Our Services" },
+    secondary: { href: "/pages/contact.html#consultation", label: "Start a Conversation" },
+    tags: ["AI Development", "Software & Automation", "Cloud", "Managed Services"],
+    visual: "opsmap"
   }
 ];
 
@@ -283,10 +357,10 @@ const HOME_SERVICES = [
   {
     tag: "Data",
     icon: "database",
-    title: "Master Data Management",
-    text: "One trusted version of your customers, products and vendors.",
+    title: "Data Management",
+    text: "One trusted, governed version of your customers, products and vendors.",
     cta: "Learn More",
-    href: "/services/master-data-management.html"
+    href: "/pages/data-management.html"
   },
   {
     tag: "Integration",
@@ -297,46 +371,285 @@ const HOME_SERVICES = [
     href: "/pages/data-integration.html"
   },
   {
-    tag: "Governance",
-    icon: "shield",
-    title: "Data Governance & Quality",
-    text: "Clear rules, owners and definitions that keep data accurate and trustworthy.",
+    tag: "AI",
+    icon: "brain",
+    title: "AI Development",
+    text: "Practical AI systems for automation, analytics and intelligent workflows.",
     cta: "Learn More",
-    href: "/services/data-governance.html"
+    href: "/services/ai-development.html"
   },
   {
-    tag: "Security",
-    icon: "lock",
-    title: "Data Security & Privacy",
-    text: "Protect sensitive data with access controls, masking and audit trails.",
+    tag: "Cloud",
+    icon: "cloud",
+    title: "Cloud & Virtualization",
+    text: "Scalable, secure cloud and virtualized infrastructure modernized for growth.",
     cta: "Learn More",
-    href: "/services/data-security.html"
+    href: "/services/cloud-virtualization.html"
   },
   {
-    tag: "Engineering",
-    icon: "layers",
-    title: "Data Architecture & Modeling",
-    text: "Purpose-built foundations that scale with your business.",
-    cta: "Discuss Your Project",
-    href: "/pages/contact.html#consultation"
+    tag: "Software",
+    icon: "code",
+    title: "Software & Automation",
+    text: "Custom applications, portals and workflow automation for real operations.",
+    cta: "Learn More",
+    href: "/services/software-development.html"
+  },
+  {
+    tag: "Managed",
+    icon: "helm",
+    title: "Consulting & Managed Services",
+    text: "Technology consulting, implementation support and ongoing management.",
+    cta: "Learn More",
+    href: "/services/consulting-managed-services.html"
   }
 ];
 
-/* Project showcase items. No case-study routes exist, so each links to the
-   most relevant existing service page. `accent` is revealed on hover and `s`
-   subtly varies the type size to create visual rhythm. */
-const PROJECTS = [
-  { name: "Unified Customer View", slug: "master-data-management", accent: "#00965e", s: 1.06, mark: { type: "monogram", text: "UC" } },
-  { name: "Real-Time Order Stream", slug: "event-streaming", accent: "#0f766e", s: 0.86, mark: { type: "symbol", icon: "activity" } },
-  { name: "Cloud Data Platform", slug: "data-architecture", accent: "#0a4a7f", s: 1.14, mark: { type: "wordmark" } },
-  { name: "Governed Data Catalog", slug: "data-governance", accent: "#007a4c", s: 0.92, mark: { type: "monogram", text: "DC" } },
-  { name: "Legacy Modernization", slug: "api-integration", accent: "#0a7a5a", s: 1.04, mark: { type: "symbol", icon: "refresh" } },
-  { name: "Data Quality Remediation", slug: "data-quality", accent: "#00965e", s: 0.9, mark: { type: "monogram", text: "DQ" } },
-  { name: "Single Source of Truth", slug: "master-data-management", accent: "#0a4a7f", s: 1.1, mark: { type: "lettermark", text: "S" } },
-  { name: "API Integration Layer", slug: "api-integration", accent: "#007a4c", s: 0.94, mark: { type: "symbol", icon: "link" } },
-  { name: "Change Data Capture", slug: "change-data-capture", accent: "#0f766e", s: 1.02, mark: { type: "lettermark", text: "C" } },
-  { name: "Privacy & Access Controls", slug: "data-security", accent: "#0a7a5a", s: 0.88, mark: { type: "symbol", icon: "lock" } }
+/* Proven track record — real enterprise engagements supplied by SHANZOO.
+   `summary` is the short homepage card copy; `detail` is the expanded
+   description used on the dedicated track-record page. */
+const TRACK_RECORD = [
+  {
+    year: "2011 – 2016",
+    client: "State Farm",
+    category: "Contact Center",
+    icon: "headset",
+    summary:
+      "5-year contact center lab infrastructure supporting scalable, secure call-flow design.",
+    detail:
+      "Five-year contact center lab infrastructure supporting scalable and secure call-flow designs to streamline agent workflows and improve customer interactions."
+  },
+  {
+    year: "2024 – Ongoing",
+    client: "Memorial Hermann / LA County",
+    category: "Portal Development",
+    icon: "globe",
+    summary:
+      "Contact center portals for intelligent announcement management with security-focused delivery.",
+    detail:
+      "Contact center portals for intelligent announcement management, including development, deployment and maintenance of internal and external websites with security-focused implementation."
+  },
+  {
+    year: "2022",
+    client: "USAA",
+    category: "Optimization",
+    icon: "sliders",
+    summary:
+      "Call flow, routing, skill-group and prompt optimization with zero-downtime implementation.",
+    detail:
+      "Contact center optimization covering call flows, business-hours routing, skill-group configurations and prompt management with zero-downtime implementation."
+  },
+  {
+    year: "2022",
+    client: "Intel",
+    category: "DevOps",
+    icon: "git",
+    summary:
+      "GitHub-based CI environments and custom Python scripts to optimize deployment workflows.",
+    detail:
+      "DevOps infrastructure project using GitHub-based CI environments and custom Python scripts to optimize workflows and improve deployment processes."
+  },
+  {
+    year: "2023 – 2024",
+    client: "Texas Commission on Environmental Quality",
+    category: "Cloud Communications",
+    icon: "cloud",
+    summary:
+      "Secure cloud eFax migration with 100 DID numbers on TLS v1.2-encrypted transmission.",
+    detail:
+      "Migrated traditional fax workflows to secure cloud-based eFax and deployed 100 DID numbers using TLS v1.2 encryption for compliant document transmission."
+  }
 ];
+
+/* ------------- Technology services (detail page content) ----------------- */
+/* Keyed by the CORE_SERVICES slug. Mirrors the SC structure used for the data
+   management / integration service pages so buildTechService can render the
+   same layout. Copy is intentionally qualitative — no invented metrics. */
+const TECH_SERVICE_CONTENT = {
+  "ai-development": {
+    category: "AI Development",
+    heroSub:
+      "Build practical, production-ready AI solutions that automate work, surface insight and improve everyday business decisions.",
+    short: "Practical AI for automation, analytics and intelligent workflows.",
+    benefit: "Turns repetitive work and unused data into faster, more consistent outcomes.",
+    problems: [
+      { t: "Repetitive, manual work", d: "Skilled people spend hours on tasks — reading documents, sorting requests, re-keying data — that could be handled automatically." },
+      { t: "Data that never becomes action", d: "You collect valuable information but have no practical way to turn it into predictions, priorities or next steps." },
+      { t: "AI pilots that stall", d: "Ideas start with enthusiasm and then stall, because they are not tied to a real workflow or a measurable outcome." }
+    ],
+    benefits: [
+      { t: "Automation where it counts", d: "High-volume, repetitive processes run consistently, freeing your team for judgement and relationships." },
+      { t: "Faster, sharper decisions", d: "Models surface patterns and predictions inside the tools your team already uses." },
+      { t: "Pragmatic, not hype-driven", d: "Every solution is scoped around a business outcome you can actually measure." },
+      { t: "Built to be maintained", d: "Documented, monitored and handed over — not a black box you cannot touch." }
+    ],
+    caps: [
+      "AI opportunity assessment and use-case prioritisation",
+      "Machine-learning model development and evaluation",
+      "Large-language-model and retrieval-augmented (RAG) applications",
+      "Document, text and image processing",
+      "Forecasting, scoring and classification models",
+      "Data pipelines that feed models reliably",
+      "Monitoring, evaluation and responsible-AI guardrails",
+      "Integration of AI into existing business applications"
+    ],
+    uses: [
+      { t: "Document processing", d: "Extract and classify information from forms, invoices and correspondence so staff review exceptions instead of typing." },
+      { t: "Customer and risk insight", d: "Predict churn, prioritise leads and flag anomalies before they become expensive problems." },
+      { t: "Intelligent assistants", d: "Internal assistants that answer questions from your own knowledge base, with sources they can point to." }
+    ],
+    faqs: [
+      { q: "Do we need huge amounts of data to start?", a: "Not always. Many valuable use cases work well with the data you already have. We start where the value is clear and the data is good enough." },
+      { q: "Will AI replace our team?", a: "Our focus is augmentation — removing tedious work so your people can concentrate on judgement, relationships and the parts of the job that need a human." },
+      { q: "How do you keep AI responsible?", a: "With clear scope, human review where it matters, documented behaviour and ongoing monitoring and evaluation." }
+    ],
+    help: "We start with a focused assessment, identify where AI genuinely helps, then build and integrate a solution your team can own and maintain.",
+    helpPoints: [
+      "AI readiness and opportunity assessment",
+      "Use-case selection and value mapping",
+      "Model or LLM application build",
+      "Integration with your systems and workflows",
+      "Evaluation, monitoring and team enablement"
+    ]
+  },
+  "cloud-virtualization": {
+    category: "Cloud & Virtualization",
+    heroSub:
+      "Modernize your infrastructure with secure, scalable cloud and virtualized environments designed around how your business actually runs.",
+    short: "Scalable, secure cloud and virtualized infrastructure modernized for growth.",
+    benefit: "Delivers resilient, right-sized infrastructure with clearer, more predictable cost.",
+    problems: [
+      { t: "Aging, rigid infrastructure", d: "On-premise servers are costly to maintain, slow to change and hard to scale when demand shifts." },
+      { t: "Unclear cloud costs", d: "Spend is difficult to predict or explain, and easy to let creep upward." },
+      { t: "Inconsistent environments", d: "Differences between test and production cause surprises exactly when you do not want them." }
+    ],
+    benefits: [
+      { t: "Capacity that scales", d: "Resources grow and shrink with demand instead of sitting idle." },
+      { t: "More predictable cost", d: "Right-sized infrastructure and better visibility make spending easier to forecast." },
+      { t: "Resilience by design", d: "Redundancy, backups and recovery are designed in from the start." },
+      { t: "Faster delivery", d: "New environments can be provisioned in minutes, not weeks." }
+    ],
+    caps: [
+      "Cloud architecture and landing-zone design",
+      "Migration planning and execution (AWS, Azure, GCP)",
+      "Virtualization (VMware, Hyper-V and similar)",
+      "Hybrid and multi-cloud connectivity",
+      "Serverless, containers and orchestration",
+      "Backup, disaster recovery and business continuity",
+      "Cost optimisation and monitoring",
+      "Identity, networking and security configuration"
+    ],
+    uses: [
+      { t: "Migration to the cloud", d: "Move existing workloads to the cloud in phases, with minimal disruption to day-to-day operations." },
+      { t: "Hybrid environments", d: "Keep sensitive systems on-premise while using cloud capacity for scale and new services." },
+      { t: "Modern application hosting", d: "Containerised, resilient hosting for new applications and services." }
+    ],
+    faqs: [
+      { q: "Which cloud provider should we choose?", a: "It depends on your workloads, your team's skills and any existing commitments. We advise on fit rather than hype, and we work with AWS, Azure and GCP." },
+      { q: "Will migration disrupt our operations?", a: "With proper planning, migrations are phased and can run with minimal downtime. We test cutovers carefully before they happen." },
+      { q: "Can you manage it after migration?", a: "Yes. Ongoing management, monitoring and cost optimisation are available as a managed service." }
+    ],
+    help: "We assess your current environment, design a right-sized target and migrate in phases so your operations keep running throughout.",
+    helpPoints: [
+      "Infrastructure and workload assessment",
+      "Target architecture and migration plan",
+      "Phased migration and cutover",
+      "Security, backup and monitoring setup",
+      "Cost optimisation and hand-over"
+    ]
+  },
+  "software-development": {
+    category: "Software Development & Automation",
+    heroSub:
+      "Develop custom applications, portals and workflow automation built around the way your business actually works.",
+    short: "Custom applications, internal portals and workflow automation.",
+    benefit: "Replaces workarounds and manual steps with software that fits your operations.",
+    problems: [
+      { t: "Off-the-shelf tools that don't fit", d: "Generic software forces your team to work around its limits instead of doing things the way your business needs." },
+      { t: "Spreadsheet-driven processes", d: "Critical workflows run on fragile shared files that are hard to control, audit or scale." },
+      { t: "Manual handovers", d: "Steps between systems and people lose time, introduce errors and hide where work is stuck." }
+    ],
+    benefits: [
+      { t: "Software that matches how you work", d: "Built around your actual processes, not a vendor's idea of them." },
+      { t: "Fewer manual steps", d: "Automation removes repetitive work and the errors that come with it." },
+      { t: "One place for everything", d: "Portals and dashboards replace scattered tools and hidden spreadsheets." },
+      { t: "Easier to change", d: "Maintainable code and clear documentation your team can grow with." }
+    ],
+    caps: [
+      "Custom web applications and internal portals",
+      "Workflow and business-process automation",
+      "API development and system integration",
+      "Modern front-end and back-end development",
+      "DevOps, CI/CD and automated testing",
+      "Database design and data-access layers",
+      "Authentication, roles and access control",
+      "Legacy system modernisation"
+    ],
+    uses: [
+      { t: "Internal operations portal", d: "A single place to raise, track, approve and record requests instead of juggling email and spreadsheets." },
+      { t: "Process automation", d: "Replace manual data entry and hand-offs with reliable, auditable workflows." },
+      { t: "Customer-facing tools", d: "Self-service portals and forms that connect securely to your back-end systems." }
+    ],
+    faqs: [
+      { q: "Do you build on a specific technology stack?", a: "We choose technology to fit the problem and your team's ability to maintain it, rather than forcing a favourite framework." },
+      { q: "Can it integrate with our existing systems?", a: "Yes. Integration with the systems you already rely on is designed in from the start, not added on at the end." },
+      { q: "Who owns the code?", a: "You do. We hand over the source, documentation and the knowledge your team needs to carry it forward." }
+    ],
+    help: "We design and build software around the way your business actually works, then test it, launch it and support it alongside your team.",
+    helpPoints: [
+      "Requirements and workflow discovery",
+      "Solution and user-experience design",
+      "Build, test and iterate",
+      "Integration and deployment",
+      "Documentation, training and support"
+    ]
+  },
+  "consulting-managed-services": {
+    category: "Consulting & Managed Services",
+    heroSub:
+      "Plan, implement and continuously improve your enterprise technology with independent consulting and dependable managed services.",
+    short: "Technology consulting, implementation support and ongoing management.",
+    benefit: "Gives you clear direction and dependable support without stretching your team thin.",
+    problems: [
+      { t: "No clear technology roadmap", d: "Decisions get made one at a time, with no plan connecting them to where the business is heading." },
+      { t: "Teams stretched thin", d: "There is little capacity to keep systems running well and also plan for what comes next." },
+      { t: "Knowledge held by one person", d: "Critical systems are understood by a single individual, which is a real risk if they move on." }
+    ],
+    benefits: [
+      { t: "Clear direction", d: "A practical roadmap tied directly to business goals and priorities." },
+      { t: "Extra capacity on demand", d: "Experienced support without committing to a full-time hire." },
+      { t: "Reduced risk", d: "Systems monitored, maintained and documented so they are not a single point of failure." },
+      { t: "Focus on the business", d: "Your team concentrates on core work while the technology keeps running." }
+    ],
+    caps: [
+      "Technology strategy and roadmap development",
+      "Architecture review and technical due diligence",
+      "Vendor and platform selection",
+      "Programme and project management",
+      "Managed operations and monitoring",
+      "Ongoing support and maintenance",
+      "Documentation and knowledge transfer",
+      "Cost and performance reviews"
+    ],
+    uses: [
+      { t: "Technology roadmap", d: "A prioritised plan for the next twelve to twenty-four months, sequenced around value." },
+      { t: "Managed support", d: "Reliable day-to-day operation of the systems your business depends on." },
+      { t: "Independent advice", d: "Vendor-neutral guidance on platforms, investments and the trade-offs between them." }
+    ],
+    faqs: [
+      { q: "Are you vendor-neutral?", a: "Yes. Our advice is based on your needs and constraints, not on vendor incentives." },
+      { q: "Can you work alongside our internal team?", a: "Absolutely. We are designed to support and augment your existing capabilities rather than replace them." },
+      { q: "What does a managed service include?", a: "Monitoring, maintenance, support and continuous improvement, scoped to the systems and level of coverage you need." }
+    ],
+    help: "We provide independent advice and dependable ongoing management so your technology keeps pace with the business.",
+    helpPoints: [
+      "Assessment and strategy workshop",
+      "Prioritised roadmap and quick wins",
+      "Implementation support",
+      "Managed monitoring and maintenance",
+      "Regular reviews and improvement"
+    ]
+  }
+};
 
 /* --------------------------- Illustrations ------------------------------- */
 function svgNetwork() {
@@ -542,6 +855,12 @@ const NAV = {
     { slug: "event-streaming", title: "Event-Driven Streaming", desc: "Near-real-time data flows", icon: "radio" },
     { slug: "data-virtualization", title: "Data Virtualization", desc: "One view of data, wherever it lives", icon: "cloud" }
   ],
+  megaTechnology: [
+    { href: "/services/ai-development.html", title: "AI Development", desc: "Practical AI for automation and analytics", icon: "brain" },
+    { href: "/services/cloud-virtualization.html", title: "Cloud & Virtualization", desc: "Scalable, secure cloud infrastructure", icon: "cloud" },
+    { href: "/services/software-development.html", title: "Software Development & Automation", desc: "Custom apps, portals and workflow automation", icon: "code" },
+    { href: "/services/consulting-managed-services.html", title: "Consulting & Managed Services", desc: "Technology consulting and ongoing management", icon: "helm" }
+  ],
   about: [
     { href: "/pages/about.html", title: "About SHANZOO", desc: "Who we are and what we do" },
     { href: "/pages/why-shanzoo.html", title: "Why SHANZOO", desc: "What makes us different" },
@@ -558,8 +877,10 @@ module.exports = {
   NAV,
   HERO_HIGHLIGHTS,
   HERO_SLIDES,
+  CORE_SERVICES,
   HOME_SERVICES,
-  PROJECTS,
+  TRACK_RECORD,
+  TECH_SERVICE_CONTENT,
   svgNetwork,
   svgPipeline,
   svgVault,

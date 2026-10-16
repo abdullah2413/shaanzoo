@@ -124,11 +124,37 @@
     });
   }
 
+  function initExplorerFilters() {
+    var boxes = document.querySelectorAll("[data-explorer]");
+    boxes.forEach(function (box) {
+      var buttons = Array.prototype.slice.call(box.querySelectorAll("[data-filter]"));
+      var cards = Array.prototype.slice.call(box.querySelectorAll("[data-explorer-card]"));
+      if (!buttons.length || !cards.length) return;
+
+      buttons.forEach(function (btn) {
+        btn.addEventListener("click", function () {
+          var filter = btn.getAttribute("data-filter");
+          buttons.forEach(function (b) {
+            var active = b === btn;
+            b.classList.toggle("is-active", active);
+            b.setAttribute("aria-pressed", active ? "true" : "false");
+          });
+          cards.forEach(function (card) {
+            var group = card.getAttribute("data-group");
+            var show = filter === "all" || group === filter;
+            card.classList.toggle("is-hidden", !show);
+          });
+        });
+      });
+    });
+  }
+
   function init() {
     initAccordions();
     initScrollSpy();
     initSmoothAnchors();
     initTabs();
+    initExplorerFilters();
   }
 
   if (document.readyState === "loading") {

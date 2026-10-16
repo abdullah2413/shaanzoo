@@ -800,33 +800,38 @@
   border-radius: var(--r-lg);
   overflow: hidden;
   height: 100%;
-  transition: transform var(--dur) var(--ease), box-shadow var(--dur) var(--ease);
+  transition: transform var(--dur) var(--ease), box-shadow var(--dur) var(--ease),
+    border-color var(--dur) var(--ease);
 }
 .insight-card:hover {
   transform: translateY(-6px);
   box-shadow: var(--shadow-lg);
+  border-color: transparent;
 }
 .insight-card__media {
   aspect-ratio: 16 / 9;
-  background: linear-gradient(150deg, var(--navy), var(--navy-600));
-  display: grid;
-  place-items: center;
+  display: block;
   position: relative;
   overflow: hidden;
+  background: linear-gradient(150deg, var(--navy), var(--navy-600));
+}
+.insight-card__media img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center;
+  display: block;
+  transition: transform 0.5s var(--ease);
+}
+@media (hover: hover) {
+  .insight-card:hover .insight-card__media img {
+    transform: scale(1.04);
+  }
 }
 .insight-card__media svg {
   width: 56px;
   height: 56px;
   color: rgba(255, 255, 255, 0.92);
-}
-.insight-card__media::after {
-  content: "";
-  position: absolute;
-  inset: 0;
-  background-image: linear-gradient(rgba(255, 255, 255, 0.08) 1px, transparent 1px),
-    linear-gradient(90deg, rgba(255, 255, 255, 0.08) 1px, transparent 1px);
-  background-size: 28px 28px;
-  opacity: 0.6;
 }
 .insight-card__body {
   padding: clamp(1.15rem, 0.95rem + 0.9vw, 1.4rem);
@@ -846,6 +851,12 @@
   font-size: 1.12rem;
   margin-bottom: 0.5rem;
 }
+.insight-card h3 a {
+  color: inherit;
+}
+.insight-card h3 a:hover {
+  color: var(--blue);
+}
 .insight-card p {
   color: var(--muted);
   font-size: 0.92rem;
@@ -853,6 +864,24 @@
 }
 .insight-card .text-link {
   margin-top: 1.1rem;
+}
+
+/* Featured editorial card — image beside the copy on wide screens */
+.insight-card--feature {
+  display: grid;
+  grid-template-columns: 1.1fr 1fr;
+}
+.insight-card--feature .insight-card__media {
+  aspect-ratio: auto;
+  min-height: 100%;
+  height: 100%;
+}
+.insight-card--feature .insight-card__body {
+  padding: clamp(1.4rem, 1.1rem + 1.4vw, 2.4rem);
+  justify-content: center;
+}
+.insight-card--feature h3 {
+  font-size: clamp(1.25rem, 1.05rem + 1vw, 1.75rem);
 }
 
 /* ------------------------------ Related services ------------------------- */

@@ -715,7 +715,7 @@ a {
   opacity: 0;
   visibility: hidden;
   transition: opacity var(--dur) var(--ease), visibility var(--dur);
-  z-index: calc(var(--z-header) - 1);
+  z-index: var(--z-overlay);
 }
 .mobile-overlay.is-open {
   opacity: 1;
@@ -851,7 +851,7 @@ a {
   transform: translateY(12px);
   transition: opacity var(--dur) var(--ease), transform var(--dur) var(--ease),
     visibility var(--dur), background-color var(--dur) var(--ease);
-  z-index: 900;
+  z-index: var(--z-totop);
 }
 .to-top.is-visible {
   opacity: 1;

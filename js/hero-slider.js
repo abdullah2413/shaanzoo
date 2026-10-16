@@ -15,6 +15,7 @@
   var visuals = Array.prototype.slice.call(root.querySelectorAll("[data-hero-visual]"));
   var dots = Array.prototype.slice.call(root.querySelectorAll("[data-hero-dot]"));
   var currentEl = root.querySelector("[data-hero-current]");
+  var progressEl = root.querySelector("[data-hero-progress]");
   var prevBtn = root.querySelector("[data-hero-prev]");
   var nextBtn = root.querySelector("[data-hero-next]");
 
@@ -25,6 +26,8 @@
   var canHover = window.matchMedia("(hover: hover) and (min-width: 901px)");
   var DURATION = 7000;
 
+  if (progressEl) progressEl.style.setProperty("--hero-duration", DURATION + "ms");
+
   var index = 0;
   var timer = null;
   var visible = true;
@@ -32,6 +35,20 @@
 
   function pad2(n) {
     return (n < 10 ? "0" : "") + n;
+  }
+
+  function restartProgress() {
+    if (!progressEl || REDUCED.matches) return;
+    progressEl.classList.remove("is-running", "is-paused");
+    /* Force reflow so the animation restarts cleanly on every slide change. */
+    void progressEl.offsetWidth;
+    progressEl.classList.add("is-running");
+    if (!shouldRun()) progressEl.classList.add("is-paused");
+  }
+
+  function syncProgressPause() {
+    if (!progressEl || REDUCED.matches) return;
+    progressEl.classList.toggle("is-paused", !shouldRun());
   }
 
   function render() {
@@ -47,6 +64,7 @@
       }
     }
     if (currentEl) currentEl.textContent = pad2(index + 1);
+    restartProgress();
   }
 
   function shouldRun() {
@@ -58,6 +76,7 @@
       clearInterval(timer);
       timer = null;
     }
+    syncProgressPause();
   }
 
   function start() {
@@ -66,6 +85,7 @@
     timer = window.setInterval(function () {
       go(index + 1);
     }, DURATION);
+    restartProgress();
   }
 
   function restart() {

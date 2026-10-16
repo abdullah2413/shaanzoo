@@ -149,6 +149,19 @@ function header(opts) {
     "Data Integration Services</p><ul class=\"mega__list\">" +
     D.NAV.megaIntegration.map((m) => megaItem(root, m)).join("") +
     '</ul><a class="text-link mt-2" href="' + href(root, "/pages/data-integration.html") + '">All Data Integration services ' + svg("arrow") + "</a></div>";
+  const techCol =
+    '<div class="mega__col"><p class="mega__title">' +
+    svg("cpu") +
+    "Technology Services</p><ul class=\"mega__list\">" +
+    D.NAV.megaTechnology
+      .map((m) =>
+        '<li><a class="mega__item" href="' + href(root, m.href) + '">' +
+        '<span class="mega__icon">' + svg(m.icon) + "</span>" +
+        "<span><span class=\"mega__label\">" + m.title + "</span>" +
+        '<span class="mega__desc">' + m.desc + "</span></span></a></li>"
+      )
+      .join("") +
+    '</ul><a class="text-link mt-2" href="' + href(root, "/pages/services.html") + '">All services ' + svg("arrow") + "</a></div>";
 
   const aboutLinks = D.NAV.about
     .map(
@@ -175,14 +188,15 @@ function header(opts) {
     '<li class="nav__item" data-dropdown>\n' +
     '  <button class="nav__link" type="button" aria-haspopup="true" aria-expanded="false" aria-controls="menu-services">Services ' + svg("chevron", "nav__caret") + "</button>\n" +
     '  <div class="mega mega--wide" id="menu-services" role="region" aria-label="SHANZOO services">' +
-    '<div class="mega__grid">' +
+    '<div class="mega__grid mega__grid--3">' +
     mgmtCol +
     intCol +
+    techCol +
     '</div><div class="mega__foot"><p class="mega__foot-note">Not sure where to start? We will help you find the right path.</p>' +
     '<a class="btn btn--navy btn--sm" href="' + href(root, "/pages/contact.html#consultation") + '">Get a Consultation</a>' +
     "</div></div></li>\n" +
     '<li><a class="nav__link" href="' + href(root, "/pages/solutions.html") + '">Solutions</a></li>\n' +
-    '<li><a class="nav__link" href="' + href(root, "/pages/industries.html") + '">Industries</a></li>\n' +
+    '<li><a class="nav__link" href="' + href(root, "/pages/track-record.html") + '">Track Record</a></li>\n' +
     '<li><a class="nav__link" href="' + href(root, "/pages/insights.html") + '">Insights</a></li>\n' +
     '<li><a class="nav__link" href="' + href(root, "/pages/contact.html") + '">Contact Us</a></li>\n';
 
@@ -192,7 +206,12 @@ function header(opts) {
     '        <img class="brand__logo" src="' + pre + 'assets/logo/shanzoo-logo-360.png" alt="SHANZOO logo — navy hexagonal data mark with green analytics bars" width="360" height="239" fetchpriority="high">\n' +
     "      </a>\n" +
     '      <button class="nav-toggle" type="button" aria-label="Open menu" aria-expanded="false" aria-controls="primary-nav"><span class="nav-toggle__bars"></span></button>\n' +
-    '      <nav id="primary-nav" class="nav" aria-label="Main navigation">\n        <ul class="nav__list">\n' +
+    '      <nav id="primary-nav" class="nav" aria-label="Main navigation">\n' +
+    '        <div class="nav__panel-head">\n' +
+    '          <span class="nav__panel-title">Menu</span>\n' +
+    '          <button class="nav__close" type="button" aria-label="Close menu" data-nav-close>' + svg("close") + "</button>\n" +
+    "        </div>\n" +
+    '        <ul class="nav__list">\n' +
     navItems +
     '        </ul>\n' +
     '        <div class="mobile-actions">\n' +
@@ -208,43 +227,37 @@ function header(opts) {
     '        <a class="btn btn--ghost btn--sm header__signup" data-auth-signup href="' + href(root, "/pages/signup.html") + '">Sign Up</a>\n' +
     '        <a class="btn btn--primary btn--sm" data-auth-cta href="' + href(root, "/pages/contact.html#consultation") + '">Get a Consultation</a>\n' +
     "      </div>\n" +
-    "    </div>\n" +
-    "  </div>\n</header>\n" +
-    '<div class="mobile-overlay" aria-hidden="true"></div>'
+    "    </div>\n  </div>\n" +
+    '  <div class="mobile-overlay" aria-hidden="true"></div>\n' +
+    "</header>"
   );
 }
 
 function footer(opts) {
   const root = opts.root;
-  const serviceLinks = (list) =>
-    list
-      .map(
-        (s) =>
-          '<li><a href="' + href(root, "/services/" + s.slug + ".html") + '">' +
-          svg("chevron") + s.title + "</a></li>"
-      )
-      .join("");
+  const coreLinks = D.CORE_SERVICES.map(
+    (s) =>
+      '<li><a href="' + href(root, s.href) + '">' +
+      svg("chevron") + s.title + "</a></li>"
+  ).join("");
   return (
     '<footer class="site-footer">\n  <div class="container">\n    <div class="footer-top">\n' +
     '      <div class="footer-brand">\n' +
     '        <a class="footer-brand__logo-wrap" href="' + href(root, "/index.html") + '" aria-label="SHANZOO home">\n' +
     '          <img src="' + root + 'assets/logo/shanzoo-logo-360.png" alt="SHANZOO logo" width="360" height="239">\n' +
     "        </a>\n" +
-    "        <p>SHANZOO helps organizations manage, organize, secure, improve, connect and move their business data — so teams can work faster and make better decisions.</p>\n" +
+    "        <p>SHANZOO delivers enterprise data management, integration, AI, cloud, software and managed technology services — so teams can work faster and make better decisions.</p>\n" +
     "      </div>\n" +
     '      <div class="footer-col">\n        <h3>Company</h3>\n        <ul>\n' +
     '          <li><a href="' + href(root, "/pages/about.html") + '">' + svg("chevron") + "About SHANZOO</a></li>\n" +
     '          <li><a href="' + href(root, "/pages/why-shanzoo.html") + '">' + svg("chevron") + "Why SHANZOO</a></li>\n" +
     '          <li><a href="' + href(root, "/pages/our-approach.html") + '">' + svg("chevron") + "Our Approach</a></li>\n" +
-    '          <li><a href="' + href(root, "/pages/solutions.html") + '">' + svg("chevron") + "Solutions</a></li>\n" +
+    '          <li><a href="' + href(root, "/pages/track-record.html") + '">' + svg("chevron") + "Track Record</a></li>\n" +
     '          <li><a href="' + href(root, "/pages/industries.html") + '">' + svg("chevron") + "Industries</a></li>\n" +
     '          <li><a href="' + href(root, "/pages/insights.html") + '">' + svg("chevron") + "Insights</a></li>\n" +
     "        </ul>\n      </div>\n" +
-    '      <div class="footer-col">\n        <h3>Data Management</h3>\n        <ul>' +
-    serviceLinks(D.NAV.megaManagement) +
-    "        </ul>\n      </div>\n" +
-    '      <div class="footer-col">\n        <h3>Data Integration</h3>\n        <ul>' +
-    serviceLinks(D.NAV.megaIntegration) +
+    '      <div class="footer-col">\n        <h3>Services</h3>\n        <ul>' +
+    coreLinks +
     "        </ul>\n      </div>\n" +
     '      <div class="footer-col footer-contact">\n        <h3>Contact</h3>\n        <ul>\n' +
     '          <li>' + svg("pin") + "<span>" + SITE.address + "</span></li>\n" +
@@ -301,6 +314,12 @@ function page(opts) {
 
 /* ------------------------------ Shared sections -------------------------- */
 function sectionHead(eyebrow, title, lead, center) {
+  /* Tolerate callers that pass the boolean in the 3rd slot (older call sites
+     used `sectionHead(a, b, true)`), which previously rendered `<p>true</p>`. */
+  if (lead === true) {
+    center = true;
+    lead = "";
+  }
   return (
     '<div class="section-head' + (center ? " section-head--center" : "") + '">' +
     '<p class="eyebrow">' + eyebrow + "</p>" +
@@ -408,104 +427,283 @@ function heroStrip() {
   );
 }
 
-function previewServiceCard(root, svc) {
+/* --------------------------- From challenge to solution ------------------ */
+function challengeSection(root) {
+  var steps = [
+    {
+      num: "01", icon: "search", title: "Understand",
+      text: "We map your systems, data and goals to find where the real friction is."
+    },
+    {
+      num: "02", icon: "compass", title: "Design",
+      text: "We shape a practical architecture and plan that fits your scale and constraints."
+    },
+    {
+      num: "03", icon: "git", title: "Build &amp; Connect",
+      text: "We implement, integrate and test &mdash; connecting new and existing systems safely."
+    },
+    {
+      num: "04", icon: "refresh", title: "Operate &amp; Improve",
+      text: "We manage, monitor and keep improving the environment well after go-live."
+    }
+  ];
   return (
-    '<a class="svc-preview reveal" href="' + href(root, svc.href) + '">' +
-    '<span class="svc-preview__icon">' + svg(svc.icon) + "</span>" +
-    '<span class="tag-pill">' + svc.tag + "</span>" +
-    '<h3 class="svc-preview__title">' + svc.title + "</h3>" +
-    '<p class="svc-preview__text">' + svc.text + "</p>" +
-    '<span class="svc-preview__cta">' + svc.cta + " " + svg("arrow") + "</span>" +
+    '<section class="section bg-alt challenge">\n  <div class="container">\n' +
+    sectionHead(
+      "How We Deliver",
+      "From Business Challenge to Working Solution.",
+      "A clear, connected path &mdash; so you always know where the work stands and what comes next.",
+      true
+    ) +
+    '<ol class="journey">' +
+    steps
+      .map(function (s) {
+        return (
+          '<li class="journey__step reveal">' +
+          '<span class="journey__badge">' + s.num + "</span>" +
+          '<span class="journey__icon">' + svg(s.icon) + "</span>" +
+          "<h3>" + s.title + "</h3>" +
+          "<p>" + s.text + "</p>" +
+          "</li>"
+        );
+      })
+      .join("") +
+    "</ol>" +
+    '<div class="journey__actions">' +
+    '<a class="btn btn--primary btn--lg" href="' + href(root, "/pages/our-approach.html") + '">Explore How We Work ' + svg("arrow") + "</a>" +
+    '<a class="btn btn--ghost btn--lg" href="' + href(root, "/pages/contact.html#consultation") + '">Start a Conversation</a>' +
+    "</div>" +
+    "\n  </div>\n</section>"
+  );
+}
+
+/* --------------------------- Connected technology ecosystem -------------- */
+function capCard(root, s, i) {
+  return (
+    '<a class="cap-card reveal" data-delay="' + (i % 3) + '" href="' + href(root, s.href) + '">' +
+    '<span class="cap-card__num">' + s.num + "</span>" +
+    '<span class="cap-card__icon">' + svg(s.icon) + "</span>" +
+    "<h3>" + s.title + "</h3>" +
+    "<p>" + s.summary + "</p>" +
+    '<ul class="cap-card__caps">' +
+    s.caps.map((c) => "<li>" + c + "</li>").join("") +
+    "</ul>" +
+    '<span class="cap-card__link">Learn More ' + svg("arrow") + "</span>" +
     "</a>"
   );
 }
 
-function industriesSection(root) {
-  const inds = [
-    ["credit", "Financial Services", "Regulated reporting and accurate customer records"],
-    ["activity", "Healthcare", "Protected patient data and interoperable systems"],
-    ["shop", "Retail &amp; E-commerce", "Consistent product and customer information across channels"],
-    ["factory", "Manufacturing", "Connected production, supply and quality data"],
-    ["truck", "Logistics", "Event-driven tracking and shipment visibility"],
-    ["briefcase", "Professional Services", "Client data, billing and knowledge made reliable"]
+function ecosystemSection(root) {
+  var groups = [
+    {
+      mod: "data", icon: "database", label: "Data",
+      items: ["Data Management", "Data Integration", "Data Governance"]
+    },
+    {
+      mod: "build", icon: "code", label: "Build",
+      items: ["AI Development", "Software &amp; Automation", "Custom Applications"]
+    },
+    {
+      mod: "operate", icon: "helm", label: "Operate",
+      items: ["Cloud &amp; Virtualization", "Managed Services", "Consulting"]
+    }
   ];
-  const spokes = inds
-    .map((x, i) => '<span class="industries__spoke" style="--i:' + i + '"></span>')
+  return (
+    '<section class="section eco">\n  <div class="container eco__inner">\n' +
+    '<div class="eco__copy">' +
+    '<p class="eyebrow">Connected Technology</p>' +
+    "<h2>One Technology Ecosystem. Built Around Your Business.</h2>" +
+    '<p class="eco__lead">Rather than a stack of disconnected tools, SHANZOO connects data, software, cloud and ongoing operations around the way your business actually runs.</p>' +
+    '<ul class="eco__list">' +
+    ["Data you can govern and trust", "Software built for real workflows", "Cloud and operations that stay managed"]
+      .map(function (t) { return "<li>" + svg("check") + "<span>" + t + "</span></li>"; })
+      .join("") +
+    "</ul>" +
+    '<div class="eco__actions">' +
+    '<a class="btn btn--primary btn--lg" href="' + href(root, "/pages/solutions.html") + '">Explore Solutions</a>' +
+    '<a class="btn btn--ghost btn--lg" href="' + href(root, "/pages/services.html") + '">View All Services</a>' +
+    "</div>" +
+    "</div>" +
+    '<div class="eco__visual">' +
+    '<div class="eco__hub">' +
+    '<span class="eco__hub-ring eco__hub-ring--1" aria-hidden="true"></span>' +
+    '<span class="eco__hub-ring eco__hub-ring--2" aria-hidden="true"></span>' +
+    '<div class="eco__hub-core"><span class="eco__hub-icon">' + svg("briefcase") + "</span><b>Your Business</b><small>Data · Build · Operate</small></div>" +
+    "</div>" +
+    '<div class="eco__wires" aria-hidden="true"><span class="eco__wire"></span><span class="eco__wire"></span><span class="eco__wire"></span></div>' +
+    '<div class="eco__groups">' +
+    groups
+      .map(function (g) {
+        return (
+          '<div class="eco__group eco__group--' + g.mod + '">' +
+          '<div class="eco__group-head"><span class="eco__group-icon">' + svg(g.icon) + '</span><span class="eco__group-title">' + g.label + "</span></div>" +
+          '<ul class="eco__group-items">' +
+          g.items.map(function (i) { return "<li>" + svg("check") + "<span>" + i + "</span></li>"; }).join("") +
+          "</ul></div>"
+        );
+      })
+      .join("") +
+    "</div>" +
+    "</div>" +
+    "\n  </div>\n</section>"
+  );
+}
+
+/* ------------------------------ Service explorer ------------------------- */
+function explorerSection(root) {
+  const cards = D.CORE_SERVICES.map(
+    (s, i) =>
+      '<article class="explorer-card' + (s.popular ? " explorer-card--popular" : "") +
+      '" data-explorer-card data-group="' + s.group + '" style="--i:' + i + '">' +
+      (s.popular ? '<span class="explorer-card__badge">Most Popular</span>' : "") +
+      '<span class="explorer-card__icon">' + svg(s.icon) + "</span>" +
+      '<h3 class="explorer-card__title">' + s.title + "</h3>" +
+      "<p class=\"explorer-card__text\">" + s.explore + "</p>" +
+      '<ul class="explorer-card__caps">' +
+      s.caps.map((c) => "<li>" + c + "</li>").join("") +
+      "</ul>" +
+      '<div class="explorer-card__foot">' +
+      '<span class="explorer-card__price"><small>Pricing</small>Custom Quote</span>' +
+      '<a class="btn btn--primary btn--sm" href="' + href(root, "/pages/contact.html#consultation") + '">Request Quote</a>' +
+      "</div>" +
+      '<a class="explorer-card__more" href="' + href(root, s.href) + '">Learn more ' + svg("arrow") + "</a>" +
+      "</article>"
+  ).join("");
+  return (
+    '<section class="section">\n  <div class="container">\n' +
+    sectionHead(
+      "Explore Our Services",
+      "Find the capability that matches your challenge.",
+      "Browse the six core service areas — or talk to us and we will help you choose.",
+      true
+    ) +
+    '<div class="explorer reveal" data-explorer>\n' +
+    '  <div class="explorer__filters" role="group" aria-label="Filter services">\n' +
+    '    <button class="explorer__filter is-active" type="button" data-filter="all" aria-pressed="true">All Services</button>\n' +
+    '    <button class="explorer__filter" type="button" data-filter="data" aria-pressed="false">Data Management &amp; Integration</button>\n' +
+    "  </div>\n" +
+    '  <div class="explorer__carousel">\n' +
+    '    <div class="explorer__track" data-car-track tabindex="0" role="region" aria-roledescription="carousel" aria-label="Our Services">' +
+    cards +
+    "</div>\n" +
+    '    <div class="explorer__controls">\n' +
+    '      <button class="carousel-btn" type="button" data-car-prev aria-label="Previous service">' + svg("chevron") + "</button>\n" +
+    '      <div class="explorer__progress" aria-hidden="true">\n' +
+    '        <span class="explorer__count"><b data-car-index>01</b> / <span data-car-total>06</span></span>\n' +
+    '        <span class="explorer__rail"><span class="explorer__bar" data-car-bar></span></span>\n' +
+    "      </div>\n" +
+    '      <button class="carousel-btn" type="button" data-car-next aria-label="Next service">' + svg("chevron") + "</button>\n" +
+    "    </div>\n" +
+    '    <p class="explorer__sr" data-car-live aria-live="polite"></p>\n' +
+    "  </div>\n</div>\n  </div>\n</section>"
+  );
+}
+
+/* ------------------------------ Track record ----------------------------- */
+function trackCtaCard(root) {
+  return (
+    '<article class="track-card track-card--cta reveal" data-delay="2">' +
+    '<div class="track-card__top">' +
+    '<span class="track-card__kicker">Have a project in mind?</span>' +
+    '<span class="track-card__glyph" aria-hidden="true">' + svg("arrow") + "</span>" +
+    "</div>" +
+    '<h3 class="track-card__client">Let&rsquo;s Build What Comes Next.</h3>' +
+    '<p class="track-card__text">Tell us about your data, software or infrastructure challenge.</p>' +
+    '<div class="track-card__cta">' +
+    '<a class="btn btn--primary" href="' + href(root, "/pages/contact.html#consultation") + '">Start Your Project ' + svg("arrow") + "</a>" +
+    '<a class="track-card__link track-card__link--light" href="' + href(root, "/pages/contact.html") + '">Request a Consultation</a>' +
+    "</div>" +
+    "</article>"
+  );
+}
+
+function trackRecordSection(root) {
+  const cards = D.TRACK_RECORD.map(
+    (p, i) =>
+      '<article class="track-card reveal" data-delay="' + (i % 3) + '">' +
+      '<div class="track-card__top">' +
+      '<span class="track-card__year">' + p.year + "</span>" +
+      '<span class="track-card__cat"><span class="track-card__cat-icon">' + svg(p.icon) + "</span>" + p.category + "</span>" +
+      "</div>" +
+      "<h3 class=\"track-card__client\">" + p.client + "</h3>" +
+      "<p class=\"track-card__text\">" + p.summary + "</p>" +
+      '<a class="track-card__link" href="' + href(root, "/pages/track-record.html") + '">View Project ' + svg("arrow") + "</a>" +
+      "</article>"
+  ).join("");
+  return (
+    '<section class="section track">\n  <div class="container">\n' +
+    sectionHead(
+      "Proven Track Record",
+      "Enterprise experience that speaks for itself.",
+      "Enterprise technology experience across contact centers, software, infrastructure, automation and secure digital systems.",
+      true
+    ) +
+    '<div class="track__grid">' +
+    cards +
+    /* Sixth card: the "Let's Build What Comes Next" CTA lives inside the grid */
+    trackCtaCard(root) +
+    "</div>\n" +
+    "  </div>\n</section>"
+  );
+}
+
+function industriesSection(root) {
+  /* Single structured source: every topic carries its own image, so the media
+     and the selector can never fall out of sync (both are rendered from here). */
+  const topics = [
+    { icon: "database", title: "Master Data Management (MDM)", desc: "Unified, consistent and trusted enterprise data.", img: "Industries Sport.png", href: "/services/master-data-management.html" },
+    { icon: "shield", title: "Data Governance &amp; Metadata", desc: "Clear ownership, standards, lineage and control.", img: "Industries Sport 1.png", href: "/services/data-governance.html" },
+    { icon: "circle", title: "Data Quality &amp; Cleansing", desc: "Improve accuracy, consistency and reliability.", img: "Industries Sport 2.png", href: "/services/data-quality.html" },
+    { icon: "link", title: "Data Integration", desc: "Connect applications, systems and enterprise data.", img: "Industries Sport 3.png", href: "/pages/data-integration.html" },
+    { icon: "workflow", title: "ETL / ELT &amp; Data Pipelines", desc: "Build scalable pipelines for modern data platforms.", img: "Industries Sport 4.png", href: "/services/etl-elt.html" },
+    { icon: "radio", title: "CDC &amp; Real-Time Streaming", desc: "Move and synchronize changing data in real time.", img: "Industries Sport 5.png", href: "/services/change-data-capture.html" }
+  ];
+  const pad = (n) => (n < 10 ? "0" : "") + n;
+  const media = topics
+    .map((t, i) =>
+      '<img class="dservices__img' + (i === 0 ? " is-active" : "") + '" data-dsvc-img="' + i +
+      '" src="' + root + "assets/images/" + t.img + '" alt="' + t.title + '"' +
+      ' width="1600" height="1000" loading="lazy" decoding="async">'
+    )
     .join("");
-  const nodes = inds
-    .map(
-      (ind, i) =>
-        '<button type="button" class="industry-node' + (i === 0 ? " is-active" : "") +
-        '" data-industry="' + i + '" data-desc="' + ind[2] + '" style="--i:' + i +
-        '" aria-pressed="' + (i === 0 ? "true" : "false") +
-        '" aria-label="' + ind[1] + " — " + ind[2] + '">' +
-        '<span class="industry-node__icon" aria-hidden="true">' + svg(ind[0]) + "</span>" +
-        '<span class="industry-node__label">' + ind[1] + "</span>" +
-        '<span class="industry-node__chev" aria-hidden="true"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="9 18 15 12 9 6"/></svg></span>' +
-        "</button>"
+  const rows = topics
+    .map((t, i) =>
+      '<a class="dsvc' + (i === 0 ? " is-active" : "") + '" data-dsvc="' +
+      i + '" href="' + href(root, t.href) + '"' + (i === 0 ? ' aria-current="true"' : "") + '>' +
+      '<span class="dsvc__num">' + pad(i + 1) + "</span>" +
+      '<span class="dsvc__icon" aria-hidden="true">' + svg(t.icon) + "</span>" +
+      '<span class="dsvc__body"><span class="dsvc__title">' + t.title +
+      '</span><span class="dsvc__sub">' + t.desc + "</span></span>" +
+      '<span class="dsvc__arrow" aria-hidden="true">' + svg("arrow") + "</span>" +
+      "</a>"
     )
     .join("");
   return (
     '<section class="section bg-alt section--industries">\n  <div class="container">\n' +
     sectionHead(
-      "Industries we support",
-      "Useful wherever reliable data drives the business.",
-      "These are illustrative examples of how data services can help different sectors today.",
+      "Data Services Expertise",
+      "Built Around the Way Your Data Works.",
+      "From trusted master data to real-time integration, explore the capabilities that keep enterprise data connected, governed and ready to use.",
       true
     ) +
-    '<div class="industries reveal" data-industries><div class="industries__stage">' +
-    '<div class="industries__gfx" aria-hidden="true"><span class="industries__ring"></span><span class="industries__ring industries__ring--inner"></span>' +
-    spokes +
-    "</div>" +
-    '<div class="industries__hub"><span class="industries__hub-glow" aria-hidden="true"></span>' +
-    '<span class="industries__hub-icon" data-hub-icon aria-hidden="true">' + svg("credit") + "</span>" +
-    '<div class="industries__hub-text"><h3 data-hub-name>Financial Services</h3><p data-hub-desc>Regulated reporting and accurate customer records</p></div></div>' +
-    '<div class="industries__nodes">' + nodes + "</div></div>" +
-    '<div class="industries__info" aria-live="polite"><p class="industries__info-index" data-info-index>01 / 06</p><h3 class="industries__info-title" data-info-title>Financial Services</h3><p class="industries__info-desc" data-info-desc>Regulated reporting and accurate customer records</p></div></div>\n' +
+    '<div class="dservices reveal" data-dservices>' +
+    '<div class="dservices__media"><div class="dservices__frame">' + media +
+    '<div class="dservices__overlay">' +
+    '<p class="dservices__index" data-dsvc-index>01 / 06</p>' +
+    '<h3 class="dservices__title" data-dsvc-title>' + topics[0].title + "</h3>" +
+    '<p class="dservices__desc" data-dsvc-desc>' + topics[0].desc + "</p>" +
+    "</div></div></div>" +
+    '<div class="dservices__list">' + rows + "</div>" +
+    "</div>\n" +
     '<p class="center mt-4"><a class="btn btn--ghost" href="' + href(root, "/pages/industries.html") + '">Explore Industries &amp; Use Cases</a></p>\n' +
     "  </div>\n</section>"
   );
 }
 
 function projectsShowcase(root) {
-  const P = D.PROJECTS;
-  const half = Math.ceil(P.length / 2);
-  const mark = (m) => {
-    if (!m || m.type === "wordmark") return "";
-    if (m.type === "symbol")
-      return '<span class="project-mark project-mark--symbol" aria-hidden="true">' + svg(m.icon) + "</span>";
-    return (
-      '<span class="project-mark project-mark--' + m.type + '" aria-hidden="true"><span>' +
-      m.text +
-      "</span></span>"
-    );
-  };
-  const item = (p) =>
-    '<a class="project-name' + (p.mark && p.mark.type === "wordmark" ? " project-name--wordmark" : "") +
-    '" style="--accent:' + p.accent + ";--s:" + p.s +
-    '" href="' + href(root, "/services/" + p.slug + ".html") + '">' +
-    mark(p.mark) +
-    '<span class="project-logo__text">' + p.name + "</span>" +
-    '<span class="project-name__arrow" aria-hidden="true">' + svg("arrow") + "</span></a>";
-  const row = (arr, reverse) =>
-    '<div class="projects-row' + (reverse ? " projects-row--reverse" : "") +
-    '"><div class="projects-track">' +
-    arr.map(item).join("") + arr.map(item).join("") +
-    "</div></div>";
-  return (
-    '<section class="section projects">\n  <div class="container">\n' +
-    sectionHead(
-      "Project showcase",
-      "The kind of data work we do.",
-      "A snapshot of the data initiatives our services are built for.",
-      true
-    ) +
-    "</div>\n" +
-    '<div class="projects-marquee reveal" aria-label="Selected project types">\n' +
-    row(P.slice(0, half), false) + "\n" +
-    row(P.slice(half), true) + "\n" +
-    "</div>\n</section>"
-  );
+  /* Removed: the marquee of invented project names has been replaced by the
+     Proven Track Record section (trackRecordSection) backed by real data. */
+  return "";
 }
 
 /* ------------------------------ Rotating hero ---------------------------- */
@@ -533,110 +731,131 @@ function heroSlide(root, s, i) {
   );
 }
 
-function heroVisualNetwork() {
+/* --------------------------- Hero media infographics --------------------- */
+/* Two purpose-built infographics, one per hero slide. Both are decorative
+   (aria-hidden) and built from semantic HTML + CSS shapes; the circular
+   ecosystem's node positions are computed here at build time so the browser
+   receives an already-balanced layout. */
+
+// Polar helper — returns {x,y} as percentages inside a square (centre 50,50).
+function heroPolar(r, deg) {
+  var rad = (deg * Math.PI) / 180;
+  return {
+    x: (50 + r * Math.cos(rad)).toFixed(2) + "%",
+    y: (50 + r * Math.sin(rad)).toFixed(2) + "%"
+  };
+}
+function heroPos(r, deg) {
+  var p = heroPolar(r, deg);
+  return "--x:" + p.x + ";--y:" + p.y;
+}
+
+/* Slide 01 — one circular enterprise-data ecosystem: a governed core, a ring
+   of capability nodes, and light source / output indicators integrated around
+   the rings. Thin connectors, no side panels, no crossing lines. */
+function heroVisualDataHub() {
+  var capabilities = [
+    { icon: "database", label: "MDM" },
+    { icon: "shield", label: "Governance" },
+    { icon: "check", label: "Data Quality" },
+    { icon: "book", label: "Metadata" },
+    { icon: "lock", label: "Security" },
+    { icon: "compass", label: "Architecture" },
+    { icon: "refresh", label: "ETL / ELT" },
+    { icon: "activity", label: "CDC" },
+    { icon: "link", label: "APIs" },
+    { icon: "radio", label: "Streaming" }
+  ];
+  var sources = [
+    { icon: "database", label: "Databases" },
+    { icon: "box", label: "Applications" },
+    { icon: "cloud", label: "Cloud" },
+    { icon: "file", label: "Files / APIs" }
+  ];
+  var outputs = [
+    { icon: "trend", label: "Analytics" },
+    { icon: "archive", label: "Warehouse" },
+    { icon: "layers", label: "Data Lake" },
+    { icon: "box", label: "Business Apps" }
+  ];
+  var capStart = -90;
+  var capStep = 360 / capabilities.length;
+  var capHtml = capabilities
+    .map(function (c, i) {
+      return (
+        '<span class="hero-eco__cap" style="' + heroPos(39, capStart + i * capStep) + '">' +
+        svg(c.icon) + "<span>" + c.label + "</span></span>"
+      );
+    })
+    .join("");
+  var srcAngles = [252, 216, 180, 144];
+  var outAngles = [324, 0, 36, 72];
+  var ioHtml = sources
+    .map(function (s, i) {
+      return (
+        '<span class="hero-eco__io hero-eco__io--src" style="' + heroPos(28, srcAngles[i]) + '">' +
+        '<i class="hero-eco__io-dot">' + svg(s.icon) + "</i><small>" + s.label + "</small></span>"
+      );
+    })
+    .concat(
+      outputs.map(function (o, i) {
+        return (
+          '<span class="hero-eco__io hero-eco__io--out" style="' + heroPos(28, outAngles[i]) + '">' +
+          '<i class="hero-eco__io-dot">' + svg(o.icon) + "</i><small>" + o.label + "</small></span>"
+        );
+      })
+    )
+    .join("");
   return (
-    '<div class="viz viz--network" aria-hidden="true">' +
-    '<span class="viz-network__ring viz-network__ring--outer"></span>' +
-    '<span class="viz-network__ring viz-network__ring--inner"></span>' +
-    '<span class="viz-network__pulse viz-network__pulse--1"></span>' +
-    '<span class="viz-network__pulse viz-network__pulse--2"></span>' +
-    '<span class="viz-network__hub"><b>Enterprise</b><em>Data</em></span>' +
-    '<span class="viz-chip viz-chip--1">Governance</span>' +
-    '<span class="viz-chip viz-chip--2">Quality</span>' +
-    '<span class="viz-chip viz-chip--3">Security</span>' +
-    '<span class="viz-node viz-node--1"><i></i>MDM</span>' +
-    '<span class="viz-node viz-node--2"><i></i>Metadata</span>' +
-    '<span class="viz-node viz-node--3"><i></i>Privacy</span>' +
-    '<span class="viz-node viz-node--4"><i></i>Architecture</span>' +
+    '<div class="hero-eco" aria-hidden="true">' +
+    '<span class="hero-eco__glow"></span>' +
+    '<span class="hero-eco__ring hero-eco__ring--1"></span>' +
+    '<span class="hero-eco__ring hero-eco__ring--2"></span>' +
+    '<span class="hero-eco__ring hero-eco__ring--3"></span>' +
+    '<div class="hero-eco__hub"><b>Enterprise Data</b><small>Managed · Governed · Connected</small></div>' +
+    capHtml +
+    ioHtml +
     "</div>"
   );
 }
 
-function flowNode(iconName, title, sub, core) {
+/* Slide 02 — a 2x3 grid of six capability cards (no central hub), with subtle
+   connectors between the tiles so it still reads as one connected system. */
+function heroVisualOpsMap() {
+  var cards = [
+    { icon: "brain", title: "AI Development", text: "Intelligent business solutions", tags: ["AI", "Intelligent Apps"] },
+    { icon: "code", title: "Custom Software", text: "Purpose-built digital systems", tags: ["Web Apps", "Business Systems"] },
+    { icon: "workflow", title: "Workflow Automation", text: "Automate repetitive operations", tags: ["Workflows", "Efficiency"] },
+    { icon: "link", title: "API Integration", text: "Connect platforms and services", tags: ["APIs", "Connected Systems"] },
+    { icon: "cloud", title: "Cloud & Virtualization", text: "Modern scalable infrastructure", tags: ["Cloud", "Infrastructure"] },
+    { icon: "helm", title: "Managed Services & Consulting", text: "Operate, optimize and scale", tags: ["Managed Services", "Consulting"] }
+  ];
   return (
-    '<div class="viz-flow__node' + (core ? " is-core" : "") + '">' +
-    '<span class="viz-flow__icon">' + svg(iconName) + "</span>" +
-    '<div class="viz-flow__text"><b>' + title + "</b><small>" + sub + "</small></div>" +
-    "</div>"
-  );
-}
-
-function heroVisualPipeline() {
-  return (
-    '<div class="viz viz--pipeline" aria-hidden="true">' +
-    flowNode("server", "System A", "CRM · ERP") +
-    '<span class="viz-flow__line"><i></i></span>' +
-    flowNode("refresh", "Data Pipeline", "ETL · Streaming", true) +
-    '<span class="viz-flow__line"><i></i></span>' +
-    flowNode("database", "Data Platform", "Warehouse · Lake") +
-    '<span class="viz-flow__line"><i></i></span>' +
-    flowNode("trend", "Business Systems", "BI · Apps") +
-    "</div>"
-  );
-}
-
-function vizMetric(label, value, pct, state) {
-  return (
-    '<li class="viz-metric' + (state ? " is-" + state : "") + '" style="--pct:' + pct + '">' +
-    '<div class="viz-metric__row"><span class="viz-metric__label">' + label + '</span><span class="viz-metric__value">' + value + "</span></div>" +
-    '<span class="viz-bar"><i></i></span></li>'
-  );
-}
-
-function heroVisualDashboard() {
-  return (
-    '<div class="viz viz--dashboard" aria-hidden="true">' +
-    '<div class="viz-panel__head"><span class="viz-panel__title">Governance &amp; Quality</span><span class="viz-panel__live"><i></i>Live</span></div>' +
-    '<ul class="viz-metrics">' +
-    vizMetric("Data Quality", "98%", 0.98) +
-    vizMetric("Governance", "Active", 0.92, "ok") +
-    vizMetric("Metadata", "Connected", 0.85) +
-    vizMetric("Compliance", "Monitored", 0.9) +
-    "</ul></div>"
-  );
-}
-
-function vizLayer(iconName, title, sub) {
-  return (
-    '<div class="viz-layer"><span class="viz-layer__icon">' + svg(iconName) + "</span>" +
-    '<div class="viz-layer__text"><b>' + title + "</b><small>" + sub + "</small></div></div>"
-  );
-}
-
-function heroVisualLayers() {
-  return (
-    '<div class="viz viz--layers" aria-hidden="true">' +
-    '<div class="viz-layers__stack">' +
-    vizLayer("database", "Data Sources", "Apps · Files · APIs") +
-    '<span class="viz-layers__link"></span>' +
-    vizLayer("refresh", "Integration", "ETL · CDC · Streaming") +
-    '<span class="viz-layers__link"></span>' +
-    vizLayer("layers", "Data Platform", "Warehouse · Lake") +
-    '<span class="viz-layers__link"></span>' +
-    vizLayer("trend", "Analytics", "BI · Reporting · AI") +
-    "</div>" +
-    '<ul class="viz-layers__side"><li>Architecture</li><li>Data Modeling</li><li>Cloud</li><li>Scalability</li></ul>' +
+    '<div class="hero-ops" aria-hidden="true">' +
+    cards
+      .map(function (c, i) {
+        return (
+          '<article class="hero-ops__card" style="--i:' + i + '">' +
+          '<span class="hero-ops__icon">' + svg(c.icon) + "</span>" +
+          '<h3 class="hero-ops__title">' + c.title + "</h3>" +
+          '<p class="hero-ops__text">' + c.text + "</p>" +
+          '<ul class="hero-ops__tags"><li>' + c.tags[0] + "</li><li>" + c.tags[1] + "</li></ul>" +
+          "</article>"
+        );
+      })
+      .join("") +
     "</div>"
   );
 }
 
 function heroVisualFor(name, i) {
   var inner =
-    name === "pipeline" ? heroVisualPipeline() :
-    name === "dashboard" ? heroVisualDashboard() :
-    name === "layers" ? heroVisualLayers() :
-    heroVisualNetwork();
+    name === "opsmap" ? heroVisualOpsMap() : heroVisualDataHub();
   return (
     '<div class="hero__visual' + (i === 0 ? " is-active" : "") + '" data-hero-visual="' + i + '">' +
     inner +
     "</div>"
   );
-}
-
-function heroSprinkles() {
-  var dots = "";
-  for (var i = 0; i < 10; i++) dots += "<span></span>";
-  return '<div class="hero__sprinkles" aria-hidden="true">' + dots + "</div>";
 }
 
 function heroMedia(root) {
@@ -645,7 +864,6 @@ function heroMedia(root) {
   return (
     '<div class="hero__media">' +
     '<div class="hero__media-card">' +
-    heroSprinkles() +
     '<div class="hero__visuals">' +
     slides.map((s, i) => heroVisualFor(s.visual, i)).join("") +
     "</div>" +
@@ -663,6 +881,7 @@ function heroMedia(root) {
     "</div>" +
     '<span class="hero__count"><span data-hero-current>01</span> / ' + total + "</span>" +
     "</div>" +
+    '<span class="hero__progress" aria-hidden="true"><i data-hero-progress></i></span>' +
     "</div>" +
     "</div>"
   );
@@ -704,129 +923,33 @@ function buildIndex() {
   /* ---- Section 3 : hero (rotating service showcase) ---- */
   body.push(heroSection(root));
 
-  /* ---- Section 4 : What SHANZOO does ---- */
+  /* ---- Section 4 : short intro ---- */
   body.push(
-    '<section class="section">\n  <div class="container">\n' +
+    '<section class="section section--tight intro">\n  <div class="container">\n' +
       sectionHead(
         "What we do",
-        "Two focus areas. One goal — dependable data.",
-        "SHANZOO helps you keep data under control so every system, report and decision uses information you can rely on."
-      ) +
-      '<div class="grid grid-2">\n' +
-      '  <article class="card card--navy reveal h-100">' +
-      '    <div class="card__icon">' + svg("database") + "</div>" +
-      '    <p class="card__tag">Data Management</p>' +
-      "    <h3>Keep your business data clean, secure, accurate and easy to trust.</h3>" +
-      "    <p>We put in place the people, policies and tools that keep your most important data accurate and under control.</p>" +
-      '    <a class="text-link mt-3" href="pages/data-management.html">Explore Data Management ' + svg("arrow") + "</a>" +
-      "  </article>\n" +
-      '  <article class="card card--accent reveal h-100" data-delay="1">' +
-      '    <div class="card__icon">' + svg("link") + "</div>" +
-      '    <p class="card__tag">Data Integration</p>' +
-      "    <h3>Connect your systems and make data available wherever your business needs it.</h3>" +
-      "    <p>We design and build the pipelines and interfaces that move data between your applications — on time, every time.</p>" +
-      '    <a class="text-link mt-3" href="pages/data-integration.html">Explore Data Integration ' + svg("arrow") + "</a>" +
-      "  </article>\n" +
-      "</div>\n  </div>\n</section>"
-  );
-
-  /* ---- Section 5 : Why data matters ---- */
-  body.push(
-    '<section class="section bg-alt">\n  <div class="container split split--top">\n' +
-      "    <div>\n" +
-      sectionHead(
-        "Why data matters",
-        "Every business has a data problem. It usually sounds like this.",
-        "Your business already runs on data — but if that data is messy, disconnected or slow to reach, decisions get delayed and trust slips."
-      ) +
-      '<ul class="check-list">\n' +
-      "<li>" + svg("circle") + "<span><strong>Data scattered everywhere</strong> — Customer information lives in five systems and none of them agree.</span></li>\n" +
-      "<li>" + svg("circle") + "<span><strong>Duplicate or incorrect records</strong> — The same customer, product or vendor appears many times with different details.</span></li>\n" +
-      "<li>" + svg("circle") + "<span><strong>Slow reporting</strong> — Reports take days to assemble because data has to be manually copied and fixed.</span></li>\n" +
-      "<li>" + svg("circle") + "<span><strong>Security and privacy worries</strong> — You are not fully sure who can see sensitive data or where it flows.</span></li>\n" +
-      "<li>" + svg("circle") + "<span><strong>Systems that don't talk</strong> — Sales, finance and operations are each working with their own version of the truth.</span></li>\n" +
-      "</ul>\n" +
-      '<a class="btn btn--navy mt-3" href="pages/services.html">See How We Solve These ' + svg("arrow") + "</a>\n" +
-      "    </div>\n" +
-      "    <div class=\"split__media reveal\">\n" +
-      '      <div class="visual">' + svgWhy() +
-      '        <div class="visual-badge visual-badge--br">' + svg("trend") + "Decisions made on clean data are better decisions</div>\n" +
-      "      </div>\n" +
-      "    </div>\n" +
-      "  </div>\n</section>"
-  );
-
-  /* ---- Section 6 : Services preview (interactive cards) ---- */
-  body.push(
-    '<section class="section">\n  <div class="container">\n' +
-      sectionHead(
-        "Services",
-        "What we can do for your data.",
-        "Five ways SHANZOO helps you manage, protect, connect and get more from your data."
-      ) +
-      '<div class="svc-preview-grid snap-carousel">' +
-      D.HOME_SERVICES.map((s) => previewServiceCard(root, s)).join("") +
-      "</div>\n" +
-      '<p class="center mt-4"><a class="btn btn--ghost" href="pages/services.html">View All Services ' + svg("arrow") + "</a></p>\n" +
-      "  </div>\n</section>"
-  );
-
-  /* ---- Section 7 : How we work (interactive tabs) ---- */
-  const phases = [
-    ["message", "Understand Your Needs", "We listen first. You tell us the business outcome you want, and we map it to the data work required."],
-    ["search", "Review Your Data &amp; Systems", "We look at your current data, systems and processes to understand exactly what stands in the way."],
-    ["compass", "Design the Right Solution", "We propose a clear solution with sensible priorities, realistic effort and the technology to match your scale."],
-    ["zap", "Implement &amp; Improve", "We work alongside your team to build, test, launch and continuously improve the solution."]
-  ];
-  body.push(
-    '<section class="section bg-alt">\n  <div class="container">\n' +
-      sectionHead(
-        "How we work",
-        "A simple, practical four-step approach.",
-        "Every engagement follows a clear path — so you always know where we are, and what happens next.",
+        "Better data. Smarter systems. Stronger operations.",
+        "SHANZOO is a Toronto-based technology partner for enterprise data management, integration, AI, cloud and custom software — helping organizations turn complex information into trusted, everyday business intelligence.",
         true
       ) +
-      '<div class="tabs reveal" data-tabs>\n' +
-      '  <div class="tabs__nav" role="tablist" aria-label="Our approach">\n' +
-      phases
-        .map(
-          (p, i) =>
-            '    <button class="tabs__btn' + (i === 0 ? " is-active" : "") +
-            '" type="button" role="tab" id="tab-' + i + '" aria-controls="tabpanel-' + i +
-            '" aria-selected="' + (i === 0 ? "true" : "false") + '" tabindex="' + (i === 0 ? "0" : "-1") + '">' +
-            '<span class="tabs__num">0' + (i + 1) + "</span><span>" + p[1] + "</span></button>"
-        )
-        .join("\n") +
-      "\n  </div>\n  <div class=\"tabs__panels\">\n" +
-      phases
-        .map(
-          (p, i) =>
-            '    <div class="tabs__panel' + (i === 0 ? " is-active" : "") +
-            '" id="tabpanel-' + i + '" role="tabpanel" aria-labelledby="tab-' + i + '">' +
-            '<span class="tabs__icon">' + svg(p[0]) + "</span>" +
-            "<h3>" + p[1] + "</h3><p>" + p[2] + "</p></div>"
-        )
-        .join("\n") +
-      "\n  </div>\n</div>\n" +
-      '<p class="center mt-4"><a class="btn btn--primary" href="pages/our-approach.html">Learn More About Our Approach</a></p>\n' +
-      "  </div>\n</section>"
+      '<ul class="intro__pills">' +
+      ["Data you can trust", "Systems that connect", "Operations that scale"]
+        .map((t) => "<li>" + t + "</li>")
+        .join("") +
+      "</ul>\n  </div>\n</section>"
   );
 
-  /* ---- Section 8 : Data Integration touchpoint (light green) ---- */
-  body.push(
-    '<section class="section feat-green">\n  <div class="container feat-green__inner">\n' +
-      '    <div class="feat-green__head reveal">\n' +
-      '      <p class="eyebrow">Data Integration</p>\n' +
-      "      <h2>Make every system work from the same data.</h2>\n" +
-      "      <p>We connect the applications and platforms your teams rely on, so information flows where it is needed — on time, every time.</p>\n" +
-      '      <a class="btn btn--navy" href="pages/data-integration.html">Explore Data Integration ' + svg("arrow") + "</a>\n" +
-      "    </div>\n" +
-      '    <ul class="di-chips reveal" data-delay="1">\n' +
-      ["ETL / ELT", "APIs", "Real-time streaming", "Change data capture", "Orchestration", "Data virtualization"]
-        .map((c) => "      <li>" + c + "</li>")
-        .join("\n") +
-      "\n    </ul>\n  </div>\n</section>"
-  );
+  /* ---- Section 5 : Connected technology ecosystem ---- */
+  body.push(ecosystemSection(root));
+
+  /* ---- Section 6 : From challenge to solution ---- */
+  body.push(challengeSection(root));
+
+  /* ---- Section 7 : Service explorer ---- */
+  body.push(explorerSection(root));
+
+  /* ---- Section 8 : Proven track record ---- */
+  body.push(trackRecordSection(root));
 
   /* ---- Section 9 : Industries (interactive ring) ---- */
   body.push(industriesSection(root));
@@ -851,10 +974,7 @@ function buildIndex() {
       "  </div>\n</section>"
   );
 
-  /* ---- Section 11 : Project showcase (marquee) ---- */
-  body.push(projectsShowcase(root));
-
-  /* ---- Section 12 : Educational insights ---- */
+  /* ---- Section 11 : Educational insights ---- */
   body.push(
     '<section class="section bg-alt">\n  <div class="container">\n' +
       sectionHead(
@@ -890,7 +1010,7 @@ function buildIndex() {
     title: "SHANZOO — Better Data. Smarter Business. | Data Management & Integration",
     desc: "SHANZOO is a Toronto-based data management and integration consultancy helping businesses organize, protect and connect their data.",
     canonicalPath: "index.html",
-    extraScripts: '<script src="js/hero-slider.js" defer></script>\n<script src="js/industries.js" defer></script>\n',
+    extraScripts: '<script src="js/hero-slider.js" defer></script>\n<script src="js/industries.js" defer></script>\n<script src="js/carousel.js" defer></script>\n',
     body: body.join("\n")
   });
 }
@@ -950,6 +1070,7 @@ const insights = [
   {
     slug: "what-is-master-data-management",
     icon: "database",
+    img: "Industries Sport.png",
     cat: "Data Management",
     title: "What Is Master Data Management?",
     excerpt:
@@ -966,6 +1087,7 @@ const insights = [
   {
     slug: "etl-vs-elt-whats-the-difference",
     icon: "refresh",
+    img: "Industries Sport 1.png",
     cat: "Data Integration",
     title: "ETL vs. ELT: What's the Difference?",
     excerpt:
@@ -983,6 +1105,7 @@ const insights = [
   {
     slug: "why-data-quality-matters",
     icon: "circle",
+    img: "Industries Sport 2.png",
     cat: "Data Management",
     title: "Why Data Quality Matters",
     excerpt:
@@ -999,6 +1122,7 @@ const insights = [
   {
     slug: "understanding-real-time-data-integration",
     icon: "radio",
+    img: "Industries Sport 5.png",
     cat: "Data Integration",
     title: "Understanding Real-Time Data Integration",
     excerpt:
@@ -1014,16 +1138,18 @@ const insights = [
   }
 ];
 
-function insightCard(root, post, delay) {
+function insightCard(root, post, delay, feature) {
+  const url = href(root, "/pages/insights/" + post.slug + ".html");
   return (
-    '<article class="insight-card reveal" data-delay="' + (delay || 0) + '">' +
-    '<a class="insight-card__media" href="' + href(root, "/pages/insights/" + post.slug + ".html") + '" aria-label="Read: ' + post.title + '">' +
-    svg(post.icon) + "</a>" +
+    '<article class="insight-card' + (feature ? " insight-card--feature" : "") + ' reveal" data-delay="' + (delay || 0) + '">' +
+    '<a class="insight-card__media" href="' + url + '" aria-label="Read: ' + post.title + '" tabindex="-1">' +
+    '<img src="' + root + "assets/images/" + post.img + '" alt="' + post.title + '" width="1600" height="1000" loading="lazy" decoding="async">' +
+    "</a>" +
     '<div class="insight-card__body">' +
     '<div class="insight-card__meta"><span class="badge badge--green">' + post.cat + "</span><span>" + post.read + " read</span></div>" +
-    "<h3>" + post.title + "</h3>" +
+    '<h3><a href="' + url + '">' + post.title + "</a></h3>" +
     "<p>" + post.excerpt + "</p>" +
-    '<a class="text-link" href="' + href(root, "/pages/insights/" + post.slug + ".html") + '">Read Article ' + svg("arrow") + "</a>" +
+    '<a class="text-link" href="' + url + '">Read Insight ' + svg("arrow") + "</a>" +
     "</div></article>"
   );
 }
@@ -1755,14 +1881,252 @@ function buildDataIntegration() {
   });
 }
 
+/* ------------------------------ Track record page ------------------------ */
+function buildTrackRecord() {
+  const root = "../";
+  const projects = D.TRACK_RECORD;
+  const body = [
+    pageHero({
+      root,
+      eyebrow: "Proven Track Record",
+      title: "Enterprise experience that speaks for itself.",
+      lead: "A selection of real enterprise engagements across contact centers, portals, infrastructure, DevOps and secure cloud communications.",
+      aside:
+        '<div class="cta-mini">' + svg("check") + "<span><strong>" + projects.length + " enterprise engagements</strong><br>Across regulated and high-scale environments</span></div>",
+      crumbs: [
+        { href: "/index.html", label: "Home" },
+        { label: "Track Record" }
+      ]
+    }),
+    '<section class="section"><div class="container">' +
+      '<div class="track-grid">' +
+      projects
+        .map(
+          (p, i) =>
+            '<article class="track-detail reveal" data-delay="' + (i % 2) + '">' +
+            '<div class="track-detail__top">' +
+            '<span class="track-detail__year">' + p.year + "</span>" +
+            '<span class="track-card__cat"><span class="track-card__cat-icon">' + svg(p.icon) + "</span>" + p.category + "</span>" +
+            "</div>" +
+            '<h2 class="track-detail__client">' + p.client + "</h2>" +
+            '<p class="track-detail__text">' + p.detail + "</p>" +
+            "</article>"
+        )
+        .join("") +
+      "</div>" +
+      trackCtaCard(root) +
+      "</div></section>"
+  ];
+  return page({
+    root,
+    title: "Track Record | Enterprise Engagements | SHANZOO",
+    desc: "Selected enterprise engagements delivered by SHANZOO across contact centers, portal development, optimization, DevOps and secure cloud communications.",
+    canonicalPath: "pages/track-record.html",
+    body: body.join("\n")
+  });
+}
+
+/* ------------------------------ Technology service page ------------------ */
+function buildTechService(slug) {
+  const root = "../";
+  const svc = D.CORE_SERVICES.find((s) => s.slug === slug);
+  const c = D.TECH_SERVICE_CONTENT[slug];
+  const artMap = {
+    "ai-development": D.svgNetwork,
+    "cloud-virtualization": D.svgCloud,
+    "software-development": D.svgLayers,
+    "consulting-managed-services": D.svgBlueprint
+  };
+  const art = artMap[slug] || D.svgNetwork;
+
+  const navSections = [
+    ["overview", "Overview"],
+    ["problems", "Problems It Solves"],
+    ["benefits", "Key Benefits"],
+    ["capabilities", "Technical Capabilities"],
+    ["use-cases", "Business Use Cases"],
+    ["approach", "How SHANZOO Helps"],
+    ["faqs", "FAQ"]
+  ];
+
+  const svcNavInner =
+    "<h2>On this page</h2><ul>" +
+    navSections.map((s) => '<li><a href="#' + s[0] + '">' + s[1] + "</a></li>").join("") +
+    "</ul>" +
+    '<div class="svc-nav__cta"><p class="mega__desc mb-2">Talk through this service with our team.</p>' +
+    '<a class="btn btn--primary btn--sm btn--block" href="' + href(root, "/pages/contact.html#consultation") + '">Get a Consultation</a></div>';
+
+  const crumbItems = [
+    { href: "/index.html", label: "Home" },
+    { href: "/pages/services.html", label: "Services" },
+    { label: c.category }
+  ];
+
+  const faqJson = {
+    "@context": "https://schema.org",
+    "@type": "FAQPage",
+    mainEntity: c.faqs.map((f) => ({
+      "@type": "Question",
+      name: f.q,
+      acceptedAnswer: { "@type": "Answer", text: f.a }
+    }))
+  };
+
+  const related = D.CORE_SERVICES.filter((s) => s.slug !== slug)
+    .map(
+      (r) =>
+        '<a class="related-link" href="' + href(root, r.href) + '"><span class="related-link__icon">' + svg(r.icon) + '</span><span class="related-link__text"><strong>' + r.title + "</strong><span>" + r.summary + "</span></span></a>"
+    )
+    .join("");
+
+  const body = [
+    '<section class="page-hero">' +
+      '<div class="container page-hero__inner">' +
+      "<div>" +
+      '<p class="eyebrow eyebrow--light">' + c.category + " Service</p>" +
+      "<h1>" + svc.title + "</h1>" +
+      "<p>" + c.heroSub + "</p>" +
+      '<div class="mt-3">' + crumbs({ root }, crumbItems) + "</div>" +
+      '<div class="pill-row mt-3">' +
+      '<span class="badge badge--light">' + svg("check") + " " + c.benefit + "</span>" +
+      '<span class="badge badge--light">' + svg("users") + " Consultancy &amp; delivery</span>" +
+      "</div>" +
+      '<div class="hero__actions mt-3">' +
+      '<a class="btn btn--primary" href="' + href(root, "/pages/contact.html#consultation") + '">Request a Consultation</a>' +
+      '<a class="btn btn--outline-light" href="' + href(root, "/pages/contact.html") + '">Email Us</a>' +
+      "</div>" +
+      "</div>" +
+      '<div class="page-hero__aside"><div class="service-hero__visual">' + art() + "</div></div>" +
+      "</div></section>" +
+      '<div class="container svc-layout mt-4" style="padding-block: 2.5rem">' +
+      '<div class="svc-nav" aria-label="On this page">' + svcNavInner + "</div>" +
+      '<div class="svc-content">' +
+      '<section id="overview" class="mb-4" style="scroll-margin-top: 110px">' +
+      '<div class="section-head"><p class="eyebrow">In plain English</p><h2>What this service does for your business</h2></div>' +
+      '<div class="prose">' + c.help + "</div>" +
+      '<div class="grid grid-2 mt-3">' +
+      c.helpPoints
+        .map(
+          (p) =>
+            '<div class="value-item"><div class="value-item__icon">' + svg("check") + '</div><div><p style="color:var(--ink);font-weight:600">' + p + "</p></div></div>"
+        )
+        .join("") +
+      "</div>" +
+      "</section>" +
+      '<section id="problems" class="mb-4" style="scroll-margin-top: 110px">' +
+      sectionHead("The business problems it solves", "Sound familiar? This is what we fix.") +
+      '<div class="grid grid-3">' +
+      c.problems
+        .map(
+          (pr, i) =>
+            '<div class="panel panel--alt reveal" data-delay="' + (i % 3) + '"><h4>' + pr.t + '</h4><p class="mt-1">' + pr.d + "</p></div>"
+        )
+        .join("") +
+      "</div>" +
+      "</section>" +
+      '<section id="benefits" class="mb-4" style="scroll-margin-top: 110px">' +
+      sectionHead("Key benefits", "What you gain.") +
+      '<div class="grid grid-2">' +
+      c.benefits
+        .map(
+          (b, i) =>
+            '<div class="value-item reveal" data-delay="' + (i % 2) + '"><div class="value-item__icon">' + svg("circle") + '</div><div><h4>' + b.t + "</h4><p>" + b.d + "</p></div></div>"
+        )
+        .join("") +
+      "</div>" +
+      "</section>" +
+      '<section id="capabilities" class="mb-4" style="scroll-margin-top: 110px">' +
+      sectionHead("Technical capabilities", "The detail, for those who like it.") +
+      '<div class="panel">' +
+      '<ul class="check-list grid grid-2">' +
+      c.caps.map((cap) => "<li>" + svg("check") + cap + "</li>").join("") +
+      "</ul></div>" +
+      "</section>" +
+      '<section id="use-cases" class="mb-4" style="scroll-margin-top: 110px">' +
+      sectionHead("Common business use cases", "Where this service is most valuable.") +
+      '<div class="timeline">' +
+      c.uses
+        .map(
+          (u) =>
+            '<div class="timeline__item is-active"><div class="timeline__dot">' + svg("target") + "</div><h3>" + u.t + "</h3><p>" + u.d + "</p></div>"
+        )
+        .join("") +
+      "</div>" +
+      "</section>" +
+      '<section id="approach" class="mb-4" style="scroll-margin-top: 110px">' +
+      sectionHead("How SHANZOO helps", "A clear path, at your pace.") +
+      '<div class="panel panel--green"><p class="lead" style="color:var(--ink)">' + c.help + "</p></div>" +
+      '<div class="steps steps--vertical mt-3">' +
+      [
+        { t: "Discovery & goals", d: "We start with a conversation to understand the outcome you want and the constraints you work within." },
+        { t: "Current-state review", d: "We examine your existing systems, data and processes to see exactly what stands in the way." },
+        { t: "Solution design", d: "You receive a clear, prioritised design with realistic effort and technology choices." },
+        { t: "Delivery & improvement", d: "We build with your team, test carefully, then monitor and improve over time." }
+      ]
+        .map(
+          (s, i) =>
+            '<div class="step"><span class="step__num">' + (i + 1) + "</span><h3>" + s.t + "</h3><p>" + s.d + "</p></div>"
+        )
+        .join("") +
+      "</div>" +
+      "</section>" +
+      '<section id="faqs" style="scroll-margin-top: 110px">' +
+      sectionHead("Frequently asked questions", "Straight answers in plain language.") +
+      c.faqs
+        .map(
+          (f) =>
+            '<div class="accordion"><button class="accordion__btn" type="button">' + f.q + '<span class="accordion__sign">' + svg("plus") + "</span></button><div class=\"accordion__panel\"><div><p>" + f.a + "</p></div></div></div>"
+        )
+        .join("") +
+      "</section>" +
+      "</div></div>" +
+      '<section class="section bg-alt">' +
+      '<div class="container">' +
+      sectionHead("Related services", "Explore services that work well alongside this one.") +
+      '<div class="related">' + related + "</div>" +
+      '<div class="mt-4"><div class="grid grid-3">' +
+      [
+        { href: "/pages/data-management.html", t: "Data Management Overview", d: "All five management services in one place", icon: "layers" },
+        { href: "/pages/data-integration.html", t: "Data Integration Overview", d: "All five integration services in one place", icon: "link" },
+        { href: "/pages/services.html", t: "All Services", d: "The complete SHANZOO service catalog", icon: "archive" }
+      ]
+        .map(
+          (x) =>
+            '<a class="related-link" href="' + href(root, x.href) + '"><span class="related-link__icon">' + svg(x.icon) + '</span><span class="related-link__text"><strong>' + x.t + "</strong><span>" + x.d + "</span></span></a>"
+        )
+        .join("") +
+      "</div></div>" +
+      "</div></section>" +
+      '<section class="section--tight"><div class="container">' +
+      ctaBanner({
+        root,
+        title: "Want to talk about " + svc.title.toLowerCase() + "?",
+        lead: "Tell us about your challenge and we will point you in the right direction — quickly and honestly.",
+        actions: [{ href: "/pages/contact.html#consultation", label: "Contact SHANZOO", cls: "btn--primary btn--lg" }]
+      }) +
+      "</div></section>"
+  ];
+
+  return page({
+    root,
+    title: svc.title + " | Technology Services | SHANZOO",
+    desc: metaDesc(c.short + " " + c.benefit + " " + c.help),
+    ogType: "article",
+    canonicalPath: "services/" + slug + ".html",
+    body: body.join("\n") +
+      '<script type="application/ld+json">' + JSON.stringify(faqJson) + "</script>"
+  });
+}
+
 function buildServices() {
   const root = "../";
+  const techServices = D.CORE_SERVICES.filter((s) => s.group === "tech");
   const body = [
     pageHero({
       root,
       eyebrow: "All Services",
-      title: "Every service, under one calm roof.",
-      lead: "Whether you need to organize data you already have, or move it between systems, our services divide neatly into two paths — and we will help you choose.",
+      title: "Six core services. One accountable partner.",
+      lead: "From enterprise data management to AI, cloud, software and managed technology services — find the capability that matches your challenge, and we will help you choose.",
       aside:
         '<a class="btn btn--primary" href="' + href(root, "/pages/contact.html#consultation") + '">Get a Consultation</a>',
       crumbs: [
@@ -1771,23 +2135,35 @@ function buildServices() {
       ]
     }),
     '<section class="section"><div class="container">' +
+      sectionHead("Core service areas", "Start with the area that fits your challenge.", true) +
+      '<div class="cap-grid">' +
+      D.CORE_SERVICES.map((s, i) => capCard(root, s, i)).join("") +
+      "</div>" +
+      "</div></section>",
+    '<section class="section bg-alt"><div class="container">' +
       sectionHead("Data Management", "Organize, protect and maintain the data you already have.", true) +
       '<div class="grid grid-3">' +
       D.NAV.megaManagement.map((m, i) => serviceCard(root, bySlug(m.slug), { delay: i % 3 })).join("") +
       "</div>" +
       '<p class="center mt-4"><a class="btn btn--ghost" href="' + href(root, "/pages/data-management.html") + '">Data Management Overview</a></p>' +
       "</div></section>",
-    '<section class="section bg-alt"><div class="container">' +
+    '<section class="section"><div class="container">' +
       sectionHead("Data Integration", "Connect your systems and keep them in step.", true) +
       '<div class="grid grid-3">' +
       D.NAV.megaIntegration.map((m, i) => serviceCard(root, bySlug(m.slug), { delay: i % 3 })).join("") +
       "</div>" +
       '<p class="center mt-4"><a class="btn btn--ghost" href="' + href(root, "/pages/data-integration.html") + '">Data Integration Overview</a></p>' +
       "</div></section>",
+    '<section class="section bg-alt"><div class="container">' +
+      sectionHead("Technology Services", "Modernize systems and operations beyond data.", true) +
+      '<div class="cap-grid">' +
+      techServices.map((s, i) => capCard(root, s, i)).join("") +
+      "</div>" +
+      "</div></section>",
     '<section class="section"><div class="container split">' +
       "<div>" +
       sectionHead("Not sure where to start?", "Start with a conversation, not a spec.") +
-      '<div class="prose"><p>You do not need to understand our service catalog to talk to us. Tell us what is annoying you about your data — duplicate customers, slow reports, systems that do not talk — and we will translate that into a small set of sensible next steps.</p></div>' +
+      '<div class="prose"><p>You do not need to understand our service catalog to talk to us. Tell us what is annoying you about your data, systems or operations — duplicate customers, slow reports, tools that do not talk — and we will translate that into a small set of sensible next steps.</p></div>' +
       '<ul class="check-list mt-3">' +
       "<li>" + svg("check") + "A free initial conversation about your goals.</li>" +
       "<li>" + svg("check") + "Honest advice, even when the answer is 'you may not need a project yet.'</li>" +
@@ -1805,8 +2181,8 @@ function buildServices() {
   ];
   return page({
     root,
-    title: "All Services | Data Management & Data Integration | SHANZOO",
-    desc: "Explore the full SHANZOO catalog: five data management services and five data integration services, explained in plain English.",
+    title: "All Services | Data, AI, Cloud, Software & Managed Services | SHANZOO",
+    desc: "Explore the full SHANZOO catalog: data management, data integration, AI development, cloud & virtualization, software & automation and consulting & managed services.",
     canonicalPath: "pages/services.html",
     body: body.join("\n")
   });
@@ -1868,6 +2244,49 @@ function buildSolutions() {
       items: ["Data Security & Privacy", "Data Governance & Metadata Management"]
     }
   ];
+  const solGroups = [
+    { label: "Trusted Data", items: [0, 2] },
+    { label: "Connected &amp; Real-Time", items: [3, 4, 5] },
+    { label: "Governed &amp; Protected", items: [1, 6] }
+  ];
+  const pad2 = (n) => (n < 10 ? "0" : "") + n;
+  const solPanels = solGroups
+    .map(
+      (g, gi) =>
+        '<div class="sol-panel' + (gi === 0 ? " is-active" : "") + '" id="sol-panel-' + gi +
+        '" role="tabpanel" aria-labelledby="sol-tab-' + gi + '" tabindex="0">' +
+        g.items
+          .map((idx) => {
+            const s = solutions[idx];
+            return (
+              '<article class="sol-item">' +
+              '<div class="sol-item__head">' +
+              '<span class="sol-item__num">' + pad2(idx + 1) + "</span>" +
+              '<span class="sol-item__icon" aria-hidden="true">' + svg(s.icon) + "</span>" +
+              '<div class="sol-item__heading"><h3>' + s.t + "</h3><p>" + s.d + "</p></div>" +
+              "</div>" +
+              '<div class="sol-item__services">' +
+              s.items.map((title) => serviceLinkByTitle(root, title)).join("") +
+              "</div>" +
+              "</article>"
+            );
+          })
+          .join("") +
+        "</div>"
+    )
+    .join("");
+  const solTabs = solGroups
+    .map(
+      (g, gi) =>
+        '<button type="button" class="tabs__btn sol-tab' + (gi === 0 ? " is-active" : "") +
+        '" id="sol-tab-' + gi + '" role="tab" aria-selected="' + (gi === 0 ? "true" : "false") +
+        '" aria-controls="sol-panel-' + gi + '" tabindex="' + (gi === 0 ? "0" : "-1") + '">' +
+        '<span class="sol-tab__num">0' + (gi + 1) + "</span>" +
+        '<span class="sol-tab__label">' + g.label + "</span>" +
+        '<span class="sol-tab__meta">' + g.items.length + " goals</span>" +
+        "</button>"
+    )
+    .join("");
   const body = [
     pageHero({
       root,
@@ -1879,18 +2298,12 @@ function buildSolutions() {
         { label: "Solutions" }
       ]
     }),
-    '<section class="section"><div class="container">' +
-      sectionHead("Solutions by goal", "Pick the outcome you care about most.", true) +
-      solutions
-        .map(
-          (s, i) =>
-            '<div class="grid grid-2 mb-2 reveal" style="gap:0.9rem" data-delay="' + (i % 2) + '">' +
-            '<div class="panel"><div class="value-item"><div class="value-item__icon">' + svg(s.icon) + "</div><div><h4>" + s.t + "</h4><p>" + s.d + "</p></div></div></div>" +
-            '<div class="panel panel--alt" style="display:flex;flex-direction:column;gap:0.7rem;justify-content:center">' +
-            s.items.map((title) => serviceLinkByTitle(root, title)).join("") +
-            "</div></div>"
-        )
-        .join("") +
+    '<section class="section sol-section"><div class="container">' +
+      sectionHead("Solutions by goal", "Pick the outcome you care about most.", "Grouped by the kind of outcome you are after — choose a category, then open any service to see how it works.", true) +
+      '<div class="sol-explorer reveal" data-tabs>' +
+      '<div class="sol-tabs" role="tablist" aria-label="Solution categories">' + solTabs + "</div>" +
+      '<div class="sol-panels">' + solPanels + "</div>" +
+      "</div>" +
       "</div></section>",
     '<section class="section bg-alt"><div class="container split">' +
       "<div>" +
@@ -1983,6 +2396,22 @@ function buildWhy() {
     { icon: "trend", t: "Scalable Approaches", d: "Solutions are sized for where you are today, with a clear path for where you are going tomorrow." },
     { icon: "lock", t: "Attention to Data Security", d: "Security and privacy are design requirements from day one, not afterthoughts added at the end." }
   ];
+  /* Editorial bento: one featured card + four supporting cards, each on a
+     slightly different surface so the section reads with hierarchy instead of
+     five identical white rectangles. */
+  const winVariants = ["feature", "blue", "white", "soft", "mint"];
+  const winLabels = ["Clarity", "Outcomes", "Engineering", "Growth", "Security"];
+  const winCards = wins
+    .map(
+      (w, i) =>
+        '<article class="why-card why-card--' + winVariants[i] + ' reveal" data-delay="' + i + '">' +
+        '<span class="why-card__meta"><span class="why-card__num">0' + (i + 1) + "</span>" + winLabels[i] + "</span>" +
+        '<span class="why-card__icon" aria-hidden="true">' + svg(w.icon) + "</span>" +
+        "<h3>" + w.t + "</h3>" +
+        "<p>" + w.d + "</p>" +
+        "</article>"
+    )
+    .join("");
   const body = [
     pageHero({
       root,
@@ -1994,13 +2423,10 @@ function buildWhy() {
         { label: "Why SHANZOO" }
       ]
     }),
-    '<section class="section"><div class="container">' +
-      sectionHead("The qualities we back with our work", "Five reasons teams choose to work with us.", true) +
-      '<div class="grid grid-2">' +
-      wins.map((w) =>
-        '<div class="card"><div class="card__icon">' + svg(w.icon) + '</div><h3>' + w.t + "</h3><p>" + w.d + "</p></div>"
-      ).join("") +
-      "</div></div></section>",
+    '<section class="section why-section"><div class="container">' +
+      sectionHead("The qualities we back with our work", "Five reasons teams choose to work with us.", "Plain-language commitments that shape every engagement — from the first conversation to steady-state support.", true) +
+      '<div class="why-bento">' + winCards + "</div>" +
+      "</div></section>",
     '<section class="section bg-alt"><div class="container split">' +
       '<div class="split__media"><div class="panel panel--navy"><h3>How honesty shows up</h3>' +
       '<ul class="check-list mt-3">' +
@@ -2105,9 +2531,12 @@ function buildInsights() {
       ]
     }),
     '<section class="section"><div class="container">' +
-      sectionHead("Latest articles", "Practical knowledge in plain English.", true) +
-      '<div class="grid grid-2">' +
-      insights.map((p, i) => insightCard(root, p, i % 2)).join("") +
+      sectionHead("Latest articles", "Practical knowledge in plain English.", "Short, jargon-free reads on the data concepts that come up most in client conversations.", true) +
+      '<div class="insights-layout">' +
+      insightCard(root, insights[0], 0, true) +
+      '<div class="insights-support">' +
+      insights.slice(1).map((p, i) => insightCard(root, p, i % 3)).join("") +
+      "</div>" +
       "</div></div></section>",
     '<section class="section bg-alt"><div class="container split">' +
       "<div>" +
@@ -2256,6 +2685,9 @@ function buildContact() {
     "</optgroup>" +
     "<optgroup label=\"Data Integration\">" +
     D.NAV.megaIntegration.map((m) => "<option>" + m.title + "</option>").join("") +
+    "</optgroup>" +
+    "<optgroup label=\"Technology Services\">" +
+    D.NAV.megaTechnology.map((m) => "<option>" + m.title + "</option>").join("") +
     "</optgroup>" +
     '<option>Consultation / Other</option>';
 
@@ -2609,6 +3041,7 @@ function build() {
   write("pages/services.html", buildServices());
   write("pages/data-management.html", buildDataManagement());
   write("pages/data-integration.html", buildDataIntegration());
+  write("pages/track-record.html", buildTrackRecord());
   write("pages/solutions.html", buildSolutions());
   write("pages/industries.html", buildIndustries());
   write("pages/why-shanzoo.html", buildWhy());
@@ -2633,6 +3066,12 @@ function build() {
     write("services/" + svc.slug + ".html", buildService(svc));
   });
 
+  // Technology service pages (AI, Cloud, Software, Consulting)
+  const techSlugs = ["ai-development", "cloud-virtualization", "software-development", "consulting-managed-services"];
+  techSlugs.forEach((slug) => {
+    write("services/" + slug + ".html", buildTechService(slug));
+  });
+
   // sitemap + robots
   const urls = [
     "index.html",
@@ -2640,6 +3079,7 @@ function build() {
     "pages/services.html",
     "pages/data-management.html",
     "pages/data-integration.html",
+    "pages/track-record.html",
     "pages/solutions.html",
     "pages/industries.html",
     "pages/why-shanzoo.html",
@@ -2654,6 +3094,7 @@ function build() {
   ];
   insights.forEach((p) => urls.push("pages/insights/" + p.slug + ".html"));
   D.SERVICES.forEach((s) => urls.push("services/" + s.slug + ".html"));
+  techSlugs.forEach((s) => urls.push("services/" + s + ".html"));
 
   const base = SITE.domain ? "https://" + SITE.domain : "";
   const sitemap =
