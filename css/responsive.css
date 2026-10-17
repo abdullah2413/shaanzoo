@@ -266,6 +266,11 @@
   .hero__slides {
     text-align: center;
   }
+  .hero__eyebrow--single-line,
+  .hero__eyebrow--two-line {
+    margin-left: auto;
+    margin-right: auto;
+  }
   .hero__lead {
     margin-inline: auto;
   }
@@ -285,9 +290,6 @@
     --fs-h2: clamp(1.6rem, 1.25rem + 2.2vw, 2.2rem);
   }
 
-  .topbar__tagline {
-    display: none;
-  }
   .topbar__inner {
     justify-content: center;
   }
@@ -297,14 +299,14 @@
     gap: 0.3rem 1rem;
     font-size: 0.78rem;
   }
-  .topbar__list--right {
-    margin-left: 0;
+  .topbar__pills {
+    display: none;
   }
-  .topbar__list--right li:last-child {
+  .topbar__list--left li:last-child {
     display: none;
   }
   .brand__logo {
-    height: 34px;
+    height: 49px;
   }
 
   /* The drawer claims almost the full phone width */
@@ -319,14 +321,25 @@
   }
   .hero h1 {
     margin-top: 1rem;
-    font-size: clamp(27px, 8vw, 36px);
-    font-weight: 800;
-    line-height: 1.1;
-    letter-spacing: -0.015em;
+    font-size: clamp(2.1rem, 9vw, 3rem);
+    font-weight: 780;
+    line-height: 1.06;
+    letter-spacing: -0.02em;
   }
-  .hero__eyebrow {
-    font-size: 0.72rem;
-    padding: 0.36rem 0.85rem 0.36rem 0.5rem;
+  .hero__eyebrow--single-line {
+    font-size: 0.63rem;
+    letter-spacing: 0.08em;
+    gap: 0.45rem;
+    min-height: 2rem;
+    padding: 0.58rem 0.7rem;
+    max-width: calc(100vw - 1.6rem);
+    white-space: nowrap;
+    text-align: left;
+  }
+  .hero__eyebrow--single-line .dot {
+    width: 0.45rem;
+    height: 0.45rem;
+    box-shadow: 0 0 0 3px rgba(99, 217, 155, 0.14);
   }
   .hero__lead {
     margin-top: 0.95rem;
@@ -351,9 +364,32 @@
     font-size: 0.78rem;
     padding: 0.4rem 0.75rem;
   }
+  /* On phones the media goes full-width, so the edge-flanking arrows no longer
+     sit in a gutter. Drop the controls back into normal flow, centred directly
+     under the media (safe bottom) with full-size tap targets. */
   .hero__controls {
-    gap: 0.6rem;
-    margin-top: 1.1rem;
+    position: static;
+    transform: none;
+    justify-content: center;
+    gap: 0.75rem;
+    padding-inline: 0;
+    margin-top: 1.4rem;
+  }
+
+  /* Decorative overlays don't fit the compact stacked layout. */
+  .hero__badge {
+    display: none;
+  }
+  .hero__float {
+    left: 0.7rem;
+    right: auto;
+    top: 0.7rem;
+    min-width: 0;
+    max-width: calc(100% - 1.4rem);
+    transform: translateY(6px);
+  }
+  .hero__float.is-active {
+    transform: translateY(0);
   }
 
   /* Stack every multi-column layout */
@@ -483,28 +519,8 @@
 }
 
 /* ------------------------------ Hero arrows ------------------------------- */
-/* Below the wide-desktop breakpoint the arrows sit in a tidy centered row
-   beneath the hero. Above it they float at the section edges, clear of text. */
-@media (min-width: 1320px) {
-  .hero__controls {
-    position: absolute;
-    inset: 0;
-    margin: 0;
-    justify-content: space-between;
-    align-items: center;
-    pointer-events: none;
-    z-index: 6;
-  }
-  .hero__arrow {
-    pointer-events: auto;
-  }
-  .hero__arrow--prev {
-    margin-left: calc((100vw - 100%) / -2 + 1rem);
-  }
-  .hero__arrow--next {
-    margin-right: calc((100vw - 100%) / -2 + 1rem);
-  }
-}
+/* The edge-flanking, lower-middle arrow placement is handled by the base
+   .hero__controls rules in pages.css; on phones it drops back into flow. */
 
 /* ------------------------------ Small-hero visuals (tablet) --------------- */
 @media (max-width: 760px) {

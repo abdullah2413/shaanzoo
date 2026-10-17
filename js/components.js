@@ -125,26 +125,33 @@
   }
 
   function initExplorerFilters() {
-    var boxes = document.querySelectorAll("[data-explorer]");
-    boxes.forEach(function (box) {
+    document.addEventListener("click", function (event) {
+      var btn = event.target && event.target.closest ? event.target.closest("[data-filter]") : null;
+      if (!btn) return;
+
+      var box = btn.closest("[data-explorer]") || btn.closest(".home-solutions__container") || btn.closest("section");
+      if (!box) return;
+
       var buttons = Array.prototype.slice.call(box.querySelectorAll("[data-filter]"));
       var cards = Array.prototype.slice.call(box.querySelectorAll("[data-explorer-card]"));
-      if (!buttons.length || !cards.length) return;
+      if (!buttons.length) return;
 
-      buttons.forEach(function (btn) {
-        btn.addEventListener("click", function () {
-          var filter = btn.getAttribute("data-filter");
-          buttons.forEach(function (b) {
-            var active = b === btn;
-            b.classList.toggle("is-active", active);
-            b.setAttribute("aria-pressed", active ? "true" : "false");
-          });
-          cards.forEach(function (card) {
-            var group = card.getAttribute("data-group");
-            var show = filter === "all" || group === filter;
-            card.classList.toggle("is-hidden", !show);
-          });
-        });
+      var filter = btn.getAttribute("data-filter");
+      buttons.forEach(function (b) {
+        var active = b === btn;
+        b.classList.toggle("is-active", active);
+        b.setAttribute("aria-pressed", active ? "true" : "false");
+      });
+
+      if (!cards.length) {
+        var allCards = document.querySelectorAll("[data-explorer-card]");
+        cards = Array.prototype.slice.call(allCards);
+      }
+
+      cards.forEach(function (card) {
+        var group = card.getAttribute("data-group");
+        var show = filter === "all" || group === filter;
+        card.classList.toggle("is-hidden", !show);
       });
     });
   }

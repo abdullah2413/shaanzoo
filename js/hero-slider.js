@@ -13,7 +13,9 @@
 
   var slides = Array.prototype.slice.call(root.querySelectorAll("[data-hero-slide]"));
   var visuals = Array.prototype.slice.call(root.querySelectorAll("[data-hero-visual]"));
+  var floats = Array.prototype.slice.call(root.querySelectorAll("[data-hero-float]"));
   var dots = Array.prototype.slice.call(root.querySelectorAll("[data-hero-dot]"));
+  var badge = root.querySelector("[data-hero-badge]");
   var currentEl = root.querySelector("[data-hero-current]");
   var progressEl = root.querySelector("[data-hero-progress]");
   var prevBtn = root.querySelector("[data-hero-prev]");
@@ -57,12 +59,14 @@
       slides[i].classList.toggle("is-active", active);
       slides[i].setAttribute("aria-hidden", active ? "false" : "true");
       if (visuals[i]) visuals[i].classList.toggle("is-active", active);
+      if (floats[i]) floats[i].classList.toggle("is-active", active);
       if (dots[i]) {
         dots[i].classList.toggle("is-active", active);
         if (active) dots[i].setAttribute("aria-current", "true");
         else dots[i].removeAttribute("aria-current");
       }
     }
+    if (badge) badge.classList.toggle("is-active", index === 0);
     if (currentEl) currentEl.textContent = pad2(index + 1);
     restartProgress();
   }

@@ -238,15 +238,15 @@ const SERVICES = [
 /* Editable highlights shown in the compact strip under the hero.
    These are qualitative/derived facts — no invented client statistics. */
 const HERO_HIGHLIGHTS = [
-  { value: "06", label: "Core service areas", count: 6, pad: 2 },
-  { value: "10", label: "Specialist services", count: 10, pad: 2 },
+  { value: "05", label: "Core service areas", count: 5, pad: 2 },
+  { value: "15", label: "Specialist capabilities", count: 15, pad: 2 },
   { value: "05", label: "Enterprise engagements", count: 5, pad: 2 },
   { value: "Toronto", label: "Based in Canada" }
 ];
 
-/* The six official SHANZOO core service categories. `group` drives the
+/* The five official SHANZOO core service categories. `group` drives the
    homepage explorer filter: "data" = Data Management + Data Integration,
-   "tech" = AI, Cloud, Software and Consulting. */
+   "tech" = Cloud, Software and Consulting. */
 const CORE_SERVICES = [
   {
     num: "01",
@@ -276,19 +276,6 @@ const CORE_SERVICES = [
   },
   {
     num: "03",
-    slug: "ai-development",
-    href: "/services/ai-development.html",
-    title: "AI Development",
-    icon: "brain",
-    group: "tech",
-    summary: "Build practical AI solutions for automation, analytics and intelligent business workflows.",
-    caps: ["Enterprise AI", "Automation", "Analytics"],
-    explore:
-      "Build practical AI-powered systems for automation, analytics and intelligent business workflows.",
-    popular: false
-  },
-  {
-    num: "04",
     slug: "cloud-virtualization",
     href: "/services/cloud-virtualization.html",
     title: "Cloud & Virtualization",
@@ -301,7 +288,7 @@ const CORE_SERVICES = [
     popular: false
   },
   {
-    num: "05",
+    num: "04",
     slug: "software-development",
     href: "/services/software-development.html",
     title: "Software Development & Automation",
@@ -314,7 +301,7 @@ const CORE_SERVICES = [
     popular: false
   },
   {
-    num: "06",
+    num: "05",
     slug: "consulting-managed-services",
     href: "/services/consulting-managed-services.html",
     title: "Consulting & Managed Services",
@@ -332,22 +319,24 @@ const CORE_SERVICES = [
    with a distinct right-side visual (see heroVisual* builders in build.js). */
 const HERO_SLIDES = [
   {
-    label: "Enterprise Data Services",
-    heading: "Data Management<br>&amp; <span class=\"accent\">Data Integration</span><br>Services",
-    lead: "Manage, govern, secure and connect enterprise data across systems.",
-    primary: { href: "/pages/data-management.html", label: "Explore Data Services" },
-    secondary: { href: "/pages/contact.html#consultation", label: "Talk to Our Team" },
-    tags: ["Data Governance", "MDM", "Data Quality", "Data Integration"],
-    visual: "datahub"
+    label: "CLOUD · SOFTWARE · MANAGED SERVICES",
+    eyebrowMode: "single-line",
+    heading: "Modern Cloud, <span class=\"accent\">Software Engineering &amp; Managed Technology</span> Services",
+    lead: "Build scalable cloud environments, custom enterprise software and automated operations backed by ongoing technical expertise.",
+    primary: { href: "/pages/services.html", label: "Explore Technology Services" },
+    secondary: null,
+    tags: [],
+    visual: "opsgrid"
   },
   {
-    label: "AI • Software • Managed Services",
-    heading: "AI Development<br>&amp; <span class=\"accent\">Software Automation</span><br>Consulting &amp; Managed Services",
-    lead: "Build intelligent software, automate workflows and manage modern technology environments.",
-    primary: { href: "/pages/services.html", label: "Explore Our Services" },
-    secondary: { href: "/pages/contact.html#consultation", label: "Start a Conversation" },
-    tags: ["AI Development", "Software & Automation", "Cloud", "Managed Services"],
-    visual: "opsmap"
+    label: "DATA · GOVERNANCE · INTEGRATION",
+    eyebrowMode: "single-line",
+    heading: "Enterprise Data Management, <span class=\"accent\">Integration &amp; Modernization</span> Solutions",
+    lead: "Build trusted data foundations, connect enterprise systems and move information reliably across modern platforms.",
+    primary: { href: "/pages/data-management.html", label: "Explore Data Services" },
+    secondary: null,
+    tags: [],
+    visual: "datahub"
   }
 ];
 
@@ -369,14 +358,6 @@ const HOME_SERVICES = [
     text: "Connect your systems so information flows where the business needs it.",
     cta: "Explore Data Integration",
     href: "/pages/data-integration.html"
-  },
-  {
-    tag: "AI",
-    icon: "brain",
-    title: "AI Development",
-    text: "Practical AI systems for automation, analytics and intelligent workflows.",
-    cta: "Learn More",
-    href: "/services/ai-development.html"
   },
   {
     tag: "Cloud",
@@ -465,52 +446,6 @@ const TRACK_RECORD = [
    management / integration service pages so buildTechService can render the
    same layout. Copy is intentionally qualitative — no invented metrics. */
 const TECH_SERVICE_CONTENT = {
-  "ai-development": {
-    category: "AI Development",
-    heroSub:
-      "Build practical, production-ready AI solutions that automate work, surface insight and improve everyday business decisions.",
-    short: "Practical AI for automation, analytics and intelligent workflows.",
-    benefit: "Turns repetitive work and unused data into faster, more consistent outcomes.",
-    problems: [
-      { t: "Repetitive, manual work", d: "Skilled people spend hours on tasks — reading documents, sorting requests, re-keying data — that could be handled automatically." },
-      { t: "Data that never becomes action", d: "You collect valuable information but have no practical way to turn it into predictions, priorities or next steps." },
-      { t: "AI pilots that stall", d: "Ideas start with enthusiasm and then stall, because they are not tied to a real workflow or a measurable outcome." }
-    ],
-    benefits: [
-      { t: "Automation where it counts", d: "High-volume, repetitive processes run consistently, freeing your team for judgement and relationships." },
-      { t: "Faster, sharper decisions", d: "Models surface patterns and predictions inside the tools your team already uses." },
-      { t: "Pragmatic, not hype-driven", d: "Every solution is scoped around a business outcome you can actually measure." },
-      { t: "Built to be maintained", d: "Documented, monitored and handed over — not a black box you cannot touch." }
-    ],
-    caps: [
-      "AI opportunity assessment and use-case prioritisation",
-      "Machine-learning model development and evaluation",
-      "Large-language-model and retrieval-augmented (RAG) applications",
-      "Document, text and image processing",
-      "Forecasting, scoring and classification models",
-      "Data pipelines that feed models reliably",
-      "Monitoring, evaluation and responsible-AI guardrails",
-      "Integration of AI into existing business applications"
-    ],
-    uses: [
-      { t: "Document processing", d: "Extract and classify information from forms, invoices and correspondence so staff review exceptions instead of typing." },
-      { t: "Customer and risk insight", d: "Predict churn, prioritise leads and flag anomalies before they become expensive problems." },
-      { t: "Intelligent assistants", d: "Internal assistants that answer questions from your own knowledge base, with sources they can point to." }
-    ],
-    faqs: [
-      { q: "Do we need huge amounts of data to start?", a: "Not always. Many valuable use cases work well with the data you already have. We start where the value is clear and the data is good enough." },
-      { q: "Will AI replace our team?", a: "Our focus is augmentation — removing tedious work so your people can concentrate on judgement, relationships and the parts of the job that need a human." },
-      { q: "How do you keep AI responsible?", a: "With clear scope, human review where it matters, documented behaviour and ongoing monitoring and evaluation." }
-    ],
-    help: "We start with a focused assessment, identify where AI genuinely helps, then build and integrate a solution your team can own and maintain.",
-    helpPoints: [
-      "AI readiness and opportunity assessment",
-      "Use-case selection and value mapping",
-      "Model or LLM application build",
-      "Integration with your systems and workflows",
-      "Evaluation, monitoring and team enablement"
-    ]
-  },
   "cloud-virtualization": {
     category: "Cloud & Virtualization",
     heroSub:
@@ -856,7 +791,6 @@ const NAV = {
     { slug: "data-virtualization", title: "Data Virtualization", desc: "One view of data, wherever it lives", icon: "cloud" }
   ],
   megaTechnology: [
-    { href: "/services/ai-development.html", title: "AI Development", desc: "Practical AI for automation and analytics", icon: "brain" },
     { href: "/services/cloud-virtualization.html", title: "Cloud & Virtualization", desc: "Scalable, secure cloud infrastructure", icon: "cloud" },
     { href: "/services/software-development.html", title: "Software Development & Automation", desc: "Custom apps, portals and workflow automation", icon: "code" },
     { href: "/services/consulting-managed-services.html", title: "Consulting & Managed Services", desc: "Technology consulting and ongoing management", icon: "helm" }

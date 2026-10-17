@@ -114,11 +114,15 @@ function topbar(opts) {
   const pre = root ? root : "";
   return (
     '<div class="topbar">\n  <div class="container topbar__inner">\n' +
-    '    <p class="topbar__tagline">' + svg("shield") + " Enterprise Data Management &amp; Integration</p>\n" +
-    '    <ul class="topbar__list topbar__list--right">\n' +
-    '      <li><a href="mailto:' + SITE.email + '">' + svg("mail") + SITE.email + "</a></li>\n" +
+    '    <ul class="topbar__list topbar__list--left">\n' +
     '      <li><a href="tel:' + SITE.phoneHref + '">' + svg("phone") + SITE.phone + "</a></li>\n" +
+    '      <li><a href="mailto:' + SITE.email + '">' + svg("mail") + SITE.email + "</a></li>\n" +
     '      <li><span class="topbar__item">' + svg("pin") + SITE.city + "</span></li>\n" +
+    "    </ul>\n" +
+    '    <ul class="topbar__list topbar__list--right topbar__pills">\n' +
+    '      <li><span class="topbar__pill">Data Management</span></li>\n' +
+    '      <li><span class="topbar__pill">Data Integration</span></li>\n' +
+    '      <li><span class="topbar__pill">Enterprise Solutions</span></li>\n' +
     "    </ul>\n  </div>\n</div>"
   );
 }
@@ -172,7 +176,6 @@ function header(opts) {
     .join("");
 
   const navItems =
-    '<li><a class="nav__link" href="' + href(root, "/index.html") + '">Home</a></li>\n' +
     '<li class="nav__item" data-dropdown>\n' +
     '  <button class="nav__link" type="button" aria-haspopup="true" aria-expanded="false" aria-controls="menu-about">About Us ' + svg("chevron", "nav__caret") + "</button>\n" +
     '  <div class="menu-simple" id="menu-about" role="region" aria-label="About SHANZOO">' +
@@ -193,7 +196,7 @@ function header(opts) {
     intCol +
     techCol +
     '</div><div class="mega__foot"><p class="mega__foot-note">Not sure where to start? We will help you find the right path.</p>' +
-    '<a class="btn btn--navy btn--sm" href="' + href(root, "/pages/contact.html#consultation") + '">Get a Consultation</a>' +
+    '<a class="btn btn--navy btn--md" href="' + href(root, "/pages/contact.html#consultation") + '">Get a Consultation</a>' +
     "</div></div></li>\n" +
     '<li><a class="nav__link" href="' + href(root, "/pages/solutions.html") + '">Solutions</a></li>\n' +
     '<li><a class="nav__link" href="' + href(root, "/pages/track-record.html") + '">Track Record</a></li>\n' +
@@ -203,7 +206,7 @@ function header(opts) {
   return (
     '<header class="site-header">\n  <div class="container">\n    <div class="header__inner">\n' +
     '      <a class="brand" href="' + href(root, "/index.html") + '" aria-label="SHANZOO — return to home">\n' +
-    '        <img class="brand__logo" src="' + pre + 'assets/logo/shanzoo-logo-360.png" alt="SHANZOO logo — navy hexagonal data mark with green analytics bars" width="360" height="239" fetchpriority="high">\n' +
+    '        <img class="brand__logo" src="' + pre + 'images/logoNav.png" alt="SHANZOO logo — navy hexagonal data mark with green analytics bars" width="360" height="239" fetchpriority="high">\n' +
     "      </a>\n" +
     '      <button class="nav-toggle" type="button" aria-label="Open menu" aria-expanded="false" aria-controls="primary-nav"><span class="nav-toggle__bars"></span></button>\n' +
     '      <nav id="primary-nav" class="nav" aria-label="Main navigation">\n' +
@@ -219,13 +222,12 @@ function header(opts) {
     '            <a class="btn btn--ghost btn--sm" href="' + href(root, "/pages/login.html") + '">Login</a>\n' +
     '            <a class="btn btn--primary btn--sm" href="' + href(root, "/pages/signup.html") + '">Sign Up</a>\n' +
     "          </div>\n" +
-    '          <a class="btn btn--navy btn--sm" data-auth-cta href="' + href(root, "/pages/contact.html#consultation") + '">Get a Consultation</a>\n' +
+    '          <a class="btn btn--navy btn--md" data-auth-cta href="' + href(root, "/pages/contact.html#consultation") + '">Get a Consultation</a>\n' +
     "        </div>\n" +
     "      </nav>\n" +
     '      <div class="header__actions">\n' +
     '        <a class="header__login" data-auth-login href="' + href(root, "/pages/login.html") + '">Login</a>\n' +
-    '        <a class="btn btn--ghost btn--sm header__signup" data-auth-signup href="' + href(root, "/pages/signup.html") + '">Sign Up</a>\n' +
-    '        <a class="btn btn--primary btn--sm" data-auth-cta href="' + href(root, "/pages/contact.html#consultation") + '">Get a Consultation</a>\n' +
+    '        <a class="btn btn--primary btn--md" data-auth-cta href="' + href(root, "/pages/contact.html#consultation") + '">Get a Consultation</a>\n' +
     "      </div>\n" +
     "    </div>\n  </div>\n" +
     '  <div class="mobile-overlay" aria-hidden="true"></div>\n' +
@@ -501,7 +503,7 @@ function ecosystemSection(root) {
     },
     {
       mod: "build", icon: "code", label: "Build",
-      items: ["AI Development", "Software &amp; Automation", "Custom Applications"]
+      items: ["Software Development", "Automation", "Custom Applications"]
     },
     {
       mod: "operate", icon: "helm", label: "Operate",
@@ -707,26 +709,26 @@ function projectsShowcase(root) {
 }
 
 /* ------------------------------ Rotating hero ---------------------------- */
-function heroTagList(tags) {
-  return (
-    '<ul class="hero__tags">' +
-    tags.map((t) => "<li>" + t + "</li>").join("") +
-    "</ul>"
-  );
-}
-
 function heroSlide(root, s, i) {
+  var secondary = s.secondary
+    ? '<a class="btn btn--outline-light btn--lg" href="' + href(root, s.secondary.href) + '">' + s.secondary.label + "</a>"
+    : "";
+  var tags =
+    s.tags && s.tags.length
+      ? '<ul class="hero__tags">' + s.tags.map((t) => "<li>" + t + "</li>").join("") + "</ul>"
+      : "";
+  var eyebrowClass = "hero__eyebrow hero__eyebrow--single-line";
   return (
     '<article class="hero__slide' + (i === 0 ? " is-active" : "") +
     '" data-hero-slide="' + i + '"' + (i === 0 ? "" : ' aria-hidden="true"') + ">" +
-    '<p class="hero__eyebrow"><span class="dot"></span>' + s.label + "</p>" +
+    '<p class="' + eyebrowClass + '"><span class="dot"></span>' + s.label + "</p>" +
     "<h1>" + s.heading + "</h1>" +
     '<p class="hero__lead">' + s.lead + "</p>" +
     '<div class="hero__actions">' +
     '<a class="btn btn--primary btn--lg" href="' + href(root, s.primary.href) + '">' + s.primary.label + "</a>" +
-    '<a class="btn btn--outline-light btn--lg" href="' + href(root, s.secondary.href) + '">' + s.secondary.label + "</a>" +
+    secondary +
     "</div>" +
-    heroTagList(s.tags) +
+    tags +
     "</article>"
   );
 }
@@ -812,26 +814,30 @@ function heroVisualDataHub() {
     '<span class="hero-eco__ring hero-eco__ring--1"></span>' +
     '<span class="hero-eco__ring hero-eco__ring--2"></span>' +
     '<span class="hero-eco__ring hero-eco__ring--3"></span>' +
-    '<div class="hero-eco__hub"><b>Enterprise Data</b><small>Managed · Governed · Connected</small></div>' +
+    '<div class="hero-eco__hub"><b>SHANZOO</b><small>Enterprise Data Platform</small></div>' +
     capHtml +
     ioHtml +
     "</div>"
   );
 }
 
-/* Slide 02 — a 2x3 grid of six capability cards (no central hub), with subtle
-   connectors between the tiles so it still reads as one connected system. */
-function heroVisualOpsMap() {
+/* Slide 02 — a single large capability panel: a small "TECHNOLOGY CAPABILITIES"
+   label above a 3x2 grid of six tiles (Cloud Infra, Virtualization, Custom
+   Software, Workflow Automation, DevOps, Managed Services), connected by light
+   dashed paths so it reads as one system. */
+function heroVisualOpsGrid() {
   var cards = [
-    { icon: "brain", title: "AI Development", text: "Intelligent business solutions", tags: ["AI", "Intelligent Apps"] },
-    { icon: "code", title: "Custom Software", text: "Purpose-built digital systems", tags: ["Web Apps", "Business Systems"] },
-    { icon: "workflow", title: "Workflow Automation", text: "Automate repetitive operations", tags: ["Workflows", "Efficiency"] },
-    { icon: "link", title: "API Integration", text: "Connect platforms and services", tags: ["APIs", "Connected Systems"] },
-    { icon: "cloud", title: "Cloud & Virtualization", text: "Modern scalable infrastructure", tags: ["Cloud", "Infrastructure"] },
-    { icon: "helm", title: "Managed Services & Consulting", text: "Operate, optimize and scale", tags: ["Managed Services", "Consulting"] }
+    { icon: "cloud", title: "Cloud Infrastructure", text: "Scalable, resilient cloud environments" },
+    { icon: "layers", title: "Virtualization", text: "Consolidated compute and workloads" },
+    { icon: "code", title: "Custom Software", text: "Purpose-built enterprise applications" },
+    { icon: "workflow", title: "Workflow Automation", text: "Automate repetitive operations" },
+    { icon: "refresh", title: "DevOps", text: "Continuous delivery and reliability" },
+    { icon: "helm", title: "Managed Services", text: "Ongoing operations and support" }
   ];
   return (
     '<div class="hero-ops" aria-hidden="true">' +
+    '<p class="hero-ops__label">Technology Capabilities</p>' +
+    '<div class="hero-ops__grid">' +
     cards
       .map(function (c, i) {
         return (
@@ -839,18 +845,17 @@ function heroVisualOpsMap() {
           '<span class="hero-ops__icon">' + svg(c.icon) + "</span>" +
           '<h3 class="hero-ops__title">' + c.title + "</h3>" +
           '<p class="hero-ops__text">' + c.text + "</p>" +
-          '<ul class="hero-ops__tags"><li>' + c.tags[0] + "</li><li>" + c.tags[1] + "</li></ul>" +
           "</article>"
         );
       })
       .join("") +
-    "</div>"
+    "</div></div>"
   );
 }
 
 function heroVisualFor(name, i) {
   var inner =
-    name === "opsmap" ? heroVisualOpsMap() : heroVisualDataHub();
+    name === "opsgrid" ? heroVisualOpsGrid() : heroVisualDataHub();
   return (
     '<div class="hero__visual' + (i === 0 ? " is-active" : "") + '" data-hero-visual="' + i + '">' +
     inner +
@@ -861,6 +866,23 @@ function heroVisualFor(name, i) {
 function heroMedia(root) {
   var slides = D.HERO_SLIDES;
   var total = slides.length < 10 ? "0" + slides.length : String(slides.length);
+  /* Per-slide floating info card (same coordinates on both slides) — differs
+     only in its copy so the two slides share one layout frame. */
+  var floatCopy = {
+    datahub: { icon: "shield", tag: "Trusted Data", title: "Governed Enterprise Information" },
+    opsgrid: { icon: "check", tag: "Enterprise Ready", title: "Scalable · Secure · Supported" }
+  };
+  var floats = slides
+    .map(function (s, i) {
+      var f = floatCopy[s.visual] || floatCopy.datahub;
+      return (
+        '<div class="hero__float' + (i === 0 ? " is-active" : "") + '" data-hero-float="' + i + '">' +
+        '<span class="hero__float-icon">' + svg(f.icon) + "</span>" +
+        '<span class="hero__float-text"><small>' + f.tag + "</small><b>" + f.title + "</b></span>" +
+        "</div>"
+      );
+    })
+    .join("");
   return (
     '<div class="hero__media">' +
     '<div class="hero__media-card">' +
@@ -875,13 +897,26 @@ function heroMedia(root) {
           '<button class="hero__dot' + (i === 0 ? " is-active" : "") +
           '" type="button" data-hero-dot="' + i + '"' +
           (i === 0 ? ' aria-current="true"' : "") +
-          ' aria-label="Show ' + s.label + ' slide"></button>'
+          ' aria-label="Show slide ' + (i + 1) + '"></button>'
       )
       .join("") +
     "</div>" +
     '<span class="hero__count"><span data-hero-current>01</span> / ' + total + "</span>" +
     "</div>" +
     '<span class="hero__progress" aria-hidden="true"><i data-hero-progress></i></span>' +
+    "</div>" +
+    floats +
+    '<div class="hero__badge is-active" data-hero-badge aria-hidden="true">' +
+    '<svg viewBox="0 0 100 100" focusable="false">' +
+    '<defs>' +
+    '<path id="heroBadgeArcTop" d="M50,50 m-35,0 a35,35 0 1,1 70,0" fill="none"/>' +
+    '<path id="heroBadgeArcBottom" d="M50,50 m35,0 a35,35 0 1,1 -70,0" fill="none"/>' +
+    "</defs>" +
+    '<circle cx="50" cy="50" r="43" class="hero__badge-ring" fill="none"/>' +
+    '<text class="hero__badge-text"><textPath href="#heroBadgeArcTop" startOffset="50%" text-anchor="middle">GOVERNED · CONNECTED</textPath></text>' +
+    '<text class="hero__badge-text"><textPath href="#heroBadgeArcBottom" startOffset="50%" text-anchor="middle">SECURE · TRUSTED</textPath></text>' +
+    "</svg>" +
+    '<span class="hero__badge-core">' + svg("shield") + "</span>" +
     "</div>" +
     "</div>"
   );
@@ -906,9 +941,9 @@ function heroSection(root) {
     slides.map((s, i) => heroSlide(root, s, i)).join("\n") +
     "\n      </div>\n    </div>\n    " +
     heroMedia(root) +
-    "\n    " +
-    heroControls() +
     "\n  </div>\n  " +
+    heroControls() +
+    "\n  " +
     heroStrip() +
     "\n</section>"
   );
@@ -1576,7 +1611,7 @@ function buildService(svc) {
     navSections.map((s) => '<li><a href="#' + s[0] + '">' + s[1] + "</a></li>").join("") +
     "</ul>" +
     '<div class="svc-nav__cta"><p class="mega__desc mb-2">Talk through this service with our team.</p>' +
-    '<a class="btn btn--primary btn--sm btn--block" href="' + href(root, "/pages/contact.html#consultation") + '">Get a Consultation</a></div>';
+    '<a class="btn btn--primary btn--md btn--block" href="' + href(root, "/pages/contact.html#consultation") + '">Get a Consultation</a></div>';
 
   const crumbItems = [
     { href: "/index.html", label: "Home" },
@@ -1932,7 +1967,6 @@ function buildTechService(slug) {
   const svc = D.CORE_SERVICES.find((s) => s.slug === slug);
   const c = D.TECH_SERVICE_CONTENT[slug];
   const artMap = {
-    "ai-development": D.svgNetwork,
     "cloud-virtualization": D.svgCloud,
     "software-development": D.svgLayers,
     "consulting-managed-services": D.svgBlueprint
@@ -1954,7 +1988,7 @@ function buildTechService(slug) {
     navSections.map((s) => '<li><a href="#' + s[0] + '">' + s[1] + "</a></li>").join("") +
     "</ul>" +
     '<div class="svc-nav__cta"><p class="mega__desc mb-2">Talk through this service with our team.</p>' +
-    '<a class="btn btn--primary btn--sm btn--block" href="' + href(root, "/pages/contact.html#consultation") + '">Get a Consultation</a></div>';
+    '<a class="btn btn--primary btn--md btn--block" href="' + href(root, "/pages/contact.html#consultation") + '">Get a Consultation</a></div>';
 
   const crumbItems = [
     { href: "/index.html", label: "Home" },
@@ -3066,8 +3100,8 @@ function build() {
     write("services/" + svc.slug + ".html", buildService(svc));
   });
 
-  // Technology service pages (AI, Cloud, Software, Consulting)
-  const techSlugs = ["ai-development", "cloud-virtualization", "software-development", "consulting-managed-services"];
+  // Technology service pages (Cloud, Software, Consulting)
+  const techSlugs = ["cloud-virtualization", "software-development", "consulting-managed-services"];
   techSlugs.forEach((slug) => {
     write("services/" + slug + ".html", buildTechService(slug));
   });

@@ -99,8 +99,8 @@
   --dur-slow: 420ms;
 
   /* ---- Header sizes ---- */
-  --topbar-h: 40px;
-  --header-h: 76px;
+    --topbar-h: 38px;
+    --header-h: 78px;
   --header-h-mobile: 64px;
 
   /* Stacking order — page content sits at 1, the header context at 100.
@@ -118,12 +118,12 @@
      Shared visual language for the dark, technical "enterprise environment"
      used by the hero and matching full-bleed sections (e.g. Proven Track
      Record). Single source of truth so the two never drift apart. */
-  --env-glow-blue: radial-gradient(58% 54% at 86% -8%, rgba(47, 150, 224, 0.34), transparent 60%);
-  --env-glow-green: radial-gradient(56% 54% at 3% 110%, rgba(0, 150, 94, 0.36), transparent 60%);
-  --env-glow-soft: radial-gradient(52% 46% at 30% -14%, rgba(255, 255, 255, 0.1), transparent 62%);
-  --env-navy: linear-gradient(150deg, #0a2b45 0%, #0a2236 50%, #071826 100%);
-  --env-dots: radial-gradient(rgba(160, 205, 245, 0.16) 1.1px, transparent 1.6px),
-    radial-gradient(rgba(255, 255, 255, 0.1) 1px, transparent 1.4px);
-  --env-dot-size: 26px 26px, 26px 26px;
-  --env-dot-pos: 0 0, 13px 13px;
+  --env-glow-blue: radial-gradient(62% 55% at 80% 8%, rgba(31, 111, 190, 0.16), transparent 62%);
+  --env-glow-green: radial-gradient(46% 46% at 6% 108%, rgba(0, 150, 94, 0.12), transparent 60%);
+  --env-glow-soft: radial-gradient(48% 40% at 34% -12%, rgba(255, 255, 255, 0.05), transparent 64%);
+  --env-navy: linear-gradient(180deg, #08213a 0%, #071b31 55%, #061628 100%);
+  --env-dots: linear-gradient(rgba(150, 195, 240, 0.055) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(150, 195, 240, 0.055) 1px, transparent 1px);
+  --env-dot-size: 112px 112px, 112px 112px;
+  --env-dot-pos: 0 0, 0 0;
 }
