@@ -431,7 +431,7 @@ const TRACK_RECORD = [
   },
   {
     year: "2023 – 2024",
-    client: "Texas Commission on Environmental Quality",
+    client: "Toronto Commission on Environmental Quality",
     category: "Cloud Communications",
     icon: "cloud",
     summary:
