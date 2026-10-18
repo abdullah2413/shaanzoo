@@ -1,5 +1,5 @@
-/* ==========================================================================
-   SHANZOO — Content data (vanilla Node, no dependencies)
+﻿/* ==========================================================================
+   SHANZOO â€” Content data (vanilla Node, no dependencies)
    Used by tools/build.js to generate the static HTML pages. Keeping content
    in one place makes maintenance simple and guarantees consistent nav/footer
    across every page.
@@ -14,8 +14,8 @@ const SITE = {
   city: "Toronto, Canada",
   phone: "+1 647-546-9772",
   phoneHref: "+16475469772",
-  email: "info@sganzoo.com",
-  domain: "", // production domain not yet confirmed — leave empty
+  email: "info@shanzoo.com",
+  domain: "", // production domain not yet confirmed â€” leave empty
   dns: "" // empty string keeps links relative for local use
 };
 
@@ -131,7 +131,7 @@ const SERVICES = [
     icon: "database",
     category: "Data Management",
     heroSub:
-      "Create one reliable, consistent record for the business information that matters most — customers, products, suppliers and locations.",
+      "Create one reliable, consistent record for the business information that matters most â€” customers, products, suppliers and locations.",
   },
   {
     slug: "data-governance",
@@ -230,13 +230,13 @@ const SERVICES = [
     icon: "cloud",
     category: "Data Integration",
     heroSub:
-      "Access data from many systems through a single logical layer — without copying it everywhere first.",
+      "Access data from many systems through a single logical layer â€” without copying it everywhere first.",
   }
 ];
 
 /* ------------------- Homepage preview + showcase content ----------------- */
 /* Editable highlights shown in the compact strip under the hero.
-   These are qualitative/derived facts — no invented client statistics. */
+   These are qualitative/derived facts â€” no invented client statistics. */
 const HERO_HIGHLIGHTS = [
   { value: "05", label: "Core service areas", count: 5, pad: 2 },
   { value: "15", label: "Specialist capabilities", count: 15, pad: 2 },
@@ -315,11 +315,11 @@ const CORE_SERVICES = [
   }
 ];
 
-/* Rotating hero service slides — exactly two. Each slide pairs left-side copy
+/* Rotating hero service slides â€” exactly two. Each slide pairs left-side copy
    with a distinct right-side visual (see heroVisual* builders in build.js). */
 const HERO_SLIDES = [
   {
-    label: "CLOUD · SOFTWARE · MANAGED SERVICES",
+    label: "CLOUD Â· SOFTWARE Â· MANAGED SERVICES",
     eyebrowMode: "single-line",
     heading: "Modern Cloud, <span class=\"accent\">Software Engineering &amp; Managed Technology</span> Services",
     lead: "Build scalable cloud environments, custom enterprise software and automated operations backed by ongoing technical expertise.",
@@ -329,7 +329,7 @@ const HERO_SLIDES = [
     visual: "opsgrid"
   },
   {
-    label: "DATA · GOVERNANCE · INTEGRATION",
+    label: "DATA Â· GOVERNANCE Â· INTEGRATION",
     eyebrowMode: "single-line",
     heading: "Enterprise Data Management, <span class=\"accent\">Integration &amp; Modernization</span> Solutions",
     lead: "Build trusted data foundations, connect enterprise systems and move information reliably across modern platforms.",
@@ -385,12 +385,12 @@ const HOME_SERVICES = [
   }
 ];
 
-/* Proven track record — real enterprise engagements supplied by SHANZOO.
+/* Proven track record â€” real enterprise engagements supplied by SHANZOO.
    `summary` is the short homepage card copy; `detail` is the expanded
    description used on the dedicated track-record page. */
 const TRACK_RECORD = [
   {
-    year: "2011 – 2016",
+    year: "2011 â€“ 2016",
     client: "State Farm",
     category: "Contact Center",
     icon: "headset",
@@ -400,7 +400,7 @@ const TRACK_RECORD = [
       "Five-year contact center lab infrastructure supporting scalable and secure call-flow designs to streamline agent workflows and improve customer interactions."
   },
   {
-    year: "2024 – Ongoing",
+    year: "2024 â€“ Ongoing",
     client: "Memorial Hermann / LA County",
     category: "Portal Development",
     icon: "globe",
@@ -430,7 +430,7 @@ const TRACK_RECORD = [
       "DevOps infrastructure project using GitHub-based CI environments and custom Python scripts to optimize workflows and improve deployment processes."
   },
   {
-    year: "2023 – 2024",
+    year: "2023 â€“ 2024",
     client: "Toronto Commission on Environmental Quality",
     category: "Cloud Communications",
     icon: "cloud",
@@ -444,7 +444,7 @@ const TRACK_RECORD = [
 /* ------------- Technology services (detail page content) ----------------- */
 /* Keyed by the CORE_SERVICES slug. Mirrors the SC structure used for the data
    management / integration service pages so buildTechService can render the
-   same layout. Copy is intentionally qualitative — no invented metrics. */
+   same layout. Copy is intentionally qualitative â€” no invented metrics. */
 const TECH_SERVICE_CONTENT = {
   "cloud-virtualization": {
     category: "Cloud & Virtualization",

@@ -6,7 +6,8 @@
    ========================================================================== */
 
 /* Off-canvas quick actions are hidden until the nav collapses */
-.mobile-actions {
+.mobile-actions,
+.mobile-nav-accordion {
   display: none;
 }
 
@@ -40,6 +41,10 @@
   .nav,
   .header__actions {
     display: none;
+  }
+  .mobile-nav-accordion,
+  .mobile-actions {
+    display: block;
   }
   .nav-toggle {
     display: inline-flex;
@@ -124,9 +129,7 @@
     height: 22px;
   }
   .nav__list {
-    flex-direction: column;
-    align-items: stretch;
-    gap: 0.1rem;
+    display: none;
   }
   .nav__link {
     justify-content: space-between;
@@ -141,57 +144,111 @@
     display: none;
   }
 
-  /* Accordion submenus on mobile */
-  .mega,
-  .menu-simple {
-    position: static;
-    transform: none;
+  .mobile-nav-accordion {
+    display: flex;
+    flex-direction: column;
+    gap: 0.25rem;
     width: 100%;
-    min-width: 0;
-    opacity: 1;
-    visibility: visible;
-    pointer-events: auto;
-    box-shadow: none;
+    padding-bottom: 0.5rem;
+  }
+  .mobile-nav-group {
+    width: 100%;
+    border-radius: var(--r-md);
+  }
+  .mobile-nav-trigger,
+  .mobile-category-trigger {
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 0.75rem;
+    padding: 0.75rem 0.7rem;
     border: 0;
-    border-radius: 0;
-    padding: 0;
+    background: transparent;
+    color: var(--navy);
+    font-size: 1rem;
+    font-weight: 700;
+    text-align: left;
+    cursor: pointer;
+    border-radius: var(--r-sm);
+  }
+  .mobile-nav-trigger svg,
+  .mobile-category-trigger svg {
+    width: 18px;
+    height: 18px;
+    transition: transform var(--dur) var(--ease);
+    flex-shrink: 0;
+  }
+  .mobile-nav-group.is-open > .mobile-nav-trigger svg,
+  .mobile-category.is-open > .mobile-category-trigger svg {
+    transform: rotate(180deg);
+  }
+  .mobile-nav-panel,
+  .mobile-category-panel {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 0.12rem;
     max-height: 0;
     overflow: hidden;
-    transition: max-height var(--dur-slow) var(--ease);
+    opacity: 0;
+    transition: max-height 0.2s ease, opacity 0.2s ease, padding 0.2s ease;
+    width: 100%;
+    box-sizing: border-box;
   }
-  .mega::before {
-    display: none;
+  .mobile-nav-group.is-open > .mobile-nav-panel,
+  .mobile-category.is-open > .mobile-category-panel {
+    max-height: 700px;
+    opacity: 1;
   }
-  .mega.is-open,
-  .menu-simple.is-open {
-    max-height: 1600px;
-    padding: 0.5rem 0 0.75rem;
-  }
-  .mega__grid {
-    grid-template-columns: 1fr;
-    gap: 1rem;
-    padding-inline: 0.4rem;
-  }
-  .mega__foot {
-    flex-direction: column;
-    align-items: stretch;
-  }
-  .mega__foot .btn {
+  .mobile-category {
     width: 100%;
   }
-  .menu-simple {
-    padding-left: 0.6rem;
+  .mobile-category-trigger {
+    font-size: 0.95rem;
+    padding: 0.68rem 0.7rem 0.68rem 1.05rem;
+    color: var(--ink);
   }
-  .menu-simple__link {
-    background: var(--bg-alt);
+  .mobile-category-panel {
+    padding-left: 1.05rem;
+  }
+  .mobile-nav-link {
+    display: block;
+    width: 100%;
+    box-sizing: border-box;
+    padding: 0.54rem 0.7rem 0.54rem 0.9rem;
+    border-radius: var(--r-sm);
+    font-size: 0.93rem;
+    line-height: 1.35;
+    color: var(--ink);
+    text-align: left;
+  }
+  .mobile-nav-link:hover,
+  .mobile-nav-link:focus-visible {
+    background: var(--navy-050);
+    color: var(--navy);
+  }
+  .mobile-nav-link--all {
+    color: var(--green-dark);
+    font-weight: 600;
+  }
+  .mobile-nav-link--standalone {
+    padding: 0.8rem 0.7rem;
+    font-size: 1rem;
+    font-weight: 600;
+    border-radius: var(--r-sm);
   }
 
   .mobile-actions {
+    position: sticky;
+    bottom: 0;
+    z-index: 2;
     display: grid;
-    gap: 0.6rem;
-    margin-top: 1.25rem;
-    padding-top: 1.25rem;
+    gap: 0.5rem;
+    margin-top: 1rem;
+    padding-top: 1rem;
+    background: rgba(255, 255, 255, 0.96);
     border-top: 1px solid var(--border);
+    backdrop-filter: blur(6px);
   }
   .mobile-actions .btn {
     width: 100%;

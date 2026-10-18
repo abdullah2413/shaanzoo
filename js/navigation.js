@@ -150,6 +150,7 @@
       document.documentElement.style.overflow = "";
       document.body.classList.remove("nav-open");
       closeMenusIn(nav);
+      resetMobileAccordionState();
     }
 
     if (toggle) {
@@ -159,6 +160,97 @@
       });
     }
     if (overlay) overlay.addEventListener("click", closePanel);
+
+    // Mobile-specific accordion state. This is a dedicated UI for the drawer and
+    // intentionally separate from the desktop mega menu logic.
+    function resetMobileAccordionState() {
+      var groups = nav.querySelectorAll(".mobile-nav-group");
+      groups.forEach(function (group) {
+        var trigger = group.querySelector("[data-mobile-trigger]");
+        var panel = group.querySelector("[data-mobile-panel]");
+        group.classList.remove("is-open");
+        if (panel) panel.classList.remove("is-open");
+        if (trigger) trigger.setAttribute("aria-expanded", "false");
+      });
+
+      nav.querySelectorAll(".mobile-category").forEach(function (category) {
+        category.classList.remove("is-open");
+        var categoryTrigger = category.querySelector("[data-mobile-category]");
+        var categoryPanel = category.querySelector("[data-mobile-category-panel]");
+        if (categoryTrigger) categoryTrigger.setAttribute("aria-expanded", "false");
+        if (categoryPanel) categoryPanel.classList.remove("is-open");
+      });
+    }
+
+    function setMobileGroupState(group, isOpen) {
+      var trigger = group.querySelector("[data-mobile-trigger]");
+      var panel = group.querySelector("[data-mobile-panel]");
+      group.classList.toggle("is-open", isOpen);
+      if (panel) panel.classList.toggle("is-open", isOpen);
+      if (trigger) trigger.setAttribute("aria-expanded", String(isOpen));
+    }
+
+    function setMobileCategoryState(category, isOpen) {
+      var trigger = category.querySelector("[data-mobile-category]");
+      var panel = category.querySelector("[data-mobile-category-panel]");
+      category.classList.toggle("is-open", isOpen);
+      if (trigger) trigger.setAttribute("aria-expanded", String(isOpen));
+      if (panel) panel.classList.toggle("is-open", isOpen);
+    }
+
+    nav.querySelectorAll("[data-mobile-trigger]").forEach(function (trigger) {
+      trigger.addEventListener("click", function (e) {
+        if (DESKTOP.matches) return;
+        e.preventDefault();
+        e.stopPropagation();
+
+        var group = trigger.closest(".mobile-nav-group");
+        if (!group) return;
+
+        var shouldOpen = !group.classList.contains("is-open");
+        nav.querySelectorAll(".mobile-nav-group").forEach(function (item) {
+          if (item !== group) setMobileGroupState(item, false);
+        });
+        setMobileGroupState(group, shouldOpen);
+      });
+    });
+
+    nav.querySelectorAll("[data-mobile-category]").forEach(function (trigger) {
+      trigger.addEventListener("click", function (e) {
+        if (DESKTOP.matches) return;
+        e.preventDefault();
+        e.stopPropagation();
+
+        var category = trigger.closest(".mobile-category");
+        if (!category) return;
+
+        var shouldOpen = !category.classList.contains("is-open");
+        nav.querySelectorAll(".mobile-category").forEach(function (item) {
+          if (item !== category) setMobileCategoryState(item, false);
+        });
+        setMobileCategoryState(category, shouldOpen);
+      });
+    });
+
+    nav.querySelectorAll(".mobile-nav-link").forEach(function (link) {
+      link.addEventListener("click", function () {
+        if (DESKTOP.matches) return;
+        closePanel();
+      });
+    });
+
+    document.addEventListener("click", function (e) {
+      if (DESKTOP.matches) {
+        var dropdown = e.target.closest("[data-dropdown]");
+        if (!dropdown && nav.querySelector("[data-dropdown].is-open")) {
+          closeMenusIn(nav);
+        }
+        return;
+      }
+      if (toggle && !nav.contains(e.target) && !toggle.contains(e.target) && nav.classList.contains("is-open")) {
+        closePanel();
+      }
+    });
 
     // Explicit close control inside the panel header
     var closeBtn = nav.querySelector("[data-nav-close]");

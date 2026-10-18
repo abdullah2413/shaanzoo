@@ -1,4 +1,4 @@
-"use strict";
+﻿"use strict";
 
 /**
  * Centralised, validated environment configuration.
@@ -102,7 +102,7 @@ const config = {
     transport: optional("MAIL_TRANSPORT", "auto").toLowerCase(),
     resendApiKey: optional("RESEND_API_KEY", ""),
     resendFrom: optional("RESEND_FROM_EMAIL", ""),
-    receiverEmail: optional("CONTACT_RECEIVER_EMAIL", "info@sganzoo.com"),
+    receiverEmail: optional("CONTACT_RECEIVER_EMAIL", "info@shanzoo.com"),
     smtp: {
       host: optional("SMTP_HOST", ""),
       port: int("SMTP_PORT", 465),
@@ -118,3 +118,4 @@ const config = {
 config.projectRoot = path.resolve(__dirname, "..", "..");
 
 module.exports = config;
+
