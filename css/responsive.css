@@ -27,11 +27,9 @@
 }
 
 /* ------------------------------ Collapse desktop navigation ------------- */
-@media (max-width: 1100px) {
-  /* Drop the header's blur at mobile: `backdrop-filter` would make the header
-     the containing block for the position:fixed off-canvas nav (anchoring it to
-     the header box instead of the viewport). An opaque header also keeps the
-     panel legible while it scrolls behind the bar. */
+@media (max-width: 1180px) {
+  /* Drop the header's blur at tablet/mobile: the fixed drawer must be anchored
+     to the viewport rather than the header box. */
   .site-header {
     -webkit-backdrop-filter: none;
     backdrop-filter: none;
@@ -269,6 +267,24 @@
 
 /* ------------------------------ Tablet ----------------------------------- */
 @media (max-width: 900px) {
+  .topbar {
+    min-height: auto;
+    padding: 0.4rem 0;
+  }
+  .topbar__inner {
+    justify-content: center;
+  }
+  .topbar__list {
+    justify-content: center;
+    row-gap: 0.2rem;
+  }
+  .topbar__list--right {
+    margin-left: 0;
+  }
+  .topbar__pills {
+    justify-content: center;
+  }
+
   .hero__inner,
   .page-hero__inner,
   .service-hero,

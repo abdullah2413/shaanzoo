@@ -1,11 +1,11 @@
 ﻿/* ==========================================================================
-   SHANZOO â€” Static site builder
+   SHANZOO — Static site builder
    --------------------------------------------------------------------------
    Generates the complete, crawlable HTML site from shared layout + content
    data (tools/data.js). Run with:  node tools/build.js
    Output is written to the project root (index.html), pages/ and services/.
 
-   No dependencies â€” plain Node.js.
+   No dependencies — plain Node.js.
    ========================================================================== */
 "use strict";
 
@@ -205,8 +205,8 @@ function header(opts) {
 
   return (
     '<header class="site-header">\n  <div class="container">\n    <div class="header__inner">\n' +
-    '      <a class="brand" href="' + href(root, "/index.html") + '" aria-label="SHANZOO â€” return to home">\n' +
-    '        <img class="brand__logo" src="' + pre + 'images/logoNav.png" alt="SHANZOO logo â€” navy hexagonal data mark with green analytics bars" width="360" height="239" fetchpriority="high">\n' +
+    '      <a class="brand" href="' + href(root, "/index.html") + '" aria-label="SHANZOO — return to home">\n' +
+    '        <img class="brand__logo" src="' + pre + 'images/logoNav.png" alt="SHANZOO logo — navy hexagonal data mark with green analytics bars" width="360" height="239" fetchpriority="high">\n' +
     "      </a>\n" +
     '      <button class="nav-toggle" type="button" aria-label="Open menu" aria-expanded="false" aria-controls="primary-nav"><span class="nav-toggle__bars"></span></button>\n' +
     '      <nav id="primary-nav" class="nav" aria-label="Main navigation">\n' +
@@ -248,7 +248,7 @@ function footer(opts) {
     '        <a class="footer-brand__logo-wrap" href="' + href(root, "/index.html") + '" aria-label="SHANZOO home">\n' +
     '          <img src="' + root + 'assets/logo/shanzoo-logo-360.png" alt="SHANZOO logo" width="360" height="239">\n' +
     "        </a>\n" +
-    "        <p>SHANZOO delivers enterprise data management, integration, AI, cloud, software and managed technology services â€” so teams can work faster and make better decisions.</p>\n" +
+    "        <p>SHANZOO delivers enterprise data management, integration, AI, cloud, software and managed technology services — so teams can work faster and make better decisions.</p>\n" +
     "      </div>\n" +
     '      <div class="footer-col">\n        <h3>Company</h3>\n        <ul>\n' +
     '          <li><a href="' + href(root, "/pages/about.html") + '">' + svg("chevron") + "About SHANZOO</a></li>\n" +
@@ -265,7 +265,7 @@ function footer(opts) {
     '          <li>' + svg("pin") + "<span>" + SITE.address + "</span></li>\n" +
     '          <li>' + svg("phone") + '<a href="tel:' + SITE.phoneHref + '">' + SITE.phone + "</a></li>\n" +
     '          <li>' + svg("mail") + '<a href="mailto:' + SITE.email + '">' + SITE.email + "</a></li>\n" +
-    '          <li>' + svg("clock") + "<span>Monâ€“Fri, 9:00â€“17:00 ET</span></li>\n" +
+    '          <li>' + svg("clock") + "<span>Mon–Fri, 9:00–17:00 ET</span></li>\n" +
     "        </ul>\n" +
     '        <a class="btn btn--primary btn--sm mt-3" href="' + href(root, "/pages/contact.html#consultation") + '">Request a consultation</a>\n' +
     "      </div>\n" +
@@ -530,7 +530,7 @@ function ecosystemSection(root) {
     '<div class="eco__hub">' +
     '<span class="eco__hub-ring eco__hub-ring--1" aria-hidden="true"></span>' +
     '<span class="eco__hub-ring eco__hub-ring--2" aria-hidden="true"></span>' +
-    '<div class="eco__hub-core"><span class="eco__hub-icon">' + svg("briefcase") + "</span><b>Your Business</b><small>Data Â· Build Â· Operate</small></div>" +
+    '<div class="eco__hub-core"><span class="eco__hub-icon">' + svg("briefcase") + "</span><b>Your Business</b><small>Data · Build · Operate</small></div>" +
     "</div>" +
     '<div class="eco__wires" aria-hidden="true"><span class="eco__wire"></span><span class="eco__wire"></span><span class="eco__wire"></span></div>' +
     '<div class="eco__groups">' +
@@ -576,7 +576,7 @@ function explorerSection(root) {
     sectionHead(
       "Explore Our Services",
       "Find the capability that matches your challenge.",
-      "Browse the six core service areas â€” or talk to us and we will help you choose.",
+      "Browse the six core service areas — or talk to us and we will help you choose.",
       true
     ) +
     '<div class="explorer reveal" data-explorer>\n' +
@@ -739,7 +739,7 @@ function heroSlide(root, s, i) {
    ecosystem's node positions are computed here at build time so the browser
    receives an already-balanced layout. */
 
-// Polar helper â€” returns {x,y} as percentages inside a square (centre 50,50).
+// Polar helper — returns {x,y} as percentages inside a square (centre 50,50).
 function heroPolar(r, deg) {
   var rad = (deg * Math.PI) / 180;
   return {
@@ -752,7 +752,7 @@ function heroPos(r, deg) {
   return "--x:" + p.x + ";--y:" + p.y;
 }
 
-/* Slide 01 â€” one circular enterprise-data ecosystem: a governed core, a ring
+/* Slide 01 — one circular enterprise-data ecosystem: a governed core, a ring
    of capability nodes, and light source / output indicators integrated around
    the rings. Thin connectors, no side panels, no crossing lines. */
 function heroVisualDataHub() {
@@ -821,7 +821,7 @@ function heroVisualDataHub() {
   );
 }
 
-/* Slide 02 â€” a single large capability panel: a small "TECHNOLOGY CAPABILITIES"
+/* Slide 02 — a single large capability panel: a small "TECHNOLOGY CAPABILITIES"
    label above a 3x2 grid of six tiles (Cloud Infra, Virtualization, Custom
    Software, Workflow Automation, DevOps, Managed Services), connected by light
    dashed paths so it reads as one system. */
@@ -866,11 +866,11 @@ function heroVisualFor(name, i) {
 function heroMedia(root) {
   var slides = D.HERO_SLIDES;
   var total = slides.length < 10 ? "0" + slides.length : String(slides.length);
-  /* Per-slide floating info card (same coordinates on both slides) â€” differs
+  /* Per-slide floating info card (same coordinates on both slides) — differs
      only in its copy so the two slides share one layout frame. */
   var floatCopy = {
     datahub: { icon: "shield", tag: "Trusted Data", title: "Governed Enterprise Information" },
-    opsgrid: { icon: "check", tag: "Enterprise Ready", title: "Scalable Â· Secure Â· Supported" }
+    opsgrid: { icon: "check", tag: "Enterprise Ready", title: "Scalable · Secure · Supported" }
   };
   var floats = slides
     .map(function (s, i) {
@@ -913,8 +913,8 @@ function heroMedia(root) {
     '<path id="heroBadgeArcBottom" d="M50,50 m35,0 a35,35 0 1,1 -70,0" fill="none"/>' +
     "</defs>" +
     '<circle cx="50" cy="50" r="43" class="hero__badge-ring" fill="none"/>' +
-    '<text class="hero__badge-text"><textPath href="#heroBadgeArcTop" startOffset="50%" text-anchor="middle">GOVERNED Â· CONNECTED</textPath></text>' +
-    '<text class="hero__badge-text"><textPath href="#heroBadgeArcBottom" startOffset="50%" text-anchor="middle">SECURE Â· TRUSTED</textPath></text>' +
+    '<text class="hero__badge-text"><textPath href="#heroBadgeArcTop" startOffset="50%" text-anchor="middle">GOVERNED · CONNECTED</textPath></text>' +
+    '<text class="hero__badge-text"><textPath href="#heroBadgeArcBottom" startOffset="50%" text-anchor="middle">SECURE · TRUSTED</textPath></text>' +
     "</svg>" +
     '<span class="hero__badge-core">' + svg("shield") + "</span>" +
     "</div>" +
@@ -964,7 +964,7 @@ function buildIndex() {
       sectionHead(
         "What we do",
         "Better data. Smarter systems. Stronger operations.",
-        "SHANZOO is a Toronto-based technology partner for enterprise data management, integration, AI, cloud and custom software â€” helping organizations turn complex information into trusted, everyday business intelligence.",
+        "SHANZOO is a Toronto-based technology partner for enterprise data management, integration, AI, cloud and custom software — helping organizations turn complex information into trusted, everyday business intelligence.",
         true
       ) +
       '<ul class="intro__pills">' +
@@ -1001,7 +1001,7 @@ function buildIndex() {
       '<div class="value-grid">\n' +
       '<div class="value-item reveal"><div class="value-item__icon">' + svg("message") + '</div><div><h4>Clear Communication</h4><p>Plain English, honest timelines and no surprises.</p></div></div>\n' +
       '<div class="value-item reveal" data-delay="1"><div class="value-item__icon">' + svg("target") + '</div><div><h4>Business-Focused Solutions</h4><p>Every decision ties back to an outcome you care about.</p></div></div>\n' +
-      '<div class="value-item reveal" data-delay="2"><div class="value-item__icon">' + svg("settings") + '</div><div><h4>Practical Technical Expertise</h4><p>Real engineering experience â€” applied without jargon.</p></div></div>\n' +
+      '<div class="value-item reveal" data-delay="2"><div class="value-item__icon">' + svg("settings") + '</div><div><h4>Practical Technical Expertise</h4><p>Real engineering experience — applied without jargon.</p></div></div>\n' +
       '<div class="value-item reveal" data-delay="3"><div class="value-item__icon">' + svg("trend") + '</div><div><h4>Scalable Approaches</h4><p>Built for your size today and your growth tomorrow.</p></div></div>\n' +
       '<div class="value-item reveal" data-delay="4"><div class="value-item__icon">' + svg("shield") + '</div><div><h4>Data Security by Design</h4><p>Security and privacy designed in from the start.</p></div></div>\n' +
       "</div>\n" +
@@ -1042,7 +1042,7 @@ function buildIndex() {
 
   return page({
     root,
-    title: "SHANZOO â€” Better Data. Smarter Business. | Data Management & Integration",
+    title: "SHANZOO — Better Data. Smarter Business. | Data Management & Integration",
     desc: "SHANZOO is a Toronto-based data management and integration consultancy helping businesses organize, protect and connect their data.",
     canonicalPath: "index.html",
     extraScripts: '<script src="js/hero-slider.js" defer></script>\n<script src="js/industries.js" defer></script>\n<script src="js/carousel.js" defer></script>\n',
@@ -1082,7 +1082,7 @@ function svgWhy() {
     '<rect x="10" y="10" width="165" height="130" rx="16" fill="url(#wg1)" stroke="#e2e8f0"/>' +
     '<rect x="185" y="10" width="165" height="130" rx="16" fill="url(#wg2)"/>' +
     '<g font-family="Segoe UI,Arial,sans-serif" font-size="12" font-weight="700">' +
-    '<text x="30" y="34" fill="#5a6b7a">Today â€” scattered</text><text x="205" y="34" fill="#d9edf5">With SHANZOO</text></g>' +
+    '<text x="30" y="34" fill="#5a6b7a">Today — scattered</text><text x="205" y="34" fill="#d9edf5">With SHANZOO</text></g>' +
     '<g fill="#e2e8f0" stroke="#c3d0dd"><circle cx="55" cy="70" r="16"/><circle cx="95" cy="85" r="16"/><circle cx="135" cy="62" r="16"/><circle cx="80" cy="112" r="16"/><circle cx="128" cy="112" r="16"/></g>' +
     '<g fill="#6b7c8b"><circle cx="55" cy="70" r="4"/><circle cx="95" cy="85" r="4"/><circle cx="135" cy="62" r="4"/><circle cx="80" cy="112" r="4"/><circle cx="128" cy="112" r="4"/></g>' +
     '<circle cx="278" cy="76" r="24" fill="#00965e" stroke="#8fe6c1" stroke-width="2.5"/>' +
@@ -1092,7 +1092,7 @@ function svgWhy() {
     '<line x1="228" y1="120" x2="328" y2="120"/></g>' +
     '<rect x="30" y="160" width="300" height="1" fill="#e2e8f0"/>' +
     '<g font-family="Segoe UI,Arial,sans-serif" font-size="13" font-weight="600">' +
-    '<text x="190" y="210" fill="#172b3a">Five systems&#8194;Â·&#8194;five answers</text>' +
+    '<text x="190" y="210" fill="#172b3a">Five systems&#8194;·&#8194;five answers</text>' +
     '<text x="100" y="238" fill="#5a6b7a">Duplicate records slow your reporting</text></g>' +
     '<rect x="110" y="258" width="140" height="24" rx="12" fill="#e7f6ef" stroke="#c7e8d8"/>' +
     '<g font-family="Segoe UI,Arial,sans-serif" font-size="11" font-weight="700" text-anchor="middle">' +
@@ -1109,7 +1109,7 @@ const insights = [
     cat: "Data Management",
     title: "What Is Master Data Management?",
     excerpt:
-      "Master data is your core business information â€” customers, products, suppliers. Learn how MDM keeps it accurate and consistent.",
+      "Master data is your core business information — customers, products, suppliers. Learn how MDM keeps it accurate and consistent.",
     read: "5 min",
     updated: "2026",
     headings: [
@@ -1126,13 +1126,13 @@ const insights = [
     cat: "Data Integration",
     title: "ETL vs. ELT: What's the Difference?",
     excerpt:
-      "Two ways to move data between systems â€” one transforms before loading, the other loads first. Understand which fits your needs.",
+      "Two ways to move data between systems — one transforms before loading, the other loads first. Understand which fits your needs.",
     read: "4 min",
     updated: "2026",
     headings: [
       "The three letters explained",
-      "ETL â€” transform before you load",
-      "ELT â€” load first, transform later",
+      "ETL — transform before you load",
+      "ELT — load first, transform later",
       "Which should you choose?",
       "How SHANZOO helps"
     ]
@@ -1218,11 +1218,11 @@ const SC = {
       { t: "Vendor and supplier master", d: "Standardize supplier records to streamline purchasing, contracts and payments." }
     ],
     faqs: [
-      { q: "What exactly is a 'golden record'?", a: "It is the single, best version of a piece of master data â€” for example one customer record â€” assembled from all the partial versions stored across your systems." },
+      { q: "What exactly is a 'golden record'?", a: "It is the single, best version of a piece of master data — for example one customer record — assembled from all the partial versions stored across your systems." },
       { q: "Is MDM the same as a data warehouse?", a: "No. A warehouse stores data for reporting. MDM keeps your core business entities (customers, products, vendors) accurate and consistent at the source, feeding the warehouse and everything else." },
       { q: "Do we need new software for MDM?", a: "Often not. We first look at what you already own. Many MDM projects reuse existing databases and tools with a well-designed matching and stewardship process." }
     ],
-    help: "We assess your current master data and systems, then help you stand up a practical MDM program that matches your size â€” starting with the entities that matter most to your business.",
+    help: "We assess your current master data and systems, then help you stand up a practical MDM program that matches your size — starting with the entities that matter most to your business.",
     helpPoints: [
       "Data audit and duplication analysis",
       "MDM design that fits your maturity",
@@ -1253,16 +1253,16 @@ const SC = {
       "Connections to collaborating tooling (cloud, BI, MDM)"
     ],
     uses: [
-      { t: "Regulated financial reporting", d: "Foundation for control frameworks such as GDPR, BCBS 239 and Basel III â€” where demonstrating oversight of risk data is expected." },
+      { t: "Regulated financial reporting", d: "Foundation for control frameworks such as GDPR, BCBS 239 and Basel III — where demonstrating oversight of risk data is expected." },
       { t: "Cloud migration governance", d: "Keep track of what data moves to the cloud, who can access it and how it is catalogued." },
       { t: "Self-service analytics enablement", d: "Let business users find and trust approved datasets through a well-maintained catalog." }
     ],
     faqs: [
-      { q: "Is data governance just policies on paper?", a: "No â€” done well it is a combination of clear ownership, shared definitions and lightweight processes that teams actually use. We start small so it is practical, not bureaucratic." },
+      { q: "Is data governance just policies on paper?", a: "No — done well it is a combination of clear ownership, shared definitions and lightweight processes that teams actually use. We start small so it is practical, not bureaucratic." },
       { q: "Where should governance start?", a: "With the data your business depends on most: customers, finance and products. We help you prioritize instead of boiling the ocean." },
-      { q: "Does governance guarantee compliance?", a: "No. Governance supports compliance and is commonly a foundation for frameworks like GDPR, but we do not claim that a program alone equals compliance â€” that is confirmed with your advisors and auditors." }
+      { q: "Does governance guarantee compliance?", a: "No. Governance supports compliance and is commonly a foundation for frameworks like GDPR, but we do not claim that a program alone equals compliance — that is confirmed with your advisors and auditors." }
     ],
-    help: "We help you design a governance approach that fits your culture â€” starting with the highest-value data, a realistic operating model and tools you can measure.",
+    help: "We help you design a governance approach that fits your culture — starting with the highest-value data, a realistic operating model and tools you can measure.",
     helpPoints: [
       "Readiness and priority assessment",
       "Ownership matrix and decision rights",
@@ -1298,9 +1298,9 @@ const SC = {
       { t: "Accurate financial reporting", d: "Profiling and validation reduce the data errors that show up in monthly reporting." }
     ],
     faqs: [
-      { q: "How is data quality measured?", a: "With simple dimensions such as completeness, accuracy, consistency, timeliness and uniqueness â€” measured by rules you define for each key dataset." },
+      { q: "How is data quality measured?", a: "With simple dimensions such as completeness, accuracy, consistency, timeliness and uniqueness — measured by rules you define for each key dataset." },
       { q: "Do you clean data once, or forever?", a: "One-off cleansing fixes today's records; monitoring and remediation keep them clean. We set up both so quality does not decay." },
-      { q: "Can data quality be handled without new tools?", a: "Yes. Profiling and cleaning can start with what you have â€” SQL, spreadsheets and existing platforms. We add tooling only when it clearly pays off." }
+      { q: "Can data quality be handled without new tools?", a: "Yes. Profiling and cleaning can start with what you have — SQL, spreadsheets and existing platforms. We add tooling only when it clearly pays off." }
     ],
     help: "We profile your data first, show you exactly where the problems are, then help you fix root causes and put monitoring in place so quality holds.",
     helpPoints: [
@@ -1339,10 +1339,10 @@ const SC = {
     ],
     faqs: [
       { q: "Is data masking the same as encryption?", a: "No. Encryption scrambles data so it cannot be read without a key; masking replaces real values (like a full credit-card number) with altered ones so sensitive data can be used safely in tests or dashboards." },
-      { q: "We already use a database â€” is that enough?", a: "Database security is a good start, but risk lives in exports, reports, backups and copies. We help close those gaps." },
+      { q: "We already use a database — is that enough?", a: "Database security is a good start, but risk lives in exports, reports, backups and copies. We help close those gaps." },
       { q: "Will this slow my applications?", a: "Designed well, controls are applied at the right layer with minimal performance impact. We plan and test carefully before rollout." }
     ],
-    help: "We review how sensitive data flows through your environment, then design proportionate controls â€” access, masking, encryption and logging â€” that protect data without getting in the way of work.",
+    help: "We review how sensitive data flows through your environment, then design proportionate controls — access, masking, encryption and logging — that protect data without getting in the way of work.",
     helpPoints: [
       "Sensitive-data inventory and risk review",
       "Access-control design and hardening",
@@ -1378,8 +1378,8 @@ const SC = {
       { t: "Merging multiple systems", d: "Consolidate overlapping applications and data stores into a clean target architecture." }
     ],
     faqs: [
-      { q: "What is a lakehouse?", a: "A data architecture that combines the flexible, low-cost storage of a data lake with the reliability and performance of a data warehouse â€” a popular modern pattern." },
-      { q: "Warehouse, lake or lakehouse â€” which do we need?", a: "It depends on your workloads, volumes and skills. We help you choose the pragmatic option rather than following the latest trend." },
+      { q: "What is a lakehouse?", a: "A data architecture that combines the flexible, low-cost storage of a data lake with the reliability and performance of a data warehouse — a popular modern pattern." },
+      { q: "Warehouse, lake or lakehouse — which do we need?", a: "It depends on your workloads, volumes and skills. We help you choose the pragmatic option rather than following the latest trend." },
       { q: "Do we have to rebuild everything?", a: "Rarely. Good architecture work typically improves and consolidates what exists, prioritizing high-impact changes first." }
     ],
     help: "We document your current landscape, design a target architecture in plain language, and sequence the changes so you deliver value early without throwing away what already works.",
@@ -1393,12 +1393,12 @@ const SC = {
   },
   "etl-elt": {
     problems: [
-      { t: "Manual data copying", d: "Files get exported, emailed and re-keyed by hand â€” losing time and introducing errors." },
+      { t: "Manual data copying", d: "Files get exported, emailed and re-keyed by hand — losing time and introducing errors." },
       { t: "Brittle, unmaintained scripts", d: "Pipeline jobs break silently at 2 a.m. and nobody notices until the morning." },
       { t: "No visibility into data flow", d: "You cannot explain what load ran when, what changed, or whether the numbers are right." }
     ],
     benefits: [
-      { t: "Reliable, repeatable loads", d: "Scheduled pipelines run without manual babysitting â€” with monitored failures and retries." },
+      { t: "Reliable, repeatable loads", d: "Scheduled pipelines run without manual babysitting — with monitored failures and retries." },
       { t: "Auditable and explainable", d: "You can see what was loaded, when and from where, for every run." },
       { t: "More staff time back", d: "Data teams stop hand-feeding systems and focus on analysis and improvements." },
       { t: "Scales as you grow", d: "Pipelines handle larger volumes and new sources without rewrites." }
@@ -1419,10 +1419,10 @@ const SC = {
     ],
     faqs: [
       { q: "What is the difference between ETL and ELT?", a: "Both move data between systems. ETL transforms the data before loading it into the target; ELT loads the raw data first and transforms it inside the target warehouse. ELT suits large cloud warehouses; ETL suits traditional databases and complex transformations at the source." },
-      { q: "How often should data load?", a: "As often as the business needs it. Many reports run daily; some teams need intra-day or near-real-time â€” we match the schedule to the decision." },
+      { q: "How often should data load?", a: "As often as the business needs it. Many reports run daily; some teams need intra-day or near-real-time — we match the schedule to the decision." },
       { q: "Which tools do you use?", a: "We design tool-agnostic pipelines and work with what you have, or guide you on open-source and commercial options that fit your budget." }
     ],
-    help: "We design, build and run batch pipelines that move your data reliably â€” with clear monitoring, sensible schedules and documentation your team can maintain.",
+    help: "We design, build and run batch pipelines that move your data reliably — with clear monitoring, sensible schedules and documentation your team can maintain.",
     helpPoints: [
       "Source and target assessment",
       "Pipeline architecture and tooling selection",
@@ -1438,7 +1438,7 @@ const SC = {
       { t: "Downstream systems drift apart", d: "Caches, search indexes and reporting stores slowly become inconsistent with the source of truth." }
     ],
     benefits: [
-      { t: "Near-real-time freshness", d: "Downstream systems stay current as changes happen â€” not just overnight." },
+      { t: "Near-real-time freshness", d: "Downstream systems stay current as changes happen — not just overnight." },
       { t: "Minimal source impact", d: "Changes are captured efficiently without expensive full reloads." },
       { t: "Reliable change ordering", d: "Events are delivered in order, so downstream logic stays correct." },
       { t: "One mechanism, many consumers", d: "The same change stream can feed a lake, a stream and a cache simultaneously." }
@@ -1461,7 +1461,7 @@ const SC = {
       { q: "Does CDC only work with specific databases?", a: "It is most common with major relational databases (such as PostgreSQL, MySQL, SQL Server and Oracle) and works with managed cloud databases as well." },
       { q: "Will CDC slow our production database?", a: "Log-based CDC reads the database's own change logs, which is designed for this purpose and typical impact is minimal compared with full dumps." }
     ],
-    help: "We design and implement realistic CDC pipelines â€” right technology, ordering, monitoring and fallback â€” so your systems stay in sync without putting your production data at risk.",
+    help: "We design and implement realistic CDC pipelines — right technology, ordering, monitoring and fallback — so your systems stay in sync without putting your production data at risk.",
     helpPoints: [
       "Source review and feasibility check",
       "CDC architecture and technology selection",
@@ -1497,9 +1497,9 @@ const SC = {
       { t: "Partner and supplier integration", d: "Expose clean, secure interfaces for partners to exchange orders, availability and status." }
     ],
     faqs: [
-      { q: "What is the difference between REST and GraphQL?", a: "REST exposes fixed endpoints with clear resources; GraphQL lets clients request exactly the fields they need. Both are valid â€” we pick the right pattern for each integration." },
+      { q: "What is the difference between REST and GraphQL?", a: "REST exposes fixed endpoints with clear resources; GraphQL lets clients request exactly the fields they need. Both are valid — we pick the right pattern for each integration." },
       { q: "Are APIs safe to expose?", a: "Yes, when designed with strong authentication, encryption, rate limits and monitoring from day one." },
-      { q: "How do I prevent one failing system from breaking others?", a: "With timeouts, retries, circuit breakers and message-backed queues â€” resilience patterns we design in deliberately." }
+      { q: "How do I prevent one failing system from breaking others?", a: "With timeouts, retries, circuit breakers and message-backed queues — resilience patterns we design in deliberately." }
     ],
     help: "We design and build API-based integrations that are secure, documented and monitored, so your applications share data reliably without creating a maintenance nightmare.",
     helpPoints: [
@@ -1537,10 +1537,10 @@ const SC = {
     ],
     faqs: [
       { q: "What is Apache Kafka?", a: "Kafka is a popular open-source platform for streaming events. It reliably stores and delivers messages at massive scale, making it a common backbone for real-time integration." },
-      { q: "Is streaming always better than batch?", a: "No. Batch is simpler and perfectly adequate for many reporting needs. Streaming earns its place where recency matters â€” we help you decide honestly." },
-      { q: "What happens if a consumer goes down?", a: "Events are retained on the stream, so the consumer can resume from where it stopped â€” one of the main reliability benefits." }
+      { q: "Is streaming always better than batch?", a: "No. Batch is simpler and perfectly adequate for many reporting needs. Streaming earns its place where recency matters — we help you decide honestly." },
+      { q: "What happens if a consumer goes down?", a: "Events are retained on the stream, so the consumer can resume from where it stopped — one of the main reliability benefits." }
     ],
-    help: "We introduce streaming only where it pays off â€” designing topics, schemas and consumers, and connecting it with your existing data pipeline so nothing is wasted.",
+    help: "We introduce streaming only where it pays off — designing topics, schemas and consumers, and connecting it with your existing data pipeline so nothing is wasted.",
     helpPoints: [
       "Use-case and readiness evaluation",
       "Platform selection (Kafka or managed brokers)",
@@ -1576,7 +1576,7 @@ const SC = {
     ],
     faqs: [
       { q: "Is virtualization the same as a data warehouse?", a: "No. A warehouse copies and organizes data for analytics. Virtualization leaves data in place and provides a unified query layer over it. Many organizations use both." },
-      { q: "Is it fast enough for production?", a: "For many reporting and operational needs, yes â€” especially with smart caching. It is not always the right fit for heavy, repeated workloads, and we tell you honestly when." },
+      { q: "Is it fast enough for production?", a: "For many reporting and operational needs, yes — especially with smart caching. It is not always the right fit for heavy, repeated workloads, and we tell you honestly when." },
       { q: "When should we copy data instead?", a: "When you need high performance, complex transformations or long history. Virtualization is best for speed-to-value and quick access across sources." }
     ],
     help: "We help you choose where virtualization genuinely helps, stand up the logical layer, and keep the balance between virtual access, caching and physical copies.",
@@ -1759,7 +1759,7 @@ function buildService(svc) {
       ctaBanner({
         root,
         title: "Want to talk about " + svc.title.toLowerCase() + "?",
-        lead: "Tell us about your data challenges and we will point you in the right direction â€” quickly and honestly.",
+        lead: "Tell us about your data challenges and we will point you in the right direction — quickly and honestly.",
         actions: [{ href: "/pages/contact.html#consultation", label: "Contact SHANZOO", cls: "btn--primary btn--lg" }]
       }) +
       "</div></section>"
@@ -1784,9 +1784,9 @@ function buildDataManagement() {
       root,
       eyebrow: "Data Management",
       title: "Keep your business data clean, secure and trustworthy.",
-      lead: "Good data management means your most important information is accurate, protected and understood â€” so every report and decision starts from a solid foundation.",
+      lead: "Good data management means your most important information is accurate, protected and understood — so every report and decision starts from a solid foundation.",
       aside:
-        '<div class="cta-mini">' + svg("shield") + "<span><strong>Five focus areas</strong><br>Master data Â· Governance Â· Quality Â· Security Â· Architecture</span></div>",
+        '<div class="cta-mini">' + svg("shield") + "<span><strong>Five focus areas</strong><br>Master data · Governance · Quality · Security · Architecture</span></div>",
       crumbs: [
         { href: "/index.html", label: "Home" },
         { href: "/pages/services.html", label: "Services" },
@@ -1821,7 +1821,7 @@ function buildDataManagement() {
       '<div class="timeline">' +
       '<div class="timeline__item is-active"><div class="timeline__dot">' + svg("scan") + "</div><h3>Define</h3><p>Agree on what 'customer', 'product' and 'supplier' mean, and who owns them.</p></div>" +
       '<div class="timeline__item"><div class="timeline__dot">' + svg("shield") + "</div><h3>Govern</h3><p>Set rules, responsibilities and approvals for how data is created and changed.</p></div>" +
-      '<div class="timeline__item"><div class="timeline__dot">' + svg("circle") + "</div><h3>Cleanse</h3><p>Fix duplicates, gaps and errors â€” then monitor so they stay fixed.</p></div>" +
+      '<div class="timeline__item"><div class="timeline__dot">' + svg("circle") + "</div><h3>Cleanse</h3><p>Fix duplicates, gaps and errors — then monitor so they stay fixed.</p></div>" +
       '<div class="timeline__item"><div class="timeline__dot">' + svg("lock") + "</div><h3>Protect</h3><p>Control access, mask sensitive values and keep an audit trail.</p></div>" +
       '<div class="timeline__item"><div class="timeline__dot">' + svg("layers") + "</div><h3>Model</h3><p>Design storage and models that are organized, scalable and future-ready.</p></div>" +
       "</div></div></section>",
@@ -1850,9 +1850,9 @@ function buildDataIntegration() {
       root,
       eyebrow: "Data Integration",
       title: "Connect your systems so data flows where it is needed.",
-      lead: "Integration is how your applications, warehouses and teams work from the same information â€” on time, reliably and without fragile custom links.",
+      lead: "Integration is how your applications, warehouses and teams work from the same information — on time, reliably and without fragile custom links.",
       aside:
-        '<div class="cta-mini">' + svg("zap") + "<span><strong>Five integration patterns</strong><br>Batch Â· CDC Â· APIs Â· Streaming Â· Virtualization</span></div>",
+        '<div class="cta-mini">' + svg("zap") + "<span><strong>Five integration patterns</strong><br>Batch · CDC · APIs · Streaming · Virtualization</span></div>",
       crumbs: [
         { href: "/index.html", label: "Home" },
         { href: "/pages/services.html", label: "Services" },
@@ -1868,7 +1868,7 @@ function buildDataIntegration() {
       "<p>Done simply and reliably, it means the numbers in your dashboard match the system of record, orders never get stranded between systems, and changes appear when they happen.</p></div>" +
       '<ul class="check-list mt-3">' +
       "<li>" + svg("check") + "Data moves reliably between systems, by design.</li>" +
-      "<li>" + svg("check") + "Freshness matches the decision â€” batch when appropriate, real time when it matters.</li>" +
+      "<li>" + svg("check") + "Freshness matches the decision — batch when appropriate, real time when it matters.</li>" +
       "<li>" + svg("check") + "Connections are monitored, secure and easy to change.</li>" +
       "<li>" + svg("check") + "No more fragile scripts and manual exports.</li>" +
       "</ul>" +
@@ -1885,12 +1885,12 @@ function buildDataIntegration() {
       '<div class="container">' +
       sectionHead("Choosing the right pattern", "The freshness of the answer should decide how data moves.", true) +
       '<div class="grid grid-2">' +
-      '<div class="panel"><h4>Batch is right whenâ€¦</h4><ul class="check-list mt-2">' +
+      '<div class="panel"><h4>Batch is right when“¦</h4><ul class="check-list mt-2">' +
       "<li>" + svg("check") + "Daily or nightly reporting is enough.</li>" +
       "<li>" + svg("check") + "You move large volumes in one predictable go.</li>" +
       "<li>" + svg("check") + "The data is historical, not time-sensitive.</li>" +
       "</ul></div>" +
-      '<div class="panel panel--green"><h4>Real time is right whenâ€¦</h4><ul class="check-list mt-2">' +
+      '<div class="panel panel--green"><h4>Real time is right when“¦</h4><ul class="check-list mt-2">' +
       "<li>" + svg("check") + "Dashboards need today's, not yesterday's, numbers.</li>" +
       "<li>" + svg("check") + "Systems must react to events (orders, payments, shipments).</li>" +
       "<li>" + svg("check") + "Stale data causes real business cost.</li>" +
@@ -1902,7 +1902,7 @@ function buildDataIntegration() {
       ctaBanner({
         root,
         title: "Is integration costing you time and trust?",
-        lead: "Let's make your systems work from the same data â€” reliably, at the right speed.",
+        lead: "Let's make your systems work from the same data — reliably, at the right speed.",
         actions: [{ href: "/pages/contact.html#consultation", label: "Let's Talk", cls: "btn--primary btn--lg" }]
       }) +
       "</div></section>"
@@ -1910,7 +1910,7 @@ function buildDataIntegration() {
   return page({
     root,
     title: "Data Integration Services | ETL, CDC, APIs, Streaming, Virtualization | SHANZOO",
-    desc: "SHANZOO data integration services connect your systems reliably â€” batch processing, change data capture, APIs, event streaming and virtualization.",
+    desc: "SHANZOO data integration services connect your systems reliably — batch processing, change data capture, APIs, event streaming and virtualization.",
     canonicalPath: "pages/data-integration.html",
     body: body.join("\n")
   });
@@ -1969,7 +1969,8 @@ function buildTechService(slug) {
   const artMap = {
     "cloud-virtualization": D.svgCloud,
     "software-development": D.svgLayers,
-    "consulting-managed-services": D.svgBlueprint
+    "consulting-managed-services": D.svgBlueprint,
+    "enterprise-automation": D.svgAutomation
   };
   const art = artMap[slug] || D.svgNetwork;
 
@@ -2135,7 +2136,7 @@ function buildTechService(slug) {
       ctaBanner({
         root,
         title: "Want to talk about " + svc.title.toLowerCase() + "?",
-        lead: "Tell us about your challenge and we will point you in the right direction â€” quickly and honestly.",
+        lead: "Tell us about your challenge and we will point you in the right direction — quickly and honestly.",
         actions: [{ href: "/pages/contact.html#consultation", label: "Contact SHANZOO", cls: "btn--primary btn--lg" }]
       }) +
       "</div></section>"
@@ -2160,7 +2161,7 @@ function buildServices() {
       root,
       eyebrow: "All Services",
       title: "Six core services. One accountable partner.",
-      lead: "From enterprise data management to AI, cloud, software and managed technology services â€” find the capability that matches your challenge, and we will help you choose.",
+      lead: "From enterprise data management to AI, cloud, software and managed technology services — find the capability that matches your challenge, and we will help you choose.",
       aside:
         '<a class="btn btn--primary" href="' + href(root, "/pages/contact.html#consultation") + '">Get a Consultation</a>',
       crumbs: [
@@ -2197,7 +2198,7 @@ function buildServices() {
     '<section class="section"><div class="container split">' +
       "<div>" +
       sectionHead("Not sure where to start?", "Start with a conversation, not a spec.") +
-      '<div class="prose"><p>You do not need to understand our service catalog to talk to us. Tell us what is annoying you about your data, systems or operations â€” duplicate customers, slow reports, tools that do not talk â€” and we will translate that into a small set of sensible next steps.</p></div>' +
+      '<div class="prose"><p>You do not need to understand our service catalog to talk to us. Tell us what is annoying you about your data, systems or operations — duplicate customers, slow reports, tools that do not talk — and we will translate that into a small set of sensible next steps.</p></div>' +
       '<ul class="check-list mt-3">' +
       "<li>" + svg("check") + "A free initial conversation about your goals.</li>" +
       "<li>" + svg("check") + "Honest advice, even when the answer is 'you may not need a project yet.'</li>" +
@@ -2326,14 +2327,14 @@ function buildSolutions() {
       root,
       eyebrow: "Solutions",
       title: "A goal in mind? There is a data path to it.",
-      lead: "Browse common business outcomes and see which SHANZOO services typically combine to deliver them. Each is just a starting point â€” we tailor the actual plan to your situation.",
+      lead: "Browse common business outcomes and see which SHANZOO services typically combine to deliver them. Each is just a starting point — we tailor the actual plan to your situation.",
       crumbs: [
         { href: "/index.html", label: "Home" },
         { label: "Solutions" }
       ]
     }),
     '<section class="section sol-section"><div class="container">' +
-      sectionHead("Solutions by goal", "Pick the outcome you care about most.", "Grouped by the kind of outcome you are after â€” choose a category, then open any service to see how it works.", true) +
+      sectionHead("Solutions by goal", "Pick the outcome you care about most.", "Grouped by the kind of outcome you are after — choose a category, then open any service to see how it works.", true) +
       '<div class="sol-explorer reveal" data-tabs>' +
       '<div class="sol-tabs" role="tablist" aria-label="Solution categories">' + solTabs + "</div>" +
       '<div class="sol-panels">' + solPanels + "</div>" +
@@ -2342,7 +2343,7 @@ function buildSolutions() {
     '<section class="section bg-alt"><div class="container split">' +
       "<div>" +
       sectionHead("Not finding your situation?", "Start with a conversation instead.") +
-      '<div class="prose"><p>The combinations above are starting points, not recipes. Your situation will differ â€” that is normal. Tell us the outcome you want and we will suggest a realistic path.</p></div>' +
+      '<div class="prose"><p>The combinations above are starting points, not recipes. Your situation will differ — that is normal. Tell us the outcome you want and we will suggest a realistic path.</p></div>' +
       '<a class="btn btn--primary mt-3" href="' + href(root, "/pages/contact.html#consultation") + '">Discuss Your Goal</a>' +
       "</div>" +
       '<div class="split__media"><div class="panel panel--navy"><h3>How solutions turn into projects</h3>' +
@@ -2357,7 +2358,7 @@ function buildSolutions() {
   return page({
     root,
     title: "Solutions | Common Data Use Cases | SHANZOO",
-    desc: "Common business goals â€” customer 360, reliable reporting, real-time operations, secure data â€” mapped to the SHANZOO services that deliver them.",
+    desc: "Common business goals — customer 360, reliable reporting, real-time operations, secure data — mapped to the SHANZOO services that deliver them.",
     canonicalPath: "pages/solutions.html",
     body: body.join("\n")
   });
@@ -2378,7 +2379,7 @@ function buildIndustries() {
       root,
       eyebrow: "Industries",
       title: "Reliable data helps every sector run better.",
-      lead: "Data management and integration are cross-industry. Below are illustrative examples of how we help organizations in different sectors â€” not claims of specific current clients.",
+      lead: "Data management and integration are cross-industry. Below are illustrative examples of how we help organizations in different sectors — not claims of specific current clients.",
       crumbs: [
         { href: "/index.html", label: "Home" },
         { label: "Industries" }
@@ -2405,7 +2406,7 @@ function buildIndustries() {
     '<section class="section bg-alt"><div class="container split">' +
       "<div>" +
       sectionHead("Your industry is not on the list?", "The patterns still apply.") +
-      '<div class="prose"><p>The tools are the same everywhere: <strong>master data, governance, quality, security, architecture, batch, CDC, APIs, streaming and virtualization</strong>. The list above is illustrative â€” if your sector is not shown, the conversation starts the same way.</p></div>' +
+      '<div class="prose"><p>The tools are the same everywhere: <strong>master data, governance, quality, security, architecture, batch, CDC, APIs, streaming and virtualization</strong>. The list above is illustrative — if your sector is not shown, the conversation starts the same way.</p></div>' +
       "</div>" +
       '<div class="split__media"><div class="panel panel--green"><h4>Start with your problem, not your industry</h4>' +
       "<p class='mt-1'>Tell us what is hard about your data right now, and we will suggest realistic first steps.</p>" +
@@ -2424,9 +2425,9 @@ function buildIndustries() {
 function buildWhy() {
   const root = "../";
   const wins = [
-    { icon: "message", t: "Clear Communication", d: "We explain technical work in plain English â€” business people understand the plan, and technical people understand the detail." },
+    { icon: "message", t: "Clear Communication", d: "We explain technical work in plain English — business people understand the plan, and technical people understand the detail." },
     { icon: "target", t: "Business-Focused Solutions", d: "Every recommendation ties back to an outcome you can measure: faster reports, fewer duplicates, confident decisions." },
-    { icon: "settings", t: "Practical Technical Expertise", d: "We have done the engineering work and know what works in the real world â€” not just in slide decks." },
+    { icon: "settings", t: "Practical Technical Expertise", d: "We have done the engineering work and know what works in the real world — not just in slide decks." },
     { icon: "trend", t: "Scalable Approaches", d: "Solutions are sized for where you are today, with a clear path for where you are going tomorrow." },
     { icon: "lock", t: "Attention to Data Security", d: "Security and privacy are design requirements from day one, not afterthoughts added at the end." }
   ];
@@ -2451,14 +2452,14 @@ function buildWhy() {
       root,
       eyebrow: "Why SHANZOO",
       title: "A consultancy built on plain sense.",
-      lead: "Anyone can promise a data transformation. We prefer to build trust the old-fashioned way â€” with clear communication, honest scope and work that holds up.",
+      lead: "Anyone can promise a data transformation. We prefer to build trust the old-fashioned way — with clear communication, honest scope and work that holds up.",
       crumbs: [
         { href: "/index.html", label: "Home" },
         { label: "Why SHANZOO" }
       ]
     }),
     '<section class="section why-section"><div class="container">' +
-      sectionHead("The qualities we back with our work", "Five reasons teams choose to work with us.", "Plain-language commitments that shape every engagement â€” from the first conversation to steady-state support.", true) +
+      sectionHead("The qualities we back with our work", "Five reasons teams choose to work with us.", "Plain-language commitments that shape every engagement — from the first conversation to steady-state support.", true) +
       '<div class="why-bento">' + winCards + "</div>" +
       "</div></section>",
     '<section class="section bg-alt"><div class="container split">' +
@@ -2471,7 +2472,7 @@ function buildWhy() {
       "</ul></div></div>" +
       "<div>" +
       sectionHead("What you can expect", "A working partner, not a black box.") +
-      '<div class="prose"><p>From the first conversation we aim to be useful â€” even before you sign anything. We listen, ask good questions, and propose practical next steps you can evaluate on merit.</p>' +
+      '<div class="prose"><p>From the first conversation we aim to be useful — even before you sign anything. We listen, ask good questions, and propose practical next steps you can evaluate on merit.</p>' +
       "<p>During delivery, you always know where the work stands. After launch, we help your team take over with confidence and stay available as needs evolve.</p></div>" +
       '<a class="btn btn--primary mt-3" href="' + href(root, "/pages/our-approach.html") + '">See How We Work</a>' +
       "</div></div></section>",
@@ -2500,7 +2501,7 @@ function buildApproach() {
       root,
       eyebrow: "Our Approach",
       title: "A working method, not a magic formula.",
-      lead: "We follow a simple, transparent process that keeps you informed and in control â€” from first conversation to steady-state improvement.",
+      lead: "We follow a simple, transparent process that keeps you informed and in control — from first conversation to steady-state improvement.",
       crumbs: [
         { href: "/index.html", label: "Home" },
         { label: "Our Approach" }
@@ -2510,7 +2511,7 @@ function buildApproach() {
       sectionHead("The four phases", "How an engagement typically unfolds.", true) +
       '<div class="steps">' +
       '<div class="step reveal"><span class="step__num">1</span><h3>Understand Your Needs</h3><p>We listen to the business outcome you want and the problems standing in the way. This phase shapes everything that follows.</p></div>' +
-      '<div class="step reveal" data-delay="1"><span class="step__num">2</span><h3>Review Your Data &amp; Systems</h3><p>We map your current data landscape â€” sources, flows, quality issues and dependencies â€” with facts, not assumptions.</p></div>' +
+      '<div class="step reveal" data-delay="1"><span class="step__num">2</span><h3>Review Your Data &amp; Systems</h3><p>We map your current data landscape — sources, flows, quality issues and dependencies — with facts, not assumptions.</p></div>' +
       '<div class="step reveal" data-delay="2"><span class="step__num">3</span><h3>Design the Right Solution</h3><p>You receive a clear design with priorities, effort and technology choices, explained in plain English.</p></div>' +
       '<div class="step reveal" data-delay="3"><span class="step__num">4</span><h3>Implement &amp; Improve</h3><p>We build with your team, test carefully, launch cleanly, and keep improving based on how it behaves in real use.</p></div>' +
       "</div></div></section>",
@@ -2521,13 +2522,13 @@ function buildApproach() {
       '<div class="timeline__item is-active"><div class="timeline__dot">' + svg("message") + "</div><h3>Discovery</h3><p>A focused conversation: goals, current state, and an honest read on what is realistic.</p></div>" +
       '<div class="timeline__item"><div class="timeline__dot">' + svg("scan") + "</div><h3>Assessment</h3><p>A structured review of your data and systems, delivered as a readable, decision-focused report.</p></div>" +
       '<div class="timeline__item"><div class="timeline__dot">' + svg("compass") + "</div><h3>Design</h3><p>Solution architecture and a prioritized roadmap, validated with you before any building starts.</p></div>" +
-      '<div class="timeline__item"><div class="timeline__dot">' + svg("settings") + "</div><h3>Build &amp; Support</h3><p>Incremental delivery, testing and monitoring â€” followed by knowledge transfer to your team.</p></div>" +
+      '<div class="timeline__item"><div class="timeline__dot">' + svg("settings") + "</div><h3>Build &amp; Support</h3><p>Incremental delivery, testing and monitoring — followed by knowledge transfer to your team.</p></div>" +
       "</div>" +
       "</div>" +
       '<div class="split__media"><div class="panel panel--green"><h4>Working principles</h4>' +
       '<ul class="check-list mt-2">' +
       "<li>" + svg("check") + "Deliver in small, reviewable stages.</li>" +
-      "<li>" + svg("check") + "Document as we go â€” no knowledge hoarded in heads.</li>" +
+      "<li>" + svg("check") + "Document as we go — no knowledge hoarded in heads.</li>" +
       "<li>" + svg("check") + "Use technology you can actually maintain.</li>" +
       "<li>" + svg("check") + "Keep security and quality baked in, not bolted on.</li>" +
       "</ul></div>" +
@@ -2575,17 +2576,17 @@ function buildInsights() {
     '<section class="section bg-alt"><div class="container split">' +
       "<div>" +
       sectionHead("Suggest a topic", "What would help your team?") +
-      '<div class="prose"><p>We write about the data questions that come up most in client conversations. If there is a concept you keep having to explain to stakeholders, tell us â€” useful articles may already exist on the underlying topic.</p></div>' +
+      '<div class="prose"><p>We write about the data questions that come up most in client conversations. If there is a concept you keep having to explain to stakeholders, tell us — useful articles may already exist on the underlying topic.</p></div>' +
       "</div>" +
       '<div class="split__media"><div class="panel panel--navy"><h3>Talk to a data person</h3>' +
-      '<p class="mt-1" style="color:#b7cbdd">Ask us anything about your data â€” no pitch required. We will answer honestly and point you to the right resource.</p>' +
+      '<p class="mt-1" style="color:#b7cbdd">Ask us anything about your data — no pitch required. We will answer honestly and point you to the right resource.</p>' +
       '<a class="btn btn--light mt-3" href="' + href(root, "/pages/contact.html") + '">Ask a Question</a></div></div>' +
       "</div></section>"
   ];
   return page({
     root,
     title: "Insights | Data Articles in Plain English | SHANZOO",
-    desc: "Read SHANZOO's educational articles on master data management, ETL vs ELT, data quality and real-time data integration â€” written for nontechnical readers.",
+    desc: "Read SHANZOO's educational articles on master data management, ETL vs ELT, data quality and real-time data integration — written for nontechnical readers.",
     canonicalPath: "pages/insights.html",
     body: body.join("\n")
   });
@@ -2596,13 +2597,13 @@ const ARTICLE_CONTENT = {
     title: "What Is Master Data Management?",
     read: "5 min",
     heading: "The quiet fix behind dependable business data.",
-    intro: "Your company probably has the same customer in five places â€” spelled five different ways. Master data management (MDM) is the discipline that brings order to information like this, and it is easier to understand than the acronym suggests.",
+    intro: "Your company probably has the same customer in five places — spelled five different ways. Master data management (MDM) is the discipline that brings order to information like this, and it is easier to understand than the acronym suggests.",
     sections: [
       ["What is master data?", "Master data is the core information your business depends on to operate: customers, suppliers, products, employees and locations. Unlike transaction records (an invoice, a shipment), master data changes slowly but is referenced by almost everything else. When a customer's master record is wrong, every invoice, order and report that uses it inherits that error."],
-      ["The golden record", "The goal of MDM is a 'golden record' â€” one best version of each entity assembled from all the partial versions scattered across your systems. With matching logic, duplicates are detected and merged, conflicts are resolved by agreed rules, and one trustworthy record is published back to the systems that need it."],
+      ["The golden record", "The goal of MDM is a 'golden record' — one best version of each entity assembled from all the partial versions scattered across your systems. With matching logic, duplicates are detected and merged, conflicts are resolved by agreed rules, and one trustworthy record is published back to the systems that need it."],
       ["Why companies struggle", "Master data becomes messy for predictable reasons: different systems hold different fields, teams enter data without common standards, acquisitions add new systems, and no single owner guards the definitions. The result is duplicated mailings, misquoted prices and dashboard numbers that never quite agree."],
-      ["An MDM program in plain steps", "A practical MDM effort usually looks like this: (1) inventory where master data lives, (2) choose a starting entity â€” often customers â€” (3) agree on definitions and rules, (4) build matching and merge logic, (5) assign stewardship so humans resolve the edge cases, and (6) monitor quality over time. It does not need to start with expensive software; process and ownership often deliver the first wins."],
-      ["How SHANZOO helps", "We help you scope an MDM program that fits your size, starting with the entity that causes the most pain. We handle the assessment, design the golden-record rules, and help you stand up stewardship â€” then hand it over with documentation your team can maintain."]
+      ["An MDM program in plain steps", "A practical MDM effort usually looks like this: (1) inventory where master data lives, (2) choose a starting entity — often customers — (3) agree on definitions and rules, (4) build matching and merge logic, (5) assign stewardship so humans resolve the edge cases, and (6) monitor quality over time. It does not need to start with expensive software; process and ownership often deliver the first wins."],
+      ["How SHANZOO helps", "We help you scope an MDM program that fits your size, starting with the entity that causes the most pain. We handle the assessment, design the golden-record rules, and help you stand up stewardship — then hand it over with documentation your team can maintain."]
     ]
   },
   "etl-vs-elt-whats-the-difference": {
@@ -2611,22 +2612,22 @@ const ARTICLE_CONTENT = {
     heading: "Two letters apart, but they change how your data pipeline runs.",
     intro: "ETL and ELT are the two main ways to move data from one system to another. The difference is small on paper and significant in practice: WHEN the data gets transformed.",
     sections: [
-      ["The three letters explained", "E, T and L stand for Extract, Transform and Load â€” and the middle letter is the whole debate. In ETL, data is Extracted, Transformed (cleaned and reshaped), then Loaded. In ELT, data is Extracted and Loaded first, and Transformation happens later inside the target system."],
-      ["ETL â€” transform before you load", "ETL processes data in a separate engine before it reaches the target. It suits traditional databases and cases where the target is not powerful enough to transform at scale, or where you need strict quality checks before anything arrives."],
-      ["ELT â€” load first, transform later", "ELT loads raw data into a modern cloud warehouse or lake, then transforms it with the target's own computing power. It is faster to move, keeps the raw source data available, and lets analysts re-shape it as new questions arise."],
+      ["The three letters explained", "E, T and L stand for Extract, Transform and Load — and the middle letter is the whole debate. In ETL, data is Extracted, Transformed (cleaned and reshaped), then Loaded. In ELT, data is Extracted and Loaded first, and Transformation happens later inside the target system."],
+      ["ETL — transform before you load", "ETL processes data in a separate engine before it reaches the target. It suits traditional databases and cases where the target is not powerful enough to transform at scale, or where you need strict quality checks before anything arrives."],
+      ["ELT — load first, transform later", "ELT loads raw data into a modern cloud warehouse or lake, then transforms it with the target's own computing power. It is faster to move, keeps the raw source data available, and lets analysts re-shape it as new questions arise."],
       ["Which should you choose?", "There is no universal winner. Choose ETL when transformation quality must be guaranteed before loading and when the target is a conventional database. Choose ELT when you use a scalable warehouse or lake, when source volumes are large, and when you want the flexibility to define new transformations without re-loading."],
-      ["How SHANZOO helps", "We review your sources, targets and reporting needs, then design pipelines that use the right pattern per workload â€” often a sensible mix. We build with scheduling, monitoring and documentation so the pipeline keeps running after we leave."]
+      ["How SHANZOO helps", "We review your sources, targets and reporting needs, then design pipelines that use the right pattern per workload — often a sensible mix. We build with scheduling, monitoring and documentation so the pipeline keeps running after we leave."]
     ]
   },
   "why-data-quality-matters": {
     title: "Why Data Quality Matters",
     read: "4 min",
-    heading: "Bad data is not an IT problem â€” it is a business problem.",
-    intro: "Every decision your business makes runs on data: forecasts, inventory, pricing, hiring. When that data is quietly wrong, problems surface as lost revenue and frustrated customers â€” never as 'a data-quality incident.'",
+    heading: "Bad data is not an IT problem — it is a business problem.",
+    intro: "Every decision your business makes runs on data: forecasts, inventory, pricing, hiring. When that data is quietly wrong, problems surface as lost revenue and frustrated customers — never as 'a data-quality incident.'",
     sections: [
       ["What is data quality?", "Data quality is how well your data serves its purpose. It is commonly described with six dimensions: accuracy (is it correct?), completeness (is anything missing?), consistency (does it agree across systems?), uniqueness (any duplicates?), timeliness (is it current?) and validity (does it obey the rules?)."],
       ["The cost of bad data", "Bad data shows up in uninviting ways: duplicate mailings and wasted ad spend; quotes built on stale prices; inventory that does not match reality; and leadership teams arguing over which dashboard is right. Fixing the underlying data is usually far cheaper than living with the consequences."],
-      ["Dimensions of quality in practice", "Improvement starts with profiling â€” measuring how bad things actually are against those six dimensions. Then you fix the specific problems found, standardize how data enters systems, and add monitoring so quality does not quietly decay again."],
+      ["Dimensions of quality in practice", "Improvement starts with profiling — measuring how bad things actually are against those six dimensions. Then you fix the specific problems found, standardize how data enters systems, and add monitoring so quality does not quietly decay again."],
       ["Getting started", "Begin with the datasets your biggest decisions depend on, not all your data at once. Measure today's state, fix the worst offenders, and assign an owner for each key dataset. A small, sustained program beats a large one-off cleanup every time."],
       ["How SHANZOO helps", "We run a data-quality health check, show you the exact issues and their business impact, then help you fix root causes and set up the monitoring and ownership that keep quality high."]
     ]
@@ -2635,13 +2636,13 @@ const ARTICLE_CONTENT = {
     title: "Understanding Real-Time Data Integration",
     read: "5 min",
     heading: "When 'by tomorrow morning' is too late.",
-    intro: "For decades, business reporting ran on nightly batches â€” data moved overnight and teams saw yesterday's world. Today many decisions benefit from fresher information. Here is how real-time integration works and when it is actually worth it.",
+    intro: "For decades, business reporting ran on nightly batches — data moved overnight and teams saw yesterday's world. Today many decisions benefit from fresher information. Here is how real-time integration works and when it is actually worth it.",
     sections: [
       ["Why real time matters", "For a manufacturer, a dashboard that reflects inventory ten minutes ago beats one from last night. For a logistics firm, shipment events feed customer updates automatically. The value of real-time data grows the closer the decision sits to the event."],
-      ["Batch vs. real-time movement", "Batch moves data in scheduled chunks and is perfectly fine for many needs â€” simple, cheap and reliable. Real-time integration moves changes as they happen using two main techniques: Change Data Capture (CDC), which watches database logs, and event streaming, which carries messages through platforms like Apache Kafka."],
+      ["Batch vs. real-time movement", "Batch moves data in scheduled chunks and is perfectly fine for many needs — simple, cheap and reliable. Real-time integration moves changes as they happen using two main techniques: Change Data Capture (CDC), which watches database logs, and event streaming, which carries messages through platforms like Apache Kafka."],
       ["How real-time integration works", "CDC reads the database's transaction log and publishes changes as events; streaming platforms store and deliver those events to subscribers such as analytics tools, caches or other systems. Consumers can replay the event history if they fall behind, which makes this approach far more reliable than point-to-point scripts."],
-      ["Where to start", "Start honest: which decisions genuinely improve with fresher data? Start with one high-value feed â€” say, orders feeding a live dashboard â€” prove the pattern, then expand. Real time is an option, not a mandate."],
-      ["How SHANZOO helps", "We help you decide where real-time integration pays off, then design and build the CDC or streaming pipeline with proper ordering, monitoring and failover â€” connected cleanly to your existing batch architecture."]
+      ["Where to start", "Start honest: which decisions genuinely improve with fresher data? Start with one high-value feed — say, orders feeding a live dashboard — prove the pattern, then expand. Real time is an option, not a mandate."],
+      ["How SHANZOO helps", "We help you decide where real-time integration pays off, then design and build the CDC or streaming pipeline with proper ordering, monitoring and failover — connected cleanly to your existing batch architecture."]
     ]
   }
 };
@@ -2653,7 +2654,7 @@ function buildInsightArticle(slug) {
   const body = [
     '<section class="page-hero"><div class="container page-hero__inner">' +
       "<div>" +
-      '<p class="eyebrow eyebrow--light">Insight Â· ' + post.cat + "</p>" +
+      '<p class="eyebrow eyebrow--light">Insight · ' + post.cat + "</p>" +
       "<h1>" + content.title + "</h1>" +
       "<p>" + content.heading + "</p>" +
       '<div class="article__meta mt-3">' +
@@ -2713,7 +2714,7 @@ function buildContact() {
   const services = D.SERVICES.map((s) => s.title).sort();
   const serviceOptions =
     '<option value="">-- Select a service --</option>' +
-    '<option>Not sure yet â€” I need advice</option>' +
+    '<option>Not sure yet — I need advice</option>' +
     "<optgroup label=\"Data Management\">" +
     D.NAV.megaManagement.map((m) => "<option>" + m.title + "</option>").join("") +
     "</optgroup>" +
@@ -2730,7 +2731,7 @@ function buildContact() {
       root,
       eyebrow: "Contact Us",
       title: "Let's talk about your data.",
-      lead: "Questions, ideas or a problem you cannot quite name â€” we are happy to listen and point you in the right direction.",
+      lead: "Questions, ideas or a problem you cannot quite name — we are happy to listen and point you in the right direction.",
       aside:
         '<div class="cta-mini">' + svg("clock") + "<span><strong>Response time</strong><br>We usually reply within one business day</span></div>"
       ,
@@ -2746,7 +2747,7 @@ function buildContact() {
       '<div class="contact-info-item"><div class="contact-info-item__icon">' + svg("pin") + '</div><div><h3>Head office</h3><p>' + SITE.address + "</p></div></div>" +
       '<div class="contact-info-item"><div class="contact-info-item__icon">' + svg("phone") + '</div><div><h3>Phone</h3><p><a href="tel:' + SITE.phoneHref + '">' + SITE.phone + "</a></p></div></div>" +
       '<div class="contact-info-item"><div class="contact-info-item__icon">' + svg("mail") + '</div><div><h3>Email</h3><p><a href="mailto:' + SITE.email + '">' + SITE.email + "</a></p></div></div>" +
-      '<div class="contact-info-item"><div class="contact-info-item__icon">' + svg("clock") + '</div><div><h3>Business hours</h3><p>Monday to Friday, 9:00â€“17:00 ET</p></div></div>' +
+      '<div class="contact-info-item"><div class="contact-info-item__icon">' + svg("clock") + '</div><div><h3>Business hours</h3><p>Monday to Friday, 9:00–17:00 ET</p></div></div>' +
       "</div>" +
       '<div class="map-embed mt-3">' +
       svg("pin") +
@@ -2776,7 +2777,7 @@ function buildContact() {
       '<small class="field__error" role="alert"></small></div>' +
       '<div class="form-note form-note--info" data-dynamic role="note">' +
       svg("info") +
-      "<span>We usually reply within one business day. Your details are only used to respond to your enquiry â€” see our <a class=\"inline-link\" href=\"" + href(root, "/pages/privacy.html") + "\">Privacy Policy</a>.</span>" +
+      "<span>We usually reply within one business day. Your details are only used to respond to your enquiry — see our <a class=\"inline-link\" href=\"" + href(root, "/pages/privacy.html") + "\">Privacy Policy</a>.</span>" +
       "</div>" +
       '<button class="btn btn--primary btn--lg" type="submit" data-auth-submit>' + svg("send") + " Send Message</button>" +
       "</form>" +
@@ -2839,7 +2840,7 @@ function buildSignup() {
       '<ul>' +
       "<li>" + svg("check") + "One account for all your SHANZOO work.</li>" +
       "<li>" + svg("check") + "Two-step email verification keeps your account secure.</li>" +
-      "<li>" + svg("check") + "Your data is never shared â€” see our Privacy Policy.</li>" +
+      "<li>" + svg("check") + "Your data is never shared — see our Privacy Policy.</li>" +
       "</ul>" +
       '<div class="cta-mini mt-4">' + svg("message") + "<span>Prefer talking? <a href=\"" + href(root, "/pages/contact.html") + "\" style=\"color:#fff;text-decoration:underline\">Contact us instead</a></span></div>" +
       "</div>" +
@@ -2890,7 +2891,7 @@ function buildPrivacy() {
       '<div class="notice">This is a <strong>draft placeholder provided for review</strong>. It describes the sections a typical policy includes, but has not been reviewed by counsel. Replace with approved legal content before going live.</div>' +
       '<div class="prose mt-4">' +
       "<h2>1. Who we are</h2><p>SHANZOO (&quot;we&quot;, &quot;our&quot;, &quot;us&quot;) is a data management and integration consultancy based in Toronto, Ontario, Canada. We are reachable at " + SITE.email + " and " + SITE.phone + ".</p>" +
-      "<h2>2. Information we collect</h2><p>We collect the information you provide when you contact us â€” such as your name, email address, phone number and company â€” as well as technical information such as how you use this website.</p>" +
+      "<h2>2. Information we collect</h2><p>We collect the information you provide when you contact us — such as your name, email address, phone number and company — as well as technical information such as how you use this website.</p>" +
       "<h2>3. How we use information</h2><p>We use the information to respond to enquiries, provide our services, improve our website and meet legal obligations. We do not sell personal information.</p>" +
       "<h2>4. Sharing and disclosure</h2><p>We do not share personal information except with service providers who help us operate, where required by law, or with your consent.</p>" +
       "<h2>5. Data retention</h2><p>We retain personal information only as long as necessary for the purposes described in this policy, or as required by law.</p>" +
@@ -2904,7 +2905,7 @@ function buildPrivacy() {
   return page({
     root,
     title: "Privacy Policy | SHANZOO",
-    desc: "SHANZOO privacy policy â€” draft placeholder describing how we handle the personal information collected through this website.",
+    desc: "SHANZOO privacy policy — draft placeholder describing how we handle the personal information collected through this website.",
     canonicalPath: "pages/privacy.html",
     body: body.join("\n")
   });
@@ -2940,7 +2941,7 @@ function buildTerms() {
   return page({
     root,
     title: "Terms of Use | SHANZOO",
-    desc: "SHANZOO terms of use â€” draft placeholder describing the conditions for using this website.",
+    desc: "SHANZOO terms of use — draft placeholder describing the conditions for using this website.",
     canonicalPath: "pages/terms.html",
     body: body.join("\n")
   });
@@ -2991,7 +2992,7 @@ function buildAbout() {
       "<div>" +
       sectionHead("What we do", "Two disciplines, one aim: your data works for you.") +
       '<div class="prose"><p><strong>Data management</strong> keeps your information clean, secure, accurate and understood. <strong>Data integration</strong> connects your systems so the right data reaches the right place, on time. Together they underpin most of the \u201cwe can\u2019t trust our numbers\u201d conversations businesses have today.</p>' +
-      "<p>We help with both â€” from a single unifying project to ongoing improvement. We keep the work practical and the language plain.</p></div>" +
+      "<p>We help with both — from a single unifying project to ongoing improvement. We keep the work practical and the language plain.</p></div>" +
       '<a class="btn btn--primary mt-3" href="' + href(root, "/pages/services.html") + '">See What We Offer</a>' +
       "</div>" +
       '<div class="split__media"><div class="visual visual--navy">' + D.svgNetwork() + "</div></div>" +
@@ -3038,14 +3039,14 @@ function buildAbout() {
       '<a class="btn btn--light mt-3" href="' + href(root, "/pages/our-approach.html") + '">Our Approach</a></div></div>' +
       "<div>" +
       sectionHead("How we work with you", "A partner beside you, not a vendor across the table.") +
-      '<div class="prose"><p>SHANZOO is based in <strong>Toronto, Ontario</strong>, and serves clients across Canada and internationally. We work as an extension of your team â€” sharing context, answering questions directly and leaving you with systems and documentation you can actually maintain.</p>' +
+      '<div class="prose"><p>SHANZOO is based in <strong>Toronto, Ontario</strong>, and serves clients across Canada and internationally. We work as an extension of your team — sharing context, answering questions directly and leaving you with systems and documentation you can actually maintain.</p>' +
       "<p>We are deliberately sized for close involvement. That keeps communication clear and quality high on every engagement.</p></div>" +
       "</div></div></section>",
     '<section class="section--tight"><div class="container">' +
       ctaBanner({
         root,
         title: "Sound like the kind of team you need?",
-        lead: "Introduce yourself and your data challenge â€” we will take it from there.",
+        lead: "Introduce yourself and your data challenge — we will take it from there.",
         actions: [{ href: "/pages/contact.html#consultation", label: "Contact SHANZOO", cls: "btn--primary btn--lg" }, { href: "/pages/why-shanzoo.html", label: "Why Choose Us", cls: "btn--outline-light btn--lg" }]
       }) +
       "</div></section>"
@@ -3053,7 +3054,7 @@ function buildAbout() {
   return page({
     root,
     title: "About SHANZOO | Data Management & Integration Consultants, Toronto",
-    desc: "SHANZOO is a Toronto-based enterprise data consultancy helping organizations organize, protect and connect their business data â€” clearly and practically.",
+    desc: "SHANZOO is a Toronto-based enterprise data consultancy helping organizations organize, protect and connect their business data — clearly and practically.",
     canonicalPath: "pages/about.html",
     body: body.join("\n")
   });
@@ -3068,7 +3069,7 @@ function write(file, content) {
 }
 
 function build() {
-  console.log("Building SHANZOO static siteâ€¦");
+  console.log("Building SHANZOO static site“¦");
 
   write("index.html", buildIndex());
   write("pages/about.html", buildAbout());
@@ -3100,8 +3101,8 @@ function build() {
     write("services/" + svc.slug + ".html", buildService(svc));
   });
 
-  // Technology service pages (Cloud, Software, Consulting)
-  const techSlugs = ["cloud-virtualization", "software-development", "consulting-managed-services"];
+  // Technology service pages (Cloud, Software, Consulting, Automation)
+  const techSlugs = ["cloud-virtualization", "software-development", "consulting-managed-services", "enterprise-automation"];
   techSlugs.forEach((slug) => {
     write("services/" + slug + ".html", buildTechService(slug));
   });

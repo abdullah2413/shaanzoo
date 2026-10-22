@@ -1,5 +1,5 @@
 ﻿/* ==========================================================================
-   SHANZOO â€” Content data (vanilla Node, no dependencies)
+   SHANZOO — Content data (vanilla Node, no dependencies)
    Used by tools/build.js to generate the static HTML pages. Keeping content
    in one place makes maintenance simple and guarantees consistent nav/footer
    across every page.
@@ -15,7 +15,7 @@ const SITE = {
   phone: "+1 647-546-9772",
   phoneHref: "+16475469772",
   email: "info@shanzoo.com",
-  domain: "", // production domain not yet confirmed â€” leave empty
+  domain: "", // production domain not yet confirmed — leave empty
   dns: "" // empty string keeps links relative for local use
 };
 
@@ -131,7 +131,7 @@ const SERVICES = [
     icon: "database",
     category: "Data Management",
     heroSub:
-      "Create one reliable, consistent record for the business information that matters most â€” customers, products, suppliers and locations.",
+      "Create one reliable, consistent record for the business information that matters most — customers, products, suppliers and locations.",
   },
   {
     slug: "data-governance",
@@ -230,23 +230,23 @@ const SERVICES = [
     icon: "cloud",
     category: "Data Integration",
     heroSub:
-      "Access data from many systems through a single logical layer â€” without copying it everywhere first.",
+      "Access data from many systems through a single logical layer — without copying it everywhere first.",
   }
 ];
 
 /* ------------------- Homepage preview + showcase content ----------------- */
 /* Editable highlights shown in the compact strip under the hero.
-   These are qualitative/derived facts â€” no invented client statistics. */
+   These are qualitative/derived facts — no invented client statistics. */
 const HERO_HIGHLIGHTS = [
-  { value: "05", label: "Core service areas", count: 5, pad: 2 },
+  { value: "06", label: "Core service areas", count: 6, pad: 2 },
   { value: "15", label: "Specialist capabilities", count: 15, pad: 2 },
   { value: "05", label: "Enterprise engagements", count: 5, pad: 2 },
   { value: "Toronto", label: "Based in Canada" }
 ];
 
-/* The five official SHANZOO core service categories. `group` drives the
+/* The six official SHANZOO core service categories. `group` drives the
    homepage explorer filter: "data" = Data Management + Data Integration,
-   "tech" = Cloud, Software and Consulting. */
+   "tech" = Cloud, Software, Consulting and Enterprise Automation. */
 const CORE_SERVICES = [
   {
     num: "01",
@@ -312,14 +312,27 @@ const CORE_SERVICES = [
     explore:
       "Plan, implement and continuously improve enterprise technology with consulting and managed services.",
     popular: false
+  },
+  {
+    num: "06",
+    slug: "enterprise-automation",
+    href: "/services/enterprise-automation.html",
+    title: "Enterprise Automation",
+    icon: "workflow",
+    group: "tech",
+    summary: "Automate repetitive processes and operational workflows across your enterprise.",
+    caps: ["Workflow Automation", "Process Orchestration", "Monitoring"],
+    explore:
+      "Automate manual steps, hand-offs and business workflows to improve speed, consistency and visibility.",
+    popular: false
   }
 ];
 
-/* Rotating hero service slides â€” exactly two. Each slide pairs left-side copy
+/* Rotating hero service slides — exactly two. Each slide pairs left-side copy
    with a distinct right-side visual (see heroVisual* builders in build.js). */
 const HERO_SLIDES = [
   {
-    label: "CLOUD Â· SOFTWARE Â· MANAGED SERVICES",
+    label: "CLOUD · SOFTWARE · MANAGED SERVICES",
     eyebrowMode: "single-line",
     heading: "Modern Cloud, <span class=\"accent\">Software Engineering &amp; Managed Technology</span> Services",
     lead: "Build scalable cloud environments, custom enterprise software and automated operations backed by ongoing technical expertise.",
@@ -329,7 +342,7 @@ const HERO_SLIDES = [
     visual: "opsgrid"
   },
   {
-    label: "DATA Â· GOVERNANCE Â· INTEGRATION",
+    label: "DATA · GOVERNANCE · INTEGRATION",
     eyebrowMode: "single-line",
     heading: "Enterprise Data Management, <span class=\"accent\">Integration &amp; Modernization</span> Solutions",
     lead: "Build trusted data foundations, connect enterprise systems and move information reliably across modern platforms.",
@@ -382,15 +395,23 @@ const HOME_SERVICES = [
     text: "Technology consulting, implementation support and ongoing management.",
     cta: "Learn More",
     href: "/services/consulting-managed-services.html"
+  },
+  {
+    tag: "Automation",
+    icon: "workflow",
+    title: "Enterprise Automation",
+    text: "Automate the repetitive work that slows your teams and adds risk.",
+    cta: "Learn More",
+    href: "/services/enterprise-automation.html"
   }
 ];
 
-/* Proven track record â€” real enterprise engagements supplied by SHANZOO.
+/* Proven track record — real enterprise engagements supplied by SHANZOO.
    `summary` is the short homepage card copy; `detail` is the expanded
    description used on the dedicated track-record page. */
 const TRACK_RECORD = [
   {
-    year: "2011 â€“ 2016",
+    year: "2011 – 2016",
     client: "State Farm",
     category: "Contact Center",
     icon: "headset",
@@ -400,7 +421,7 @@ const TRACK_RECORD = [
       "Five-year contact center lab infrastructure supporting scalable and secure call-flow designs to streamline agent workflows and improve customer interactions."
   },
   {
-    year: "2024 â€“ Ongoing",
+    year: "2024 – Ongoing",
     client: "Memorial Hermann / LA County",
     category: "Portal Development",
     icon: "globe",
@@ -430,7 +451,7 @@ const TRACK_RECORD = [
       "DevOps infrastructure project using GitHub-based CI environments and custom Python scripts to optimize workflows and improve deployment processes."
   },
   {
-    year: "2023 â€“ 2024",
+    year: "2023 – 2024",
     client: "Toronto Commission on Environmental Quality",
     category: "Cloud Communications",
     icon: "cloud",
@@ -444,7 +465,7 @@ const TRACK_RECORD = [
 /* ------------- Technology services (detail page content) ----------------- */
 /* Keyed by the CORE_SERVICES slug. Mirrors the SC structure used for the data
    management / integration service pages so buildTechService can render the
-   same layout. Copy is intentionally qualitative â€” no invented metrics. */
+   same layout. Copy is intentionally qualitative — no invented metrics. */
 const TECH_SERVICE_CONTENT = {
   "cloud-virtualization": {
     category: "Cloud & Virtualization",
@@ -582,6 +603,52 @@ const TECH_SERVICE_CONTENT = {
       "Implementation support",
       "Managed monitoring and maintenance",
       "Regular reviews and improvement"
+    ]
+  },
+  "enterprise-automation": {
+    category: "Enterprise Automation",
+    heroSub:
+      "Automate the repetitive work, manual hand-offs and operational bottlenecks that slow your business down.",
+    short: "Workflow automation and process orchestration across the enterprise.",
+    benefit: "Frees your team from repetitive work and gives leaders clearer operational visibility.",
+    problems: [
+      { t: "Manual hand-offs", d: "Work waits on email, spreadsheets and ad hoc approvals instead of moving cleanly through your process." },
+      { t: "Operational bottlenecks", d: "Teams spend time chasing status, duplicating entries and fixing preventable errors." },
+      { t: "Limited visibility", d: "Without a clear workflow view, it is hard to see where work is stuck or slowing the business down." }
+    ],
+    benefits: [
+      { t: "Faster execution", d: "Routine steps happen automatically, reducing delays and keeping work flowing." },
+      { t: "Fewer errors", d: "Rules and triggers reduce the copy-paste and missed step problems that create rework." },
+      { t: "Better compliance", d: "Processes become traceable, consistent and easier to audit." },
+      { t: "More time for value work", d: "People spend less time on repetitive operational work and more on decisions and customer outcomes." }
+    ],
+    caps: [
+      "Workflow design and process mapping",
+      "Business rules and approval orchestration",
+      "Robotic process automation (RPA) and task automation",
+      "System-to-system process integration",
+      "Alerting, SLA tracking and monitoring",
+      "Exception handling and human-in-the-loop controls",
+      "Reporting and dashboard visibility",
+      "Continuous improvement and optimisation"
+    ],
+    uses: [
+      { t: "Operations and service workflows", d: "Automate recurring internal work such as approvals, ticket routing, case updates and escalations." },
+      { t: "Back-office process automation", d: "Streamline finance, HR, procurement and internal operations without custom spreadsheet dependence." },
+      { t: "Cross-system orchestration", d: "Connect your systems so data and actions move with consistent rules instead of manual follow-up." }
+    ],
+    faqs: [
+      { q: "Can automation work with our existing systems?", a: "Yes. We typically connect automation to the platforms you already have, then add orchestration and rules around the process rather than replacing everything at once." },
+      { q: "Where do you start?", a: "We begin with the most repetitive, visible and costly workflow, map the current process, and identify the safe automation points where the biggest value is created." },
+      { q: "Do you help monitor and improve after launch?", a: "Absolutely. We can monitor performance, handle exceptions and refine the workflow as your teams learn what works best in practice." }
+    ],
+    help: "We identify the right process, design the workflow around the real business rules, and implement automation that remains clear, controlled and easy to maintain.",
+    helpPoints: [
+      "Workflow discovery and process mapping",
+      "Opportunity and risk assessment",
+      "Automation design and orchestration",
+      "Implementation, testing and rollout",
+      "Monitoring, support and improvement"
     ]
   }
 };
@@ -761,6 +828,19 @@ function svgBlueprint() {
   );
 }
 
+function svgAutomation() {
+  return (
+    '<svg viewBox="0 0 360 260" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Enterprise automation workflow illustration">' +
+    '<defs><linearGradient id="ag" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#0a4a7f"/><stop offset="1" stop-color="#031c33"/></linearGradient></defs>' +
+    '<rect width="360" height="260" rx="18" fill="url(#ag)"/>' +
+    '<g fill="#0b3f6b" stroke="#2c6a9e" stroke-width="1.5"><rect x="42" y="64" width="84" height="52" rx="10"/><rect x="138" y="38" width="84" height="52" rx="10"/><rect x="138" y="170" width="84" height="52" rx="10"/><rect x="234" y="64" width="84" height="52" rx="10"/></g>' +
+    '<g stroke="#7fb4dc" stroke-width="2.2" fill="none" stroke-linecap="round"><path d="M126 90h12M222 90h12M180 90v80"/><path d="M180 170v-12M180 90h-12M180 90v-12M180 170h-12"/></g>' +
+    '<g fill="#d9edf5" font-family="Segoe UI,Arial,sans-serif" font-size="12" font-weight="600"><text x="58" y="93">Trigger</text><text x="155" y="66">Rule</text><text x="154" y="198">Task</text><text x="246" y="93">Result</text></g>' +
+    '<circle cx="180" cy="130" r="22" fill="#00965e" stroke="#8fe6c1" stroke-width="2.5"/><path d="M170 130l7 7 15-17" stroke="#fff" stroke-width="3" fill="none" stroke-linecap="round" stroke-linejoin="round"/>' +
+    '<g fill="#5a6b7a" font-family="Segoe UI,Arial,sans-serif" font-size="11" font-weight="600" text-anchor="middle"><text x="180" y="226">Process orchestration</text></g></svg>'
+  );
+}
+
 const SERVICE_ART = {
   master_data_management: svgNetwork,
   data_governance: svgLayers,
@@ -771,7 +851,8 @@ const SERVICE_ART = {
   change_data_capture: svgStream,
   api_integration: svgNetwork,
   event_streaming: svgStream,
-  data_virtualization: svgCloud
+  data_virtualization: svgCloud,
+  enterprise_automation: svgAutomation
 };
 
 /* --------------------------- Navigation ---------------------------------- */
@@ -793,7 +874,8 @@ const NAV = {
   megaTechnology: [
     { href: "/services/cloud-virtualization.html", title: "Cloud & Virtualization", desc: "Scalable, secure cloud infrastructure", icon: "cloud" },
     { href: "/services/software-development.html", title: "Software Development & Automation", desc: "Custom apps, portals and workflow automation", icon: "code" },
-    { href: "/services/consulting-managed-services.html", title: "Consulting & Managed Services", desc: "Technology consulting and ongoing management", icon: "helm" }
+    { href: "/services/consulting-managed-services.html", title: "Consulting & Managed Services", desc: "Technology consulting and ongoing management", icon: "helm" },
+    { href: "/services/enterprise-automation.html", title: "Enterprise Automation", desc: "Workflow automation and business process orchestration", icon: "workflow" }
   ],
   about: [
     { href: "/pages/about.html", title: "About SHANZOO", desc: "Who we are and what we do" },
@@ -821,5 +903,6 @@ module.exports = {
   svgStream,
   svgLayers,
   svgCloud,
-  svgBlueprint
+  svgBlueprint,
+  svgAutomation
 };

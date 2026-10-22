@@ -232,12 +232,10 @@
     wrap.className = "auth-user";
     wrap.setAttribute("data-auth-user", "");
     wrap.innerHTML =
-      '<button class="auth-user__btn" type="button" aria-haspopup="menu" aria-expanded="false">' +
+      '<button class="auth-user__btn" type="button" aria-haspopup="menu" aria-expanded="false" aria-label="Open account menu">' +
       '<span class="auth-user__avatar">' + esc(initial) + "</span>" +
-      '<span class="auth-user__name">' + esc(user.name || user.email) + "</span>" +
-      CARET +
       "</button>" +
-      '<div class="auth-menu" role="menu">' +
+      '<div class="auth-menu" role="menu" aria-label="Account menu">' +
       '<div class="auth-menu__head">' +
       '<div class="auth-menu__name">' + esc(user.name || "Your account") + "</div>" +
       '<div class="auth-menu__email">' + esc(user.email) + "</div>" +
@@ -252,20 +250,64 @@
 
     var btn = wrap.querySelector(".auth-user__btn");
     var menu = wrap.querySelector(".auth-menu");
+    function setOpen(open) {
+      wrap.classList.toggle("is-open", open);
+      btn.setAttribute("aria-expanded", open ? "true" : "false");
+    }
+
     btn.addEventListener("click", function (e) {
       e.stopPropagation();
-      var open = wrap.classList.toggle("is-open");
-      btn.setAttribute("aria-expanded", open ? "true" : "false");
+      var isOpen = wrap.classList.contains("is-open");
       closeMenus(wrap);
+      if (!isOpen) {
+        setOpen(true);
+      }
+    });
+    btn.addEventListener("keydown", function (e) {
+      if (e.key === "ArrowDown" || e.key === "Enter" || e.key === " ") {
+        e.preventDefault();
+        closeMenus(wrap);
+        setOpen(true);
+        var firstItem = menu.querySelector(".auth-menu__item");
+        if (firstItem) firstItem.focus();
+      }
+      if (e.key === "ArrowUp") {
+        e.preventDefault();
+        closeMenus(wrap);
+        setOpen(true);
+        var lastItem = menu.querySelectorAll(".auth-menu__item");
+        if (lastItem.length) lastItem[lastItem.length - 1].focus();
+      }
     });
     menu.addEventListener("click", function (e) {
       var item = e.target.closest("[data-auth-action]");
       if (!item) return;
       var action = item.getAttribute("data-auth-action");
-      wrap.classList.remove("is-open");
-      btn.setAttribute("aria-expanded", "false");
+      setOpen(false);
       if (action === "logout") doLogout();
       else if (action === "delete") openDeleteModal();
+    });
+    menu.addEventListener("keydown", function (e) {
+      var items = Array.prototype.slice.call(menu.querySelectorAll(".auth-menu__item"));
+      if (!items.length) return;
+      var index = items.indexOf(document.activeElement);
+      if (e.key === "ArrowDown") {
+        e.preventDefault();
+        items[(index + 1) % items.length].focus();
+      } else if (e.key === "ArrowUp") {
+        e.preventDefault();
+        items[(index - 1 + items.length) % items.length].focus();
+      } else if (e.key === "Home") {
+        e.preventDefault();
+        items[0].focus();
+      } else if (e.key === "End") {
+        e.preventDefault();
+        items[items.length - 1].focus();
+      } else if (e.key === "Escape") {
+        e.preventDefault();
+        setOpen(false);
+        btn.focus();
+      }
     });
     return wrap;
   }

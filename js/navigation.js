@@ -6,7 +6,7 @@
 (function () {
   "use strict";
 
-  var DESKTOP = window.matchMedia("(min-width: 1101px)");
+  var DESKTOP = window.matchMedia("(min-width: 1181px)");
   var CLOSE_DELAY = 180;
 
   function initHeader() {
